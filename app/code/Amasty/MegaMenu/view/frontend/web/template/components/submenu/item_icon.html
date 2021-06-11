@@ -1,0 +1,10 @@
+<figure class="ammenu-icon-block"
+        if="$parent.type.value === 2 && item.icon || $parent.type.value === 1 && $parent.isChildHasIcons"
+        data-bind="
+            css: {'-empty': !item.icon},
+            style: {
+                '-webkit-mask-image': item.icon ? 'url(' + icon + ')' : '',
+                'maskImage': item.icon ? 'url(' + icon + ')' : '',
+                'background': item.icon ? 'url(' + icon + ')' : ''
+            }">
+</figure>

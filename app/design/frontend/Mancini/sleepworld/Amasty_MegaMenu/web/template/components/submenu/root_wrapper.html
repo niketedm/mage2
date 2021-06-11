@@ -1,0 +1,20 @@
+<div class="ammenu-submenu-block -root"
+     if="$data && $data.elems"
+     data-ammenu-js="submenu-wrapper"
+     data-bind="css: '-' + (type ? type.label : ''),
+                event: {
+                    mouseleave: $data.setActiveItem($data)
+                }">
+
+    <!-- ko template: { name: itemsListTmpl, $data: $data } --><!-- /ko-->
+
+    <div class="ammenu-submenu-sidebar">
+        <!-- ko if: $data.type && $data.type.value -->
+            <!-- ko foreach: { data: elems, as: 'item' }  -->
+                <!-- ko template: { name: $parent.itemWrapperTmpl, data: item } --><!-- /ko-->
+            <!-- /ko-->
+        <!-- /ko-->
+
+        <!-- ko template: { name: $data.contentBlockTmpl, $data: $data } --><!-- /ko-->
+    </div>
+</div>

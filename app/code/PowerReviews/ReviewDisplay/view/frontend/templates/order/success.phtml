@@ -1,0 +1,51 @@
+<?php
+    $order = $block->getOrder();
+    $helper = $this->helper('PowerReviews\ReviewDisplay\Helper\Data');
+    $billing = $order->getBillingAddress();
+
+    $orderItems = array();
+
+    foreach ($order->getAllVisibleItems() as $orderItem) {
+        $item = array(
+            'page_id' => preg_replace("/[^a-zA-Z0-9-]/", "", $orderItem->getProduct()->getSku()),
+            'product_name' => '"'.$orderItem->getName().'"',
+            'quantity' => (int)$orderItem->getQtyOrdered(),
+            'unit_price' => $orderItem->getPrice()
+        );
+
+        $productType = $orderItem->getProduct()->getTypeId();
+
+        if ($productType == 'configurable') {
+            $item['page_id_variant'] = preg_replace("/[^a-zA-Z0-9-]/", "", $orderItem->getSku());
+        }
+
+        $orderItems []= $item;
+    }
+
+    $orderItemsFlattened = json_encode($orderItems);
+?>
+
+
+<script type="text/javascript" src="//static.powerreviews.com/t/v1/tracker.js"></script>
+<script type="text/javascript">
+    (function(){try{
+
+    var tracker = POWERREVIEWS.tracker.createTracker({
+        merchantGroupId: "<?= $helper->getMerchantGroupId(); ?>"});
+
+        var orderFeed = {
+            merchantGroupId: "<?= $helper->getMerchantGroupId(); ?>",
+            merchantId: "<?= $helper->getMerchantId(); ?>",
+            locale: "<?= $helper->getLocale(); ?>",
+            marketingOptIn: true,
+            userEmail: "<?= $order->getCustomerEmail(); ?>",
+            userFirstName: "<?= $order->getCustomerFirstname() ? $order->getCustomerFirstname() : $billing->getFirstname(); ?>",
+            userLastName: "<?= $order->getCustomerLastname() ? $order->getCustomerLastname() : $billing->getLastname(); ?>",
+            orderId: "<?= $order->getId(); ?>",
+            orderItems: <?= $orderItemsFlattened; ?>
+        }
+
+        tracker.trackCheckout(orderFeed);
+
+}catch(e){window.console && window.console.log(e)}}());
+</script>

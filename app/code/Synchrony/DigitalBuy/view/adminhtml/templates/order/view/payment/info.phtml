@@ -1,0 +1,30 @@
+<?php
+/** @var \Synchrony\DigitalBuy\ViewModel\Adminhtml\Order\View $viewModel */
+$viewModel = $block->getData('viewModel');
+$order = $viewModel->getOrder();
+$promoAmounts = $viewModel->getPromoAmounts();
+$defaultPromoCode = $viewModel->getDefaultPromoCode();
+$ruleMetadata = $viewModel->getRuleMetadata();
+
+if (!empty($promoAmounts)): ?>
+<br/>
+<div class="synchrony-digitalbuy-promo-info">
+    <div class="title"><strong><?= $block->escapeHtml(__('Promotion Amounts')) ?></strong></div>
+    <ul style="list-style-type: none;">
+        <?php foreach ($promoAmounts as $code => $amount): ?>
+            <li><?php echo $block->escapeHtml($code) . ' - ' . $order->formatBasePrice($amount) ?></li>
+        <?php endforeach; ?>
+    </ul>
+    <div class="title"><strong><?= $block->escapeHtml(__('Promotion Rules Applied')) ?></strong></div>
+    <ul style="list-style-type: none;">
+        <?php if (array_key_exists($defaultPromoCode, $promoAmounts)): ?>
+            <li><?php echo $block->escapeHtml(__('Default')) ?> (<?php echo $block->escapeHtml($defaultPromoCode) ?>)</li>
+        <?php endif; ?>
+        <?php if (!empty($ruleMetadata)): ?>
+            <?php foreach ($ruleMetadata as $promoMeta): ?>
+                <li><?php echo $block->escapeHtml($promoMeta['name']) ?> (<?php echo $block->escapeHtml($promoMeta['promo_code']) ?>)</li>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </ul>
+</div>
+<?php endif; ?>

@@ -1,0 +1,44 @@
+<div class="wkspin-inline-parent wkspin-reports">
+    <div class="wkspin-inline wkspin-report">
+        <legend class="wkspin-legend"><?php echo __('Spin Wheel Statistics') ?></legend>
+        <div class="wkspin-statistics-container wkspin-inline-parent">
+            <div class="wkspin-statistics-detail wkspin-inline">
+                <div class="wkspin-statistics-heading">
+                    <?php echo __('Total Spins') ?>
+                </div>
+                <div class="wkspin-statistics-value">
+                    <?php echo $block->getTotalSpins()?>
+                </div>
+            </div>
+            <div class="wkspin-statistics-detail wkspin-inline">
+                <div class="wkspin-statistics-heading">
+                    <?php echo __('Total Wins') ?>
+                </div>
+                <div class="wkspin-statistics-value">
+                    <?php echo $block->getTotalWins()?>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="wkspin-inline wkspin-report">
+        <legend class="wkspin-legend"><?php echo __('Sales Statistics') ?></legend>
+        <div class="wkspin-statistics-container wkspin-inline-parent">
+            <div class="wkspin-statistics-detail wkspin-inline">
+                <div class="wkspin-statistics-heading">
+                    <?php echo __('Total Orders') ?>
+                </div>
+                <div class="wkspin-statistics-value">
+                    <?php echo $block->getTotalOrders()?>
+                </div>
+            </div>
+            <div class="wkspin-statistics-detail wkspin-inline">
+                <div class="wkspin-statistics-heading">
+                    <?php echo __('Total Sales') ?>                    
+                </div>
+                <div class="wkspin-statistics-value wkspin-statistics-value-total">
+                    <?php echo $block->getTotalSales()?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

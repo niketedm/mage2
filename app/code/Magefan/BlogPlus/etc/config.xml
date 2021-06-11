@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magefan (support@magefan.com). All rights reserved.
+ * Please visit Magefan.com for license details (https://magefan.com/end-user-license-agreement).
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <mfblog>
+            <general>
+                <mfmodule>BlogPlus</mfmodule>
+                <mftype>0</mftype>
+            </general>
+            <publish_post_on_fb>
+                <enabled>0</enabled>
+                <post_format>{{var post.title}} -{{post.short_content}}</post_format>
+                <autopublish_categories>0</autopublish_categories>
+            </publish_post_on_fb>
+            <advanced_permalink>
+                 <blog_route>blog</blog_route>
+                 <redirect_to_no_slash>1</redirect_to_no_slash>
+                 <post_path_schema>{{blog_route}}/post/{{parent_category}}/{{url_key}}</post_path_schema>
+                 <category_path_schema>{{blog_route}}/category/{{parent_category}}/{{url_key}}</category_path_schema>
+                 <tag_path_schema>{{blog_route}}/tag/{{url_key}}</tag_path_schema>
+                 <author_path_schema>{{blog_route}}/author/{{url_key}}</author_path_schema>
+                 <archive_path_schema>{{blog_route}}/archive/{{url_key}}</archive_path_schema>
+                 <search_path_schema>{{blog_route}}/search/{{url_key}}</search_path_schema>
+                 <rss_path_schema>blog/rss/feed</rss_path_schema>
+            </advanced_permalink>
+            <sitemap>
+                <index>
+                    <enabled>1</enabled>
+                    <frequency>daily</frequency>
+                    <priority>1</priority>
+                </index>
+                <category>
+                    <enabled>1</enabled>
+                    <frequency>daily</frequency>
+                    <priority>0.8</priority>
+                </category>
+                <post>
+                    <enabled>1</enabled>
+                    <frequency>daily</frequency>
+                    <priority>0.5</priority>
+                </post>
+            </sitemap>
+        </mfblog>
+    </default>
+</config>

@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<head>
+          <css src="Mancini_Productdetail::css/select2.min.css" />
+     </head> 
+	<body>
+		<referenceBlock name="product.info.options.wrapper">
+		 	<block as="foundationprd" class="Mancini\Productdetail\Block\Foundationproduct" name="foundationproduct" template="Mancini_Productdetail::foundationproduct.phtml"/>
+		</referenceBlock>
+	</body>
+</page>

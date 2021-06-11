@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Mirasvit\Gdpr\Block\Customer\Account\Download" name="mst_gdpr_customer_account_download" after="-" template="Mirasvit_Gdpr::customer/account/download.phtml"/>
+            <block class="Mirasvit\Gdpr\Block\Customer\Account\Anonymize" name="mst_gdpr_customer_account_anonymize" after="-" template="Mirasvit_Gdpr::customer/account/anonymize.phtml"/>
+            <block class="Mirasvit\Gdpr\Block\Customer\Account\Remove" name="mst_gdpr_customer_account_remove" after="-" template="Mirasvit_Gdpr::customer/account/remove.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

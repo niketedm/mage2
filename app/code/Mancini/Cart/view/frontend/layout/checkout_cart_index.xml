@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Mancini_Productdetail::css/select2.min.css" />
+    </head> 
+    <body>
+        <referenceContainer name="content">
+            <block class="Magento\Framework\View\Element\Template" name="cart.auto.update.qty"  template="Mancini_Cart::js.phtml" after="-"/>
+        </referenceContainer>
+
+        <referenceBlock name="checkout.cart.form">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Mancini_Cart::cart/form.phtml</argument>
+            </action>
+        </referenceBlock>
+
+        <referenceBlock name="page.main.title">
+            <action method="setPageTitle">
+                <argument translate="true" name="title" xsi:type="string">My Cart</argument>
+            </action>
+        </referenceBlock>
+
+        <referenceBlock name="checkout.cart.summary.title">
+            <arguments>
+                <argument translate="true" name="text" xsi:type="string">Your Order</argument>
+            </arguments>
+        </referenceBlock>
+
+        <referenceBlock name="checkout.cart.shipping">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Mancini_Cart::cart/shipping.phtml</argument>
+            </action>
+        </referenceBlock>
+
+        <referenceBlock name="checkout.cart.shipping">
+            <arguments>
+                <argument name="jsLayout" xsi:type="array">
+                    <item name="components" xsi:type="array">
+                        <item name="block-summary" xsi:type="array">
+
+                            <!-- My custom part: -->
+                            <item name="config" xsi:type="array">
+                                <item name="componentDisabled" xsi:type="boolean">true</item>
+                            </item>
+
+                        </item>
+                    </item>
+                </argument>
+            </arguments>
+        </referenceBlock>
+
+       <!--  <referenceContainer name="cart.discount" remove="true"/> -->
+
+        <referenceContainer name="cart.summary">
+            <referenceBlock name="checkout.cart.giftcardaccount" remove="true"/>
+        </referenceContainer>
+
+        <referenceContainer name="checkout.cart.methods">
+            <referenceBlock name="checkout.cart.methods.multishipping" remove="true"/>
+        </referenceContainer>
+
+
+    </body>
+</page>

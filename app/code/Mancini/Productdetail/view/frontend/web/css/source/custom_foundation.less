@@ -1,0 +1,30 @@
+.findprice{
+  margin-left: 1rem;
+  font-family: 'laca-Medium' !important;
+}
+
+.foundation{
+  .label{
+      position: relative;
+      width: 100% !important;
+  
+      .addprice{
+          position: absolute;
+          right: 0%;
+      }
+  
+  }
+}
+
+//removing plus mark and price in tablet
+@media only screen and (max-width: 768px){
+  .findprice{
+      display: none;
+  }
+
+  .foundation{
+      .addprice{
+          display: none;
+      }
+  }
+}

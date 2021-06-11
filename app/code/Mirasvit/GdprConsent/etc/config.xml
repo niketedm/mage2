@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <gdpr>
+            <consent_checkbox>
+                <registration_is_enabled>1</registration_is_enabled>
+                <subscription_is_enabled>1</subscription_is_enabled>
+                <contact_us_is_enabled>1</contact_us_is_enabled>
+                <checkout_is_enabled>1</checkout_is_enabled>
+                <checkbox_text><![CDATA[I agree to the <u> <a href="/privacy-policy-cookie-restriction-mode" target="_blank">Privacy Policy</a></u>]]></checkbox_text>
+            </consent_checkbox>
+        </gdpr>
+    </default>
+</config>

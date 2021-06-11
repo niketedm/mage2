@@ -1,0 +1,25 @@
+<?php $items = $block->getItemSummary() ?>
+<table class="email-items" style="border: 1px solid gray; border-collapse: collapse;">
+    <thead>
+    <tr>
+        <th class="item-info" style="padding: 10px; border: 1px solid gray;">
+            <?php echo $block->escapeHtml(__('Product Name')) ?>
+        </th>
+        <th class="item-sku" style="padding: 10px; border: 1px solid gray;">
+            <?php echo $block->escapeHtml(__('Sku')) ?>
+        </th>
+        <th class="item-promocode" style="padding: 10px; border: 1px solid gray;">
+            <?php echo $block->escapeHtml(__('Promo Code')) ?>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($items as $item): ?>
+        <tr>
+            <td style="padding: 10px; border: 1px solid gray;"><?php echo $block->escapeHtml($item['name']) ?></td>
+            <td style="padding: 10px; border: 1px solid gray;"><?php echo $block->escapeHtml($item['sku']) ?></td>
+            <td style="padding: 10px; border: 1px solid gray;"><?php echo $block->escapeHtml($item['promo_code']) ?></td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>

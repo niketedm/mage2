@@ -1,0 +1,48 @@
+<?php 
+    //To get the core session values for Zipcode
+    $helper = $this->helper('Mancini\Storelocator\Helper\Data');
+    $nearestStore  = $helper->getCookie("custloc");
+    /*====Code for setting the nearest store in cookie===*/
+    if($nearestStore == 'NA' || $nearestStore == ''){
+        //Check customer have zipcode in address
+        $zipcode = $helper->getCustomerZipcode();
+        if($zipcode != ''){
+            $storeloc = $helper->getZipNearestStore($zipcode);
+            if($storeloc != ''){
+                $storeArray  =   json_decode($storeloc,true);
+
+                //Set the new address location to the Cookie
+                $helper->deleteCookie("custloc");
+                $helper->setCookie("custloc",$storeArray['address'].",".$storeArray['state']);
+                $nearestStore  = $helper->getCookie("custloc");
+            }
+        }
+    }
+    /*==== End of code for setting nearest store in cookie ===*/
+?>
+
+<div class="amlocator-main-container" style="clear:both;">
+        <div class="amlocator-map-container">
+            <div class="amlocator-block -storelist amlocator-store-list">
+                <div class="store">
+                    <div class="zipcode" id="neareststore">
+                        <?php if (isset($nearestStore)): ?>
+                            <?php echo $nearestStore;?>
+                        <?php else: ?>
+                            <?php $block->setZipcode(); ?>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "storeloc": ""
+        }
+    }
+</script>

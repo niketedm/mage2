@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2017 PowerReviews. All rights reserved.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <title>
+            Write a review
+        </title>
+        <script src="//ui.powerreviews.com/stable/4.0/ui.js" src_type="url" />
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Magento\Framework\View\Element\Template" template="PowerReviews_ReviewDisplay::writereview.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

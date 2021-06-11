@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+       <payment>
+           <synchrony_digitalbuy>
+               <model>SynchronyDigitalBuyFacade</model>
+               <production_digitalbuy_api_merchant_id backend_model="Magento\Config\Model\Config\Backend\Encrypted" />
+               <production_digitalbuy_api_password backend_model="Magento\Config\Model\Config\Backend\Encrypted" />
+               <production_buyservice_api_username backend_model="Magento\Config\Model\Config\Backend\Encrypted" />
+               <production_buyservice_api_password backend_model="Magento\Config\Model\Config\Backend\Encrypted" />
+               <production_buyservice_api_merchant_id backend_model="Magento\Config\Model\Config\Backend\Encrypted" />
+               <production_installment_api_merchant_id backend_model="Magento\Config\Model\Config\Backend\Encrypted" />
+               <production_installment_api_password backend_model="Magento\Config\Model\Config\Backend\Encrypted" />
+               <sandbox_digitalbuy_api_merchant_id backend_model="Magento\Config\Model\Config\Backend\Encrypted" />
+               <sandbox_digitalbuy_api_password backend_model="Magento\Config\Model\Config\Backend\Encrypted" />
+               <sandbox_buyservice_api_username backend_model="Magento\Config\Model\Config\Backend\Encrypted" />
+               <sandbox_buyservice_api_password backend_model="Magento\Config\Model\Config\Backend\Encrypted" />
+               <sandbox_buyservice_api_merchant_id backend_model="Magento\Config\Model\Config\Backend\Encrypted" />
+               <sandbox_installment_api_merchant_id backend_model="Magento\Config\Model\Config\Backend\Encrypted" />
+               <sandbox_installment_api_password backend_model="Magento\Config\Model\Config\Backend\Encrypted" />
+               <sandbox>1</sandbox>
+               <production_authentication_api_endpoint>https://buy.syf.com/DigitalBuy/authentication.do</production_authentication_api_endpoint>
+               <sandbox_authentication_api_endpoint>https://ubuy.syf.com/DigitalBuy/authentication.do</sandbox_authentication_api_endpoint>
+               <production_status_inquiry_api_endpoint>https://svcs.syf.com/v1.0/status/inquiry</production_status_inquiry_api_endpoint>
+               <sandbox_status_inquiry_api_endpoint>https://usvcs.syf.com/v1.0/status/inquiry</sandbox_status_inquiry_api_endpoint>
+               <production_capture_api_endpoint>https://svcs.syf.com/v1.0/capture</production_capture_api_endpoint>
+               <sandbox_capture_api_endpoint>https://usvcs.syf.com/v1.0/capture</sandbox_capture_api_endpoint>
+               <production_buyservice_api_endpoint>https://www.b2bcreditservices.com/BuyService</production_buyservice_api_endpoint>
+               <sandbox_buyservice_api_endpoint>https://iwww.b2bcreditservices.com/BuyService</sandbox_buyservice_api_endpoint>
+               <active>0</active>
+               <title>Credit Card (Synchrony)</title>
+               <payment_action>authorize_capture</payment_action>
+               <debug>0</debug>
+               <cart_button_enabled>1</cart_button_enabled>
+               <address_type_to_pass>billing</address_type_to_pass>
+               <enable_header_link>0</enable_header_link>
+               <link_cms_page>financing</link_cms_page>
+               <enable_footer_link>0</enable_footer_link>               
+               <marketing_priceblock_enable>0</marketing_priceblock_enable>
+               <marketing_priceblock_area>3</marketing_priceblock_area>
+               <marketing_priceblock_static_block>synchrony-value-prop-text</marketing_priceblock_static_block>
+               <show_address_match_note>1</show_address_match_note>
+               <api_timeout>5</api_timeout>
+               <can_use_internal>0</can_use_internal>
+               <can_use_checkout>1</can_use_checkout>
+               <is_gateway>1</is_gateway>
+               <can_initialize>1</can_initialize>
+               <can_authorize>1</can_authorize>
+               <can_capture>1</can_capture>
+               <can_capture_partial>1</can_capture_partial>
+               <can_cancel>1</can_cancel>
+               <can_refund>1</can_refund>
+               <can_refund_partial_per_invoice>1</can_refund_partial_per_invoice>
+               <order_status>processing</order_status>
+               <token_exp_interval>1200</token_exp_interval>
+               <debugReplaceKeys>postbackid,AccountToken,Token,AccountNumber</debugReplaceKeys>
+               <sandbox_api_proxy>0</sandbox_api_proxy>
+               <production_api_proxy>0</production_api_proxy>
+           </synchrony_digitalbuy>
+           <synchrony_digitalbuy_installment>
+               <model>SynchronyDigitalBuyInstallmentFacade</model>
+               <active>0</active>
+               <title>Installment (Synchrony)</title>
+               <payment_action>authorize_capture</payment_action>
+               <can_use_internal>0</can_use_internal>
+               <can_use_checkout>1</can_use_checkout>
+               <is_gateway>1</is_gateway>
+               <can_initialize>1</can_initialize>
+               <can_authorize>1</can_authorize>
+               <can_capture>1</can_capture>
+               <can_capture_partial>0</can_capture_partial>
+               <can_cancel>1</can_cancel>
+               <can_refund>1</can_refund>
+               <can_refund_partial_per_invoice>0</can_refund_partial_per_invoice>
+               <term_rate_show_in_pdp>0</term_rate_show_in_pdp>
+               <term_rate_show_in_checkout>0</term_rate_show_in_checkout>
+               <order_status>processing</order_status>
+               <debugReplaceKeys>postbackid,AccountToken,Token,AccountNumber</debugReplaceKeys>
+               <group>synchrony</group>
+           </synchrony_digitalbuy_installment>
+       </payment>
+    </default>
+</config>

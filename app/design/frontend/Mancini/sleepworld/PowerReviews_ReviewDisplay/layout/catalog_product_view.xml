@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+     <head>
+        <css src="PowerReviews_ReviewDisplay::css/source/custom_pr.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <referenceContainer name="product.info.main">
+            <block name="top.review.display" class="Magento\Framework\View\Element\Template" before="-" template="PowerReviews_ReviewDisplay::product/reviewtopdisplay.phtml" />
+        </referenceContainer>
+        <referenceContainer name="product.info.details.after.wrapper.main">
+            <block class="Magento\Catalog\Block\Product\View" name="questiondisplay.tab" template="PowerReviews_ReviewDisplay::question_display_tab.phtml" after="faq">
+            </block>
+            <block class="Magento\Catalog\Block\Product\View" name="reviewdisplay.tab" template="PowerReviews_ReviewDisplay::review_display_tab.phtml" after="faq">
+                <block name="powerreviews_reviewdisplay.reviewdisplay" class="PowerReviews\ReviewDisplay\Block\Catalog\Product\ReviewDisplay"  template="product/reviewdisplay.phtml" />
+           </block>
+        </referenceContainer>
+  
+    </body>
+</page>

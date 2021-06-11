@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="page.messages">
+            <block class="Magento\Framework\View\Element\Template" name="synchrony.digitalbuy.messages" template="Synchrony_DigitalBuy::messages.phtml"/>
+        </referenceContainer>
+        <referenceContainer name="checkout.cart.methods">
+            <block class="Magento\Backend\Block\Template" name="synchrony.digitalbuy.link" after="checkout.cart.methods.onepage.bottom" template="Synchrony_DigitalBuy::checkout/revolving/link.phtml">
+                <arguments>
+                    <argument name="viewModel" xsi:type="object">Synchrony\DigitalBuy\ViewModel\Checkout\Revolving\Link</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Magento\Backend\Block\Template" name="synchrony.digitalbuy.cart.validation" template="Synchrony_DigitalBuy::checkout/cart_validation_message.phtml">
+                <arguments>
+                    <argument name="viewModel" xsi:type="object">Synchrony\DigitalBuy\ViewModel\Checkout\CartValidationMessage</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

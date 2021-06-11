@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Michal Walkowiak
+ * @copyright Copyright (c) 2017 PowerReviews (http://www.powerreviews.com)
+ * @package PowerReviews_ReviewDisplay
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <script src="//ui.powerreviews.com/stable/4.0/ui.js" src_type="url" />
+    </head>
+    <body>
+        <referenceBlock name="category.product.type.details.renderers">
+            <block name="powerreviews_reviewdisplay.reviewdisplay" class="PowerReviews\ReviewDisplay\Block\Catalog\Product\ReviewDisplay" before="-" template="category/reviewdisplay.phtml" />
+        </referenceBlock>
+    </body>
+</page>

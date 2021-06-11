@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">fee_fee_form.fee_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Fee</item>
+        <item name="layout" xsi:type="array">
+            <item name="type" xsi:type="string">tabs</item>
+        </item>
+        <item name="buttons" xsi:type="array">
+            <item name="back" xsi:type="string">Anowave\Fee\Block\Adminhtml\Fee\Edit\BackButton</item>
+            <item name="delete" xsi:type="string">Anowave\Fee\Block\Adminhtml\Fee\Edit\DeleteButton</item>
+            <item name="reset" xsi:type="string">Anowave\Fee\Block\Adminhtml\Fee\Edit\ResetButton</item>
+            <item name="save" xsi:type="string">Anowave\Fee\Block\Adminhtml\Fee\Edit\SaveButton</item>
+            <item name="save_and_continue" xsi:type="string">Anowave\Fee\Block\Adminhtml\Fee\Edit\SaveContinueButton</item>
+        </item>
+    </argument>
+    
+    <settings>
+        <buttons>
+            <button name="delete" class="Anowave\Fee\Block\Adminhtml\Fee\Edit\DeleteButton"/>
+            <button name="save_and_continue" class="Magento\SalesRule\Block\Adminhtml\Promo\Quote\Edit\SaveAndContinueButton"/>
+            <button name="reset" class="Anowave\Fee\Block\Adminhtml\Fee\Edit\ResetButton"/>
+            <button name="save" class="Anowave\Fee\Block\Adminhtml\Fee\Edit\SaveButton"/>
+            <button name="save_and_continue" class="Anowave\Fee\Block\Adminhtml\Fee\Edit\SaveContinueButton"/>
+            <button name="back">
+                <url path="*/*/"/>
+                <class>back</class>
+                <label translate="true">Back</label>
+            </button>
+        </buttons>
+        <namespace>fee_form</namespace>
+        <dataScope>data</dataScope>
+        <deps>
+            <dep>fee_fee_form.fee_form_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="fee_form_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Anowave\Fee\Model\Fee\DataProvider</argument>
+            <argument name="name" xsi:type="string">fee_form_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">fee_id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+            <argument name="data" xsi:type="array">
+		        <item name="config" xsi:type="array">
+		            <item name="submit_url" xsi:type="url" path="fee/index/save" />
+		        </item>
+		    </argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+    </dataSource>
+    <fieldset name="fee">
+    	<settings>
+            <collapsible>true</collapsible>
+            <opened>true</opened>
+            <label translate="true">Fee</label>
+        </settings>
+        <field name="fee_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">fee</item>
+                    <item name="validation" xsi:type="array">
+	                    <item name="required-entry" xsi:type="boolean">true</item>
+	                </item>
+                </item>
+            </argument>
+        </field>
+        <field name="fee_status">
+            <argument name="data" xsi:type="array">
+            	<item name="options" xsi:type="object">Magento\Config\Model\Config\Source\Yesno</item>
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Enabled</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">fee</item>
+                    <item name="validation" xsi:type="array">
+	                    <item name="required-entry" xsi:type="boolean">true</item>
+	                </item>
+                </item>
+            </argument>
+        </field>
+        <field name="fee_name">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Fee name</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">fee</item>
+                    <item name="validation" xsi:type="array">
+	                    <item name="required-entry" xsi:type="boolean">true</item>
+	                </item>
+                </item>
+            </argument>
+        </field>
+        <field name="fee">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Fee</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">fee</item>
+                    <item name="validation" xsi:type="array">
+	                    <item name="required-entry" xsi:type="boolean">true</item>
+	                </item>
+                </item>
+            </argument>
+        </field>
+        <field name="fee_type">
+            <argument name="data" xsi:type="array">
+            	<item name="options" xsi:type="object">Anowave\Fee\Model\Fee\Source\Type</item>
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Fee type</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">fee</item>
+                    <item name="validation" xsi:type="array">
+	                    <item name="required-entry" xsi:type="boolean">true</item>
+	                </item>
+                </item>
+            </argument>
+        </field>
+        <field name="fee_multiply_quantity">
+            <argument name="data" xsi:type="array">
+            	<item name="options" xsi:type="object">Magento\Config\Model\Config\Source\Yesno</item>
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Multiply by quantity</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">fee</item>
+                    <item name="validation" xsi:type="array">
+	                    <item name="required-entry" xsi:type="boolean">true</item>
+	                </item>
+                </item>
+            </argument>
+        </field>
+        <field name="fee_apply_logged_only">
+            <argument name="data" xsi:type="array">
+            	<item name="options" xsi:type="object">Magento\Config\Model\Config\Source\Yesno</item>
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Apply for logged only</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">fee</item>
+                    <item name="validation" xsi:type="array">
+	                    <item name="required-entry" xsi:type="boolean">true</item>
+	                </item>
+                </item>
+            </argument>
+        </field>
+        <field name="fee_apply_group_only">
+            <argument name="data" xsi:type="array">
+            	<item name="options" xsi:type="object">Anowave\Fee\Model\Fee\Source\Group</item>
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Apply for group only</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">fee</item>
+                    <item name="validation" xsi:type="array">
+	                    <item name="required-entry" xsi:type="boolean">true</item>
+	                </item>
+                </item>
+            </argument>
+        </field>
+        <field name="fee_calculate_per_product">
+            <argument name="data" xsi:type="array">
+            	<item name="options" xsi:type="object">Magento\Config\Model\Config\Source\Yesno</item>
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Calculate per product</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">fee</item>
+                    <item name="validation" xsi:type="array">
+	                    <item name="required-entry" xsi:type="boolean">true</item>
+	                </item>
+                </item>
+            </argument>
+        </field>
+        <container name="fee_conditions" sortOrder="10">
+            <htmlContent name="html_content">
+                <block name="fee_conditions" class="Anowave\Fee\Block\Config\Fee\ConditionsTemplate" />
+            </htmlContent>
+        </container>
+    </fieldset>
+</form>

@@ -1,0 +1,16 @@
+{
+  "name": "powerreviews/review-display",
+  "description":
+    "A Magento 2 module that displays reviews, questions and anwsers",
+  "type": "magento2-module",
+  "version": "1.0.18",
+  "license": ["OSL-3.0", "AFL-3.0"],
+  "require": {
+  },
+  "autoload": {
+    "files": ["registration.php"],
+    "psr-4": {
+      "PowerReviews\\ReviewDisplay\\": ""
+    }
+  }
+}

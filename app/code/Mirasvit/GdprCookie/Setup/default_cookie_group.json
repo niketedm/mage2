@@ -1,0 +1,5 @@
+[
+    {"name":"Essential", "priority":0, "is_active":1, "is_required":1, "description": "", "store_ids":[0]},
+    {"name":"Marketing", "priority":0, "is_active":1, "is_required":0, "description": "", "store_ids":[0]},
+    {"name":"Google Analytics", "priority":0, "is_active":1, "is_required":0, "description": "", "store_ids":[0]}
+]

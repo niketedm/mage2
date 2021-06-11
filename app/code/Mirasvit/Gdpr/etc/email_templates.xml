@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template
+            id="gdpr_data_anonymize_notification"
+            label="GDPR Data Anonymize Notification"
+            file="gdpr_data_anonymize_notification.html"
+            type="html"
+            module="Mirasvit_Gdpr"
+            area="frontend"
+    />
+</config>

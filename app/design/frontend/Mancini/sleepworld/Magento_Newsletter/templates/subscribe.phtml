@@ -1,0 +1,128 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Newsletter\Block\Subscribe $block */
+?>
+<style>
+.floating-label {
+    position: absolute;
+    pointer-events: none;
+    left: 20px;
+    top: 16px;
+    transition: 0.2s ease all;
+    color: #999999;
+}
+
+input:focus~.floating-label,
+
+input:not(:focus):valid~.floating-label {
+    top: 5px;
+    bottom: 10px;
+    left: 20px;
+    font-size: 11px;
+    opacity: 1;
+}
+
+.inputText {
+    font-size: 14px;
+    width: 200px;
+    height: 35px;
+}
+
+
+.block.newsletter {
+    width: unset !important;
+}
+
+.block.newsletter .content {
+    width: 100%;
+}
+
+.block.newsletter .content .newsletter-label {
+    width: 100%;
+}
+
+.block.newsletter .content .field.newsletter {
+    max-width: unset;
+}
+
+footer .button {
+    position: absolute !important;
+    background: transparent !important;
+    /* right: 34vw; */
+    top: 0.9em;
+    /* outline: none; */
+    border: 0 !important;
+    border-radius: 0 !important;
+    /* top: 1rem !important; */
+    right: 2rem !important;
+}
+
+#newsletter {
+    /* width: 36vw; */
+    height: 5rem;
+
+}
+
+form {
+    position: relative;
+
+}
+
+@media screen and (max-width: 425px) {
+    footer .button {
+        /* top: 10vh !important;
+            right: 8vw !important; */
+        top: 1rem !important;
+        right: 3rem !important;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    footer .button {
+        /* top: 10vh !important;
+            right: 8vw !important; */
+        top: 1rem !important;
+        right: 2rem !important;
+    }
+}
+</style>
+
+<div class="block newsletter">
+    <div class="title"><strong><?= $block->escapeHtml(__('Newsletter')) ?></strong></div>
+    <div class="content">
+        <form class="form subscribe" novalidate action="<?= $block->escapeUrl($block->getFormActionUrl()) ?>"
+            method="post" data-mage-init='{"validation": {"errorClass": "mage-error"}}' id="newsletter-validate-detail">
+            <div class="field newsletter">
+                <div class="control">
+                    <label for="newsletter" class="newsletter-label">
+                        <span class="label">
+                            <?= $block->escapeHtml(__('Sign Up for Our Newsletter:')) ?>
+                        </span>
+                        <!-- <input name="email" type="email" id="newsletter"
+                            placeholder="<?= $block->escapeHtmlAttr(__('Type your email here')) ?>"
+                            data-mage-init='{"mage/trim-input":{}}'
+                            data-validate="{required:true, 'validate-email':true}" /> -->
+
+                        <input name="email" class="inputText" type="email" id="newsletter"
+                            data-mage-init='{"mage/trim-input":{}}'
+                            data-validate="{required:true, 'validate-email':true}" required />
+                        <span class="floating-label">Type your email here</span>
+                    </label>
+                </div>
+            </div>
+            <div class="actions">
+                <button class="action subscribe primary button" title="<?= $block->escapeHtmlAttr(__('Subscribe')) ?>"
+                    type="submit" aria-label="Subscribe">
+                    <!-- <span><?= $block->escapeHtml(__('Subscribe')) ?></span> -->
+                    <span><img src="<?php echo $block->getViewFileUrl('images/Path_6404.png'); ?>" /></span>
+
+
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

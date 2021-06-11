@@ -1,0 +1,10 @@
+<?php if ($block->getHelper()->renderFeeInCart()):?>
+    <?php if (null !== $fee = $block->getCurrentFee()):?>
+    	<div class="fee-cart">
+    		<strong><?php echo  $block->getHelper()->getFeeName() ?>:</strong> <?php echo $fee['fee'] ?> 
+    		<?php if (0 < (float) $fee['fee_tax']):?>
+    			(<?php echo __('Fee tax')?>:<?php echo $fee['fee_tax']?>)
+    		<?php endif ?>
+    	</div>
+    <?php endif ?>
+<?php endif ?>

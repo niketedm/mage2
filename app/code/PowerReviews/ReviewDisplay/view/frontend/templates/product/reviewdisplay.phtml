@@ -1,0 +1,131 @@
+<?php
+/**
+ * @author Michal Walkowiak
+ * @copyright Copyright (c) 2019 PowerReviews (http://www.powerreviews.com)
+ * @package PowerReviews_ReviewDisplay
+ */
+?>
+
+<div id="pwr-snippets">
+  <!-- start_product_section_review_snippet_section -->
+    <div id="pr-reviewsnippet" style="<?= $this->getProductPageReviewSnippet() ? '' : 'display: none;' ?>"></div>
+  <!-- end_product_section_review_snippet_section -->
+
+  <!-- start_product_question_snippet_section -->
+    <div id="pr-questionsnippet" style="<?= $this->getProductPageQuestionSnippet() ? '' : 'display: none;' ?>"></div>
+  <!-- end_product_question_snippet_section -->
+</div>
+<?php
+  $product = $this->getCurrentProduct();
+
+  $productType = $product->getTypeId();
+
+  $variants = array();
+
+
+  // If we are having more than 1 variant
+  if ($productType == 'configurable') {
+    foreach ($product->getTypeInstance()->getUsedProducts($product) as $productVariant) {
+      $item = array(
+        'name' => $productVariant->getName(),
+        'description' => $productVariant->getName(),
+        'page_id_variant' => preg_replace("/[^a-zA-Z0-9-]/", "", trim($productVariant->getSku())),
+        'upc' => $productVariant->getUpcCode() ? $productVariant->getUpcCode() : '',
+        'price' => $productVariant->getPrice()
+      );
+
+      array_push($variants, $item);
+    }
+
+    $variants = array_values($variants);
+  }
+?>
+
+<?php
+  $productImageUrl = $this->helper('Magento\Catalog\Helper\Image')->init($product, 'product_page_image_large')
+                   ->setImageFile($product->getFile())->getUrl();
+
+  $manufacturer = $product->getResource()->getAttribute('manufacturer') ? trim(urlencode($product->getResource()->getAttribute('manufacturer')->getFrontend()->getValue($product))) : '';
+?>
+
+<?php
+  $objectManager =  \Magento\Framework\App\ObjectManager::getInstance();
+
+  $categoryCollection = $objectManager->get('\Magento\Catalog\Model\ResourceModel\Category\CollectionFactory');
+
+  $categoryIds = $product->getCategoryIds();
+
+  $categories = $categoryCollection->create()
+                                 ->addAttributeToSelect('*')
+                                 ->addAttributeToFilter('entity_id', $categoryIds);
+
+  $firstCategory = '';
+
+  # Per requirement we only take the first available category
+  foreach ($categories as $category) {
+    $firstCategory = $category->getName();
+
+    if ($firstCategory != '') {
+      break;
+    }
+  }
+?>
+
+<!-- start_review_render_code_js_section -->
+  <script>
+    require(['jquery', 'jquery/ui'], function($){
+      var components = {
+          ReviewSnippet: 'pr-reviewsnippet',
+          QuestionSnippet: 'pr-questionsnippet',
+          QuestionDisplay: 'pr-questiondisplay'
+        }
+
+      if ($('#pr-reviewdisplay').length > 0) {
+        components.ReviewDisplay = 'pr-reviewdisplay';
+      }
+
+
+      POWERREVIEWS.display.render({
+        api_key: "<?= trim($this->getApiKey()); ?>",
+        locale: "<?= trim($this->getLocale()); ?>",
+        merchant_group_id: "<?= trim($this->getMerchantGroupId()); ?>",
+        merchant_id: "<?= trim($this->getMerchantId()); ?>",
+        page_id: "<?= preg_replace("/[^a-zA-Z0-9-]/", "", trim($this->getCurrentProduct()->getSku())); ?>",
+        review_wrapper_url: "<?= $this->getBaseUrl(); ?>write-a-review/?pr_page_id=<?= preg_replace("/[^a-zA-Z0-9-]/", "", trim($this->getCurrentProduct()->getSku())); ?>",
+        on_read_reviews_click: function() {
+          var reviewdisplay = $("#reviewdisplay\\.tab");
+          $('#tab-label-reviewdisplay\\.tab-title').click();
+          reviewdisplay.show();
+            setTimeout(function() {
+              reviewdisplay[0].scrollIntoView(true);
+              document.body.scrollTop -= 100;
+            }, 0);
+        },
+        on_view_answers_click: function() {
+          var questiondisplay = $("#questiondisplay\\.tab");
+          $('#tab-label-questiondisplay\\.tab-title').click();
+          questiondisplay.show();
+            setTimeout(function() {
+              questiondisplay[0].scrollIntoView(true);
+              document.body.scrollTop -= 100;
+            }, 0);
+        },
+        product: {
+          name: "<?= addslashes(str_replace(array("\n", "\r"), ' ', strip_tags($this->getCurrentProduct()->getName()))); ?>",
+          url: "<?= $this->getCurrentProduct()->getProductUrl(); ?>",
+          image_url: "<?= $productImageUrl ?>",
+          description: "<?= addslashes(str_replace(array("\n", "\r"), ' ', strip_tags($this->getCurrentProduct()->getDescription()))); ?>",
+          category_name: "<?= $firstCategory != '' ? $firstCategory : 'default'; ?>",
+          upc: "<?= $this->getCurrentProduct()->getUpcCode(); ?>",
+          brand_name: "<?= $manufacturer == 'No' ? '' : $manufacturer ?>",
+          price: "<?= $this->getCurrentProduct()->getPrice(); ?>",
+        <?php if(!empty($variants)) : ?>
+          variants: <?= json_encode($variants); ?>,
+        <?php endif; ?>
+          in_stock: "<?= $this->getCurrentProduct()->isAvailable(); ?>",
+        },
+        components: components
+      });
+    });
+  </script>
+<!-- end_review_render_code_js_section -->

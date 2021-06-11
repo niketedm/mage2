@@ -1,0 +1,664 @@
+::-webkit-input-placeholder {
+    color: #707070 !important;
+    font-size: 16px !important;
+    font-family: 'laca-Regular' !important;
+    font-style: normal;
+}
+
+
+// ======== Login page css ==========
+//for removing page title
+.customer-account-login {
+    .page-title {
+        display: none !important;
+    }
+
+    .page.messages {
+        position: sticky;
+        z-index: 10;
+        top: 70px;
+    }
+}
+
+.custom-login-page {
+    margin-right: 0;
+    margin-bottom: 50px;
+}
+
+.login-left {
+    padding-left: 0px;
+    padding-right: 15px;
+
+    .login-img-wall {
+        height: 750px;
+        object-fit: cover;
+        width: 93.9%;
+    }
+}
+
+.custom-login-page {
+    .login-right {
+        padding-top: 100px;
+        padding-right: 0px;
+
+        .fieldset {
+            width: 86%;
+        }
+
+        .block-customer-login {
+            width: 100% !important;
+        }
+
+        .custom-login-title {
+            font-size: 36px !important;
+            color: #545454;
+            border: unset !important;
+            text-align: left !important;
+        }
+
+        input {
+            padding: 25px;
+            border: solid #d9d9d9 1px;
+        }
+
+        input:focus {
+            border: 1px solid #D93E0E !important;
+            box-shadow: none;
+        }
+
+        .secondary {
+            text-align: end;
+            float: none !important;
+            display: block;
+
+            a {
+                color: #545454 !important;
+                text-decoration: underline !important;
+                font-size: 16px !important;
+            }
+        }
+
+        .actions-toolbar {
+            margin: 0px !important;
+
+            .primary {
+                float: none !important;
+                display: block;
+            }
+
+            .primary {
+                margin: 0px !important;
+
+                button {
+                    width: 100%;
+                    height: 50px;
+                    margin-bottom: 3rem !important;
+                    // margin-top: 50px !important;
+
+                    span {
+                        font-family: 'laca-Semibold';
+                        font-size: 18px;
+                        line-height: 22px;
+                        font-weight: normal;
+                    }
+                }
+            }
+        }
+
+        .control {
+            width: 100% !important;
+            position: relative;
+
+            .show-password-eye {
+                position: absolute;
+                z-index: 2;
+                right: 20px;
+                top: 10px;
+                height: 32px;
+                width: 32px;
+            }
+        }
+
+        .create-account-link {
+            text-align: center;
+        }
+
+        .password {
+            margin-bottom: 0px !important;
+        }
+
+        .fieldset::after {
+            content: none !important;
+        }
+
+        .label:after {
+            content: "*";
+            color: #b40000;
+        }
+
+        // .login-recaptcha-row {
+        //     margin-top: 30px;
+        //     margin-bottom: 50px !important;
+        // }
+
+        .g-recaptcha {
+            margin-top: 30px !important;
+            margin-bottom: 50px !important;
+        }
+
+        .remember_me {
+            float: left;
+
+            label {
+                .input-checkbox {
+                    span {
+                        width: max-content;
+                        display: flex;
+                        margin-left: 1rem;
+                        margin-top: 5px;
+                    }
+                }
+
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .login-left {
+        padding-right: 15px !important;
+        padding-left: 15px !important;
+
+        .login-img-wall {
+            height: 200px !important;
+            width: 100%;
+            object-fit: cover;
+        }
+    }
+
+    .custom-login-page {
+        .login-right {
+            padding-top: 30px !important;
+            padding-right: 5.2% !important;
+            padding-left: 5.2% !important;
+
+            .fieldset {
+                width: 100% !important;
+                padding: unset;
+            }
+
+            .custom-login-title {
+                font-size: 30px !important;
+            }
+
+            .actions-toolbar {
+                .primary {
+
+                    button {
+                        //margin-top: 35px !important;
+                        border-radius: 0px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 769px) and (max-width: 991px) {
+    .custom-login-page .login-left {
+        flex: 0 0 50%;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .custom-login-page img.login-img-wall {
+        width: 100%;
+    }
+
+    .custom-login-page .login-right {
+        flex: 0 0 50%;
+        padding: 0 3.2%;
+    }
+
+}
+
+
+// ======= End of login form css ========
+
+// Forgot Password Css
+//for removing page title
+.customer-account-forgotpassword {
+    .page-title {
+        display: none !important;
+    }
+}
+
+.custom-forgot-page {
+    margin-bottom: 50px;
+    margin-right: 0;
+
+    .forgot-left {
+        // padding-left: 0px;
+        // padding-right: 15px;
+
+        .forgot-img-wall {
+            height: auto;
+            width: 93.9%;
+            object-fit: cover;
+        }
+    }
+
+    .forgot-right {
+        //padding-top: 100px;
+        padding: 0px 5.2%;
+
+        .custom-forgot-title {
+            font-size: 36px !important;
+            color: #545454;
+            border: unset !important;
+            text-align: left !important;
+
+            strong {
+                font-weight: 400;
+                font-size: 36px !important;
+                float: unset;
+                margin-left: 0px;
+                line-height: 43px;
+                font-family: 'laca-Medium';
+            }
+        }
+
+        .form.password.forgot {
+            padding-right: 75px;
+        }
+
+        .label {
+            padding-bottom: 5px;
+            font-size: 20px;
+            font-family: "laca-Medium";
+            float: none !important;
+            width: auto !important;
+        }
+
+        .label:after {
+            content: "*";
+            color: #b40000;
+        }
+
+        .control {
+            float: none !important;
+            width: 100% !important;
+        }
+
+        .fieldset {
+            // width: 86%;
+
+        }
+
+        input {
+            padding: 25px;
+            border: solid #d9d9d9 1px;
+            height: 5.5rem;
+        }
+
+        input:focus {
+            border: 1px solid #D93E0E !important;
+            box-shadow: none;
+        }
+
+        .actions-toolbar {
+            margin: 0px !important;
+
+            .primary {
+                float: none !important;
+                display: block;
+            }
+
+            .primary {
+                margin: 0px !important;
+
+                button {
+                    width: 100%;
+                    height: 50px;
+                    margin-bottom: 3rem !important;
+
+                    span {
+                        font-family: 'laca-Semibold';
+                        font-size: 18px;
+                        line-height: 22px;
+                        font-weight: normal;
+                    }
+                }
+            }
+        }
+
+        .forgot-recaptcha-row {
+            margin-top: 30px;
+            margin-bottom: 50px !important;
+        }
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .forgot-right {
+        min-width: unset;
+        width: unset;
+    }
+}
+
+@media only screen and (min-width: 769px) {
+    .forgot-right .custom-forgot-title {
+        padding-top: 100px;
+    }
+}
+
+@media only screen and (min-width: 769px) and (max-width: 991px) {
+    .custom-forgot-page .forgot-left {
+        flex: 0 0 50%;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .custom-forgot-page img.forgot-img-wall {
+        width: 100% !important;
+    }
+
+    .custom-forgot-page .forgot-right {
+        flex: 0 0 50%;
+        padding: 0 3.2%;
+    }
+
+    .custom-forgot-page form.form.password.forgot {
+        padding-right: 0px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .forgot-left {
+
+        // padding-right: 0px !important;
+        .forgot-img-wall {
+            width: 100% !important;
+            height: 200px !important;
+        }
+    }
+
+    .custom-forgot-page {
+        .forgot-right {
+            //padding-top: 30px !important;
+
+            .block-title {
+                margin-bottom: 0px;
+                padding-bottom: 25px !important;
+            }
+
+            .form.password.forgot {
+                padding-right: unset;
+            }
+
+            .fieldset {
+                width: 100% !important;
+                //padding: 0 5.2%;
+                margin: 0px 0px 20px;
+
+                .note {
+                    margin-bottom: 35px;
+                    margin-top: 14px;
+
+                }
+            }
+
+            .custom-forgot-title {
+                //font-size: 30px !important;
+                margin-top: 30px;
+                // margin-bottom: 20px !important;
+                //text-align: center !important;
+            }
+
+            .control {
+                width: auto !important;
+            }
+
+            .actions-toolbar {
+                .primary {
+                    button {
+                        border-radius: 0px;
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+//Reset password css
+.customer-account-createpassword {
+    .page-title {
+        display: none !important;
+    }
+
+    .customer-forgot-password {
+        margin-right: 0;
+    }
+
+    .forgot-password-left {
+        padding-left: 0px;
+        padding-right: 15px;
+
+        .forgot-password-img-wall {
+            width: 93.9%;
+            padding-bottom: 50px;
+        }
+    }
+
+    .forgot-password-right {
+        padding-top: 100px;
+        padding-right: 0px;
+
+        .customer-forgot-password-title {
+            font-size: 36px !important;
+            color: #545454;
+            border: unset !important;
+            text-align: left !important;
+        }
+
+        .block-title {
+            margin-bottom: 15px;
+            padding-bottom: 32px;
+
+            strong {
+                font-weight: 400;
+            }
+        }
+
+        .fieldset {
+            width: 86%;
+
+            .field {
+                margin-bottom: 15px;
+
+                .label {
+                    padding-bottom: 5px;
+                    font-size: 20px;
+                    font-family: "laca-Medium";
+                }
+            }
+
+            .actions-toolbar {
+                margin: 50px 0px 0px !important;
+
+                .primary {
+                    margin: 0px !important;
+                    float: none !important;
+                    display: block;
+
+                    button {
+                        width: 100%;
+                        height: 50px;
+                        margin-bottom: 3rem !important;
+                        font-size: 18px;
+                        font-family: "laca-SemiBold";
+                        font-weight: normal;
+                    }
+                }
+            }
+        }
+
+        .fieldset:last-child {
+            margin-bottom: 20px;
+        }
+
+        .control {
+            width: 100% !important;
+            position: relative;
+        }
+
+        input {
+            padding: 25px;
+            border: solid #d9d9d9 1px;
+        }
+
+        .fieldset::after {
+            content: none !important;
+        }
+
+        .label:after {
+            content: "*";
+            color: #b40000;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .customer-account-createpassword {
+        .forgot-password-left {
+            padding-left: 15px;
+            padding-right: 15px;
+
+            .forgot-password-img-wall {
+                height: 200px !important;
+                width: 100%;
+                padding-bottom: 0px !important;
+            }
+        }
+
+        .forgot-password-right {
+            padding-top: 30px !important;
+            padding-right: 5.2% !important;
+            padding-left: 5.2% !important;
+
+            .block-title {
+                margin-bottom: 0px;
+                padding-bottom: 25px !important;
+            }
+
+            .fieldset {
+                width: 100% !important;
+                // padding: 0 5.2%;
+                margin: 0px 0px 20px;
+
+                .actions-toolbar {
+                    margin: 35px 0px 0px !important;
+                }
+            }
+
+            .customer-forgot-password-title {
+                font-size: 30px !important;
+                text-align: left !important;
+            }
+        }
+
+    }
+
+}
+
+//Custom Tick css
+
+//for checkbox customization
+.check-container {
+    display: flex;
+    position: relative;
+    // padding-left: 45px;
+    // margin-bottom: 15px;
+    cursor: pointer;
+    font-size: 18px;
+    width: 18px;
+}
+
+/* Hide the default checkbox */
+input[type="checkbox"] {
+    visibility: hidden;
+}
+
+/* Creating a custom checkbox
+    based on demand */
+.cus-check {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    height: 18px;
+    width: 18px;
+    background-color: white;
+    border: solid #d93e0e 1px;
+}
+
+/* Specify the background color to be
+    shown when checkbox is checked */
+.check-container input:checked~.cus-check {
+    background-color: #d93e0e;
+}
+
+/* Checkmark to be shown in checkbox */
+/* It is not be shown when not checked */
+.cus-check:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Display checkmark when checked */
+.check-container input:checked~.cus-check:after {
+    display: block;
+}
+
+/* Styling the checkmark using webkit */
+/* Rotated the rectangle by 45 degree and 
+    showing only two border to make it look
+    like a tickmark */
+.check-container .cus-check:after {
+    left: 4px;
+    bottom: 2px;
+    width: 7px;
+    height: 13px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+
+@media only screen and (max-width: 768px) {
+    .login-left {
+        .login-img-wall {
+            .customer-signin-image {
+                .pagebuilder-mobile-hidden {
+                    display: none;
+                }
+
+            }
+        }
+    }
+
+    .custom-forgot-page {
+        .forgot-left {
+            .forgot-img-wall {
+                .customer-signin-image {
+                    .pagebuilder-mobile-hidden {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}

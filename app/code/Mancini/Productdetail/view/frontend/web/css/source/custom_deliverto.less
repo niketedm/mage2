@@ -1,0 +1,173 @@
+.deliverto-container {
+    margin-top: 30px;
+
+    .deliverto-row {
+        font-size: 20px;
+        display: flex;
+        justify-content: space-between;
+        background: #f7f7f7;
+        padding: 3.4rem;
+        padding-right: 2rem;
+        min-height: 8.4rem;
+        width: 100%;
+        margin: 0px;
+
+        .deliverto-start {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+
+            .deliverto-start-col{
+                margin-right: 68px;
+            }
+        }
+    }
+
+    .deliverto-img {
+        margin-bottom: 1rem;
+        margin-right: 5px;
+    }
+
+    .deliverto-col {
+        padding: unset;
+    }
+
+    .checkform {
+        position: relative;
+
+        input[type="text"] {
+            margin: 0px;
+            width: 100%;
+            height: 5rem;
+        }
+
+        .sample-label {
+            display: block;
+            transform: translate(0, -5.3rem);
+        }
+
+        @supports (not (-ms-ime-align: auto)) {
+            .deliverto-container {
+                .checkform {
+                    .sample-label {
+                        font-size: 15px;
+                        color: #999;
+                        transform: translate(0.25rem, -3.5rem);
+                        transition: all 0.2s ease-out;
+                        padding-left: 20px;
+                    }
+
+                    input:focus + .sample-label,
+                    input:not(:placeholder-shown) + .sample-label {
+                        color: #999;
+                        transform: translate(0, -5.3rem);
+                    }
+                }
+            }
+        }
+    }
+
+    .changeButton {      
+        padding: 0;
+        padding-bottom: 10px;
+        color: #f1592a !important;
+        background: unset !important;
+        font-size: 18px;
+        border: none;
+        font-family: 'laca-Medium' !important;
+    }
+
+    .checkbtn {
+        position: absolute;
+        right: 16px;
+        top: 5px;
+        color: #f1592a !important;
+        background: unset !important;
+        border: unset !important;
+        font-size: 18px;
+        font-family:'laca-Medium' !important;
+    }
+
+    .availabilityupdate {
+        padding: 1.5rem;
+        padding-left:3.4rem;
+        border: solid #b40000 1px;
+        font-size: 16px;
+
+        .no-delivery-phone{
+            a{
+                color: #d93e0e !important;
+                font-family: 'laca-Semibold' !important;
+            }
+        }
+
+        img {
+            width: 16px;
+            height: 16px;
+            margin-bottom: 4px;
+            margin-right: 6px;
+        }
+
+    }
+}
+
+@media only screen and (max-width: 1025px) and (min-width: 769px){
+    .deliverto-row {
+        padding: 2rem !important;
+      }
+}
+
+@media only screen and (max-width: 768px) and (min-width: 427px) {
+    .deliverto-row {
+      padding: 1.4rem !important;
+    }
+}
+
+//mobile
+@media only screen and (max-width: 425px){
+    .deliverto-row{
+        padding: 1rem !important;
+
+        .deliverto-start{
+            display: block !important;
+        }
+    }
+}
+
+//delivery dates pdp css
+
+.deliver {
+    .deliver-row {
+        display: flex;
+        background: #f7f7f7;
+        padding: 3rem;
+        height: 8.4rem;
+        width: 100%;
+        margin: 0px;
+ 
+        .deliver-col-first{
+            margin-right: 70px;
+        }
+    }
+ 
+    .deliver-img {
+        margin-bottom: 1rem;
+    }
+ 
+    .deliver-col {
+        color: #545454;
+        font-size: 20px;
+    }
+ 
+    .deliver-links {
+        color: #d93e0e;
+    }
+}
+ 
+//mobile
+@media only screen and (max-width: 425px){
+    .deliver-row{
+        padding: 1rem !important;
+        display: block !important;
+    }
+}

@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<head>
+        <css src="Mancini_Productdetail::css/source/custom_foundation.css" rel="stylesheet" type="text/css" />
+	    <link src="Mancini_Productdetail::js/common.js"/>
+		<css src="Mancini_Productdetail::css/source/custom_deliverto.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <referenceBlock name="product.price.final" remove="true"/>
+		<!-- <referenceBlock name="product.info.options.wrapper.bottom">
+		    <block class="Mancini\Productdetail\Block\Deliverydates" name="deliverydates" template="Mancini_Productdetail::deliverydates.phtml"/>
+		</referenceBlock> -->
+	    <referenceBlock name="product.info.options.wrapper.bottom">
+            <block class="Mancini\Productdetail\Block\Deliverto" name="checkdeliverto" template="Mancini_Productdetail::deliverto.phtml" before="deliverydates" cacheable="false" />
+        </referenceBlock>       
+		<referenceContainer name="content.aside">
+			 <block class="Magento\Cms\Block\Block" name="block_identifier" after="-">
+				<arguments>
+					<argument name="block_id" xsi:type="string">recentproduct</argument>
+				</arguments>
+			</block>		
+		</referenceContainer> 
+	</body>
+</page>

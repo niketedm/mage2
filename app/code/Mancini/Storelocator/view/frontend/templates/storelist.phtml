@@ -1,0 +1,57 @@
+<?php
+/**
+ * @var $block \Mancini\Storelocator\Block\Neareststore
+ */
+?>
+<?php 
+	$storeData 	    =	$block->getData();
+	$zipCode		=	$storeData['data']['currentZipcode'];
+?>
+<?php $storeLocations =  json_decode($block->getNearestStoreLoc($zipCode)); ?>
+
+<?php $maxCount = 0; ?>
+<?php if (!empty($storeLocations)) : ?>
+<div id="storelist">
+    <?php foreach ($storeLocations as $storeLocation ): ?>
+    <?php if($maxCount < 3): ?>
+    <div class="stores">
+        <div class="location-name" id="<?php echo $storeLocation->id;?>"><?php echo $storeLocation->name;?></div>
+        <div class="location-address mt-2">
+            <?php echo $storeLocation->address.",".$storeLocation->city.",".$storeLocation->state.",".$storeLocation->zip;?>
+        </div>
+        <div class="location-distance mt-1">
+            <span id="dist-<?php echo $storeLocation->id;?>"> <?php echo $storeLocation->distance;?> </span>
+            <span class="miles"> <?php echo __('miles away');?> </span>
+        </div>
+        <div class="direction-location row mt-2">
+            <div class="col">
+                <span class="direction-icon"></span>
+                <span class="location-btn">
+                    <img src="<?php echo $this->getViewFileUrl('images/traffic-right-turn.png');?>" />
+                    <a
+                        href="<?php echo $block->getUrl('amlocator/'.$storeLocation->url_key); ?>"><?php echo __('Direction');?></a>
+                </span>
+            </div>
+            <div class="col">
+                <span class="phone-icon"></span>
+                <span class="location-phone">
+                    <img src="<?php echo $this->getViewFileUrl('images/phone.png');?>" />
+                    <a href="tel:<?php echo $storeLocation->phone;?>"><?php echo $storeLocation->phone;?></a>
+                </span>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <?php $maxCount++;?>
+    <?php endif;?>
+    <?php endforeach;?>
+</div>
+<?php else: ?>
+<div class="nostores">
+    <div class="location-label mt-1">
+        <img src="<?php echo $this->getViewFileUrl('images/warning.png');?>" />
+        <?php echo __('No store near to this zip code - please change the zip code and check nearest store');?>
+    </div>
+    <hr>
+</div>
+<?php endif; ?>

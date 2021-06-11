@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+	<system>
+		<tab id="mancini" sortOrder="200" translate="label">
+			<label>Mancini</label>
+		</tab>
+		<section id="mancini_catalog" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+			<label>Product Label</label>
+			<tab>mancini</tab>
+			<resource>Mancini_Catalog::config_mancini_catalog</resource>
+			<group id="general" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+				<label>General</label>
+				<field id="on_sale" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+					<label>Sale Label</label>
+					<comment>Product label value to display in the catalog page</comment>
+				</field>
+				<field id="free_delivery" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+					<label>Free Delivery Label</label>
+					<comment>Product label value to display in the catalog page</comment>
+				</field>
+			</group>
+		</section>
+	</system>
+</config>

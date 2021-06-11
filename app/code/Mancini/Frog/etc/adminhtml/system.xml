@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+	<system>
+		<tab id="mancini" sortOrder="200" translate="label">
+			<label>Mancini</label>
+		</tab>
+		<section id="frog" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+			<label>frog</label>
+			<tab>mancini</tab>
+			<resource>Mancini_Frog::config_mancini_frog</resource>
+			<group id="general" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+				<label>General</label>
+				<field id="api_url" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+					<label>API URL</label>
+					<comment>URL to get the details</comment>
+				</field>
+				<field id="api_key" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+					<label>API Key</label>
+					<comment>Api key for authorization</comment>
+				</field>
+			</group>
+		</section>
+	</system>
+</config>

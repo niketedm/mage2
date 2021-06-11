@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Synchrony_DigitalBuy::css/payment-marketing.css" />
+    </head>
+    <body>
+        <referenceBlock name="header.panel">
+            <block class="Magento\Framework\View\Element\Html\Links" name="synchrony.header.links" after="currency" ifconfig="payment/synchrony_digitalbuy/enable_header_link">
+                <arguments>
+                    <argument name="css_class" xsi:type="string">header links synchrony-cms-links</argument>
+                </arguments>
+                <block class="Magento\Framework\View\Element\Html\Link" ifconfig="payment/synchrony_digitalbuy/enable_header_link" before="-" name="synchrony-financing-header-link">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">Financing</argument>
+                        <argument name="path" xsi:type="helper" helper="Synchrony\DigitalBuy\Helper\Link::getConfigValueByPath">
+                            <param name="configPath">payment/synchrony_digitalbuy/link_cms_page</param>
+                        </argument>
+                    </arguments>
+                </block>
+            </block>
+        </referenceBlock>
+        <referenceBlock name="store.settings">
+            <block class="Magento\Framework\View\Element\Html\Links" name="store.settings.synchrony.header.links" before="store.settings.currency" ifconfig="payment/synchrony_digitalbuy/enable_header_link">
+                <arguments>
+                    <argument name="css_class" xsi:type="string">header links synchrony-cms-links-settings</argument>
+                </arguments>
+                <block class="Magento\Framework\View\Element\Html\Link" before="-" name="store.settings.synchrony-financing-header-link">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">Financing</argument>
+                        <argument name="path" xsi:type="helper" helper="Synchrony\DigitalBuy\Helper\Link::getConfigValueByPath">
+                            <param name="configPath">payment/synchrony_digitalbuy/link_cms_page</param>
+                        </argument>
+                    </arguments>
+                </block>
+            </block>
+        </referenceBlock>
+        <referenceBlock name="footer_links">
+            <block class="Magento\Framework\View\Element\Html\Link\Current" ifconfig="payment/synchrony_digitalbuy/enable_footer_link" name="synchrony-financing-footer-link" before="-">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">Financing</argument>
+                    <argument name="path" xsi:type="helper" helper="Synchrony\DigitalBuy\Helper\Link::getConfigValueByPath">
+                        <param name="configPath">payment/synchrony_digitalbuy/link_cms_page</param>
+                    </argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

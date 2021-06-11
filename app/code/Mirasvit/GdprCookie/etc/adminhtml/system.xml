@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="gdpr" showInDefault="1" showInWebsite="1" showInStore="1" type="text" translate="label">
+
+            <group id="cookie" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="5">
+                <label>Cookie Consent</label>
+
+                <field id="is_enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <group id="bar" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="15">
+                    <label>Cookie Bar</label>
+                    <field id="is_lock_screen" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Lock Screen</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment>If enabled, a visitor can't interact with the store before accepting cookies consent.</comment>
+                    </field>
+
+                    <field id="content" translate="label" type="textarea" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Text</label>
+                    </field>
+                </group>
+
+                <group id="modal" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="20">
+                    <label>Cookie Modal</label>
+                    <field id="title" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Title</label>
+                    </field>
+
+                    <field id="content" translate="label" type="textarea" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Text</label>
+                    </field>
+                </group>
+            </group>
+        </section>
+    </system>
+</config>

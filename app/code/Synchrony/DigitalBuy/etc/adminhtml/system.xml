@@ -1,0 +1,430 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="payment">
+            <group id="synchrony_digitalbuy" translate="label comment" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Synchrony Digital Buy</label>
+                <comment>Digital Buy is an online payment platform that makes accepting Synchrony Financial (SYF) issued credit cards easy and intuitive for customers.</comment>
+                <fieldset_css>complex synchrony-digitalbuy-section</fieldset_css>
+                <frontend_model>Magento\Paypal\Block\Adminhtml\System\Config\Fieldset\Payment</frontend_model>
+                <group id="credentials" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>API Credentials</label>
+                    <field id="sandbox" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Use Sandbox</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <config_path>payment/synchrony_digitalbuy/sandbox</config_path>
+                    </field>
+                    <group id="credentials_production" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Production</label>
+                        <field id="production_digitalbuy_api_merchant_id" translate="label" type="obscure" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Digital Buy Revolving API Merchant ID</label>
+                            <config_path>payment/synchrony_digitalbuy/production_digitalbuy_api_merchant_id</config_path>
+                            <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        </field>
+                        <field id="production_digitalbuy_api_password" translate="label" type="obscure" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Digital Buy Revolving API Password</label>
+                            <config_path>payment/synchrony_digitalbuy/production_digitalbuy_api_password</config_path>
+                            <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        </field>
+                        <field id="production_installment_api_merchant_id" translate="label comment" type="obscure" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Digital Buy Installment API Merchant ID</label>
+                            <config_path>payment/synchrony_digitalbuy/production_installment_api_merchant_id</config_path>
+                            <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        </field>
+                        <field id="production_installment_api_password" translate="label comment" type="obscure" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Digital Buy Installment API Password</label>
+                            <config_path>payment/synchrony_digitalbuy/production_installment_api_password</config_path>
+                            <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        </field>
+                        <field id="production_buyservice_api_username" translate="label" type="obscure" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Buy Service API Username</label>
+                            <config_path>payment/synchrony_digitalbuy/production_buyservice_api_username</config_path>
+                            <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        </field>
+                        <field id="production_buyservice_api_password" translate="label" type="obscure" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Buy Service API Password</label>
+                            <config_path>payment/synchrony_digitalbuy/production_buyservice_api_password</config_path>
+                            <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        </field>
+                        <field id="production_buyservice_api_merchant_id" translate="label comment" type="obscure" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Buy Service API Merchant ID</label>
+                            <config_path>payment/synchrony_digitalbuy/production_buyservice_api_merchant_id</config_path>
+                            <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                            <comment>Leave empty if same as for Digital Buy API (Revolving or Installment)</comment>
+                        </field>
+                        <field id="production_api_proxy" translate="label comment" type="select" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Proxy Enable (Yes/No)</label>
+                            <config_path>payment/synchrony_digitalbuy/production_api_proxy</config_path>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        </field>
+                        <field id="production_api_proxy_host" translate="label comment" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Proxy Host</label>
+                            <config_path>payment/synchrony_digitalbuy/production_api_proxy_host</config_path>
+                            <depends>
+                                <field id="production_api_proxy">1</field>
+                            </depends>
+                            <validate>validate-url</validate>
+                        </field>
+                        <field id="production_api_proxy_port" translate="label comment" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Proxy Port</label>
+                            <config_path>payment/synchrony_digitalbuy/production_api_proxy_port</config_path>
+                            <depends>
+                                <field id="production_api_proxy">1</field>
+                            </depends>
+                            <validate>validate-digits</validate>
+                        </field>
+                    </group>
+                    <group id="credentials_sandbox" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Sandbox</label>
+                        <field id="sandbox_digitalbuy_api_merchant_id" translate="label" type="obscure" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Digital Buy Revolving API Merchant ID</label>
+                            <config_path>payment/synchrony_digitalbuy/sandbox_digitalbuy_api_merchant_id</config_path>
+                            <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        </field>
+                        <field id="sandbox_digitalbuy_api_password" translate="label" type="obscure" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Digital Buy Revolving API Password</label>
+                            <config_path>payment/synchrony_digitalbuy/sandbox_digitalbuy_api_password</config_path>
+                            <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        </field>
+                        <field id="sandbox_installment_api_merchant_id" translate="label comment" type="obscure" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Digital Buy Installment API Merchant ID</label>
+                            <config_path>payment/synchrony_digitalbuy/sandbox_installment_api_merchant_id</config_path>
+                            <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        </field>
+                        <field id="sandbox_installment_api_password" translate="label comment" type="obscure" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Digital Buy Installment API Password</label>
+                            <config_path>payment/synchrony_digitalbuy/sandbox_installment_api_password</config_path>
+                            <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        </field>
+                        <field id="sandbox_buyservice_api_username" translate="label" type="obscure" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Buy Service API Username</label>
+                            <config_path>payment/synchrony_digitalbuy/sandbox_buyservice_api_username</config_path>
+                            <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        </field>
+                        <field id="sandbox_buyservice_api_password" translate="label" type="obscure" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Buy Service API Password</label>
+                            <config_path>payment/synchrony_digitalbuy/sandbox_buyservice_api_password</config_path>
+                            <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        </field>
+                        <field id="sandbox_buyservice_api_merchant_id" translate="label comment" type="obscure" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Buy Service API Merchant ID</label>
+                            <config_path>payment/synchrony_digitalbuy/sandbox_buyservice_api_merchant_id</config_path>
+                            <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                            <comment>Leave empty if same as for Digital Buy API</comment>
+                        </field>
+                        <field id="sandbox_api_proxy" translate="label comment" type="select"  sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Proxy Enable (Yes/No)</label>
+                            <config_path>payment/synchrony_digitalbuy/sandbox_api_proxy</config_path>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        </field>
+                        <field id="sandbox_api_proxy_host" translate="label comment" type="text"  sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Proxy Host</label>
+                            <config_path>payment/synchrony_digitalbuy/sandbox_api_proxy_host</config_path>
+                            <depends>
+                                <field id="sandbox_api_proxy">1</field>
+                            </depends>
+                            <validate>validate-url</validate>
+                        </field>
+                        <field id="sandbox_api_proxy_port" translate="label comment" type="text"  sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Proxy Port</label>
+                            <config_path>payment/synchrony_digitalbuy/sandbox_api_proxy_port</config_path>
+                            <depends>
+                                <field id="sandbox_api_proxy">1</field>
+                            </depends>
+                            <validate>validate-digits</validate>
+                        </field>
+                    </group>
+                </group>
+                <group id="revolving" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Synchrony Digital Buy Revolving Payment</label>
+                    <field id="active" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Enable Synchrony Digital Buy Revolving Payment</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <config_path>payment/synchrony_digitalbuy/active</config_path>
+                        <comment>To enable this payment solution, it's also required website base currency to be USD</comment>
+                    </field>
+                    <field id="title" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Title</label>
+                        <config_path>payment/synchrony_digitalbuy/title</config_path>
+                    </field>
+                    <field id="payment_action" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                        <label>Payment Action</label>
+                        <source_model>Synchrony\DigitalBuy\Model\Source\PaymentAction</source_model>
+                        <config_path>payment/synchrony_digitalbuy/payment_action</config_path>
+                    </field>
+                    <field id="sort_order" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Sort Order</label>
+                        <config_path>payment/synchrony_digitalbuy/sort_order</config_path>
+                        <frontend_class>validate-number</frontend_class>
+                    </field>
+                    <field id="cart_button_enabled" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Digital Buy Available in Cart</label>
+                        <config_path>payment/synchrony_digitalbuy/cart_button_enabled</config_path>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                    <field id="cart_button_image_url" translate="label comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Cart Button Image URL</label>
+                        <config_path>payment/synchrony_digitalbuy/cart_button_image_url</config_path>
+                        <comment>Private label credit card logo</comment>
+                        <validate>validate-url</validate>
+                    </field>
+                    <field id="cart_button_image_alt" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Cart Button Image Alt Text</label>
+                        <config_path>payment/synchrony_digitalbuy/cart_button_image_alt</config_path>
+                    </field>
+                    <field id="default_promo_code" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Default Promo Code</label>
+                        <config_path>payment/synchrony_digitalbuy/default_promo_code</config_path>
+                    </field>
+                    <field id="show_address_match_note" translate="label" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Add address match note to payment form</label>
+                        <config_path>payment/synchrony_digitalbuy/show_address_match_note</config_path>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                </group>
+                <group id="installment" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Synchrony Digital Buy Installment Payment</label>
+                    <field id="active" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Enable Synchrony Digital Buy Installment Payment</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <config_path>payment/synchrony_digitalbuy_installment/active</config_path>
+                        <!--<backend_model>Synchrony\DigitalBuy\Model\Config\Backend\Enable</backend_model>-->
+                        <comment>To enable this payment solution, it's also required website base currency to be USD</comment>
+                    </field>
+                    <field id="title" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Title</label>
+                        <config_path>payment/synchrony_digitalbuy_installment/title</config_path>
+                    </field>
+                    <field id="payment_action" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                        <label>Payment Action</label>
+                        <source_model>Synchrony\DigitalBuy\Model\Source\PaymentAction</source_model>
+                        <config_path>payment/synchrony_digitalbuy_installment/payment_action</config_path>
+                    </field>
+                    <field id="sort_order" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Sort Order</label>
+                        <config_path>payment/synchrony_digitalbuy_installment/sort_order</config_path>
+                        <frontend_class>validate-number</frontend_class>
+                    </field>
+                    <field id="pcgc" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Product Code Group Code</label>
+                        <config_path>payment/synchrony_digitalbuy_installment/pcgc</config_path>
+                    </field>
+                </group>
+                <group id="general" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Common Payment Settings</label>
+                    <field id="allowspecific" translate="label" type="allowspecific" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                        <label>Payment Applicable From</label>
+                        <source_model>Magento\Payment\Model\Config\Source\Allspecificcountries</source_model>
+                        <config_path>payment/synchrony_digitalbuy/allowspecific</config_path>
+                    </field>
+                    <field id="specificcountry" translate="label" type="multiselect" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Countries Payment Applicable From</label>
+                        <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+                        <config_path>payment/synchrony_digitalbuy/specificcountry</config_path>
+                        <can_be_empty>1</can_be_empty>
+                    </field>
+                    <field id="prohibited_attribute_sets" translate="label comment" type="multiselect" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Prohibited Product Attribute Sets</label>
+                        <source_model>Magento\Catalog\Model\Product\AttributeSet\Options</source_model>
+                        <config_path>payment/synchrony_digitalbuy/prohibited_attribute_sets</config_path>
+                        <can_be_empty>1</can_be_empty>
+                        <comment>Payment method won't be available if cart contains products with selected attribute sets</comment>
+                    </field>
+                    <field id="debug" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Debug Mode</label>
+                        <config_path>payment/synchrony_digitalbuy/debug</config_path>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                    <field id="address_type_to_pass" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Address Passed to Digital Buy Modals</label>
+                        <config_path>payment/synchrony_digitalbuy/address_type_to_pass</config_path>
+                        <source_model>Magento\Customer\Model\Config\Source\Address\Type</source_model>
+                    </field>
+                </group>
+                <group id="revolving_payment_marketing" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Revolving Payment Marketing</label>
+                    <field id="apply_now_url" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Apply Now URL</label>
+                        <config_path>payment/synchrony_digitalbuy/apply_now_url</config_path>
+                        <validate>validate-url</validate>
+                        <comment>URL for Apply Now links</comment>
+                    </field>
+                    <group id="header_footer_links" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Header and Footer Links</label>
+                        <field id="link_cms_page" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                            <label>Link CMS Page</label>
+                            <config_path>payment/synchrony_digitalbuy/link_cms_page</config_path>
+                            <source_model>Magento\Cms\Model\Config\Source\Page</source_model>
+                            <comment>CMS page the links should lead to</comment>
+                        </field>
+                        <field id="enable_header_link" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Enable Header Link</label>
+                            <config_path>payment/synchrony_digitalbuy/enable_header_link</config_path>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            <comment>Display link to financial page as part of website header (next to sign in link)</comment>
+                        </field>
+                        <field id="enable_footer_link" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Enable Footer Link</label>
+                            <config_path>payment/synchrony_digitalbuy/enable_footer_link</config_path>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            <comment>Display link to financial page as part of website footer (footer links list)</comment>
+                        </field>
+                    </group>
+                    <group id="dynamic_pricing" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Product Pages &amp; Checkout</label>
+                        <field id="priceblock_strategy" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Ad Strategy</label>
+                            <config_path>payment/synchrony_digitalbuy/marketing_priceblock_strategy</config_path>
+                            <source_model>Synchrony\DigitalBuy\Model\Source\DynamicPricing\Strategy</source_model>
+                            <comment>Block content strategy, "Value prop message" will display selected static block content, "Monthly payment message" will calculate monthly payment and display terms based on promo type</comment>
+                        </field>
+                        <field id="priceblock_enable" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Enabled</label>
+                            <config_path>payment/synchrony_digitalbuy/marketing_priceblock_enable</config_path>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            <comment>Display additional financing price information block on the website</comment>
+                        </field>
+                        <field id="priceblock_area" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Display Area</label>
+                            <config_path>payment/synchrony_digitalbuy/marketing_priceblock_area</config_path>
+                            <source_model>Synchrony\DigitalBuy\Model\Source\DynamicPricing\DisplayArea</source_model>
+                            <comment>Where pricing information should be displayed</comment>
+                        </field>
+                        <field id="priceblock_min_amount" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Min Amount</label>
+                            <config_path>payment/synchrony_digitalbuy/marketing_priceblock_min_amount</config_path>
+                            <validate>validate-number validate-zero-or-greater</validate>
+                            <comment>Minimum product price or purchase amount to display the block</comment>
+                        </field>
+                        <field id="priceblock_static_block" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Static Block</label>
+                            <config_path>payment/synchrony_digitalbuy/marketing_priceblock_static_block</config_path>
+                            <source_model>Synchrony\DigitalBuy\Model\Source\DynamicPricing\CmsBlocks</source_model>
+                            <depends>
+                                <field id="priceblock_strategy">1</field>
+                            </depends>
+                            <comment>Which static block to use (referenced by identifier)</comment>
+                        </field>
+                        <field id="priceblock_promo_type" translate="label comment" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Promotion Calculation Type</label>
+                            <config_path>payment/synchrony_digitalbuy/marketing_priceblock_promo_type</config_path>
+                            <source_model>Synchrony\DigitalBuy\Model\Source\DynamicPricing\PromotionCalculationTypes</source_model>
+                            <depends>
+                                <field id="priceblock_strategy">2</field>
+                            </depends>
+                            <comment>Type of the financing offered</comment>
+                        </field>
+                        <field id="priceblock_apr" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>APR %</label>
+                            <config_path>payment/synchrony_digitalbuy/marketing_priceblock_apr</config_path>
+                            <depends>
+                                <field id="priceblock_strategy">2</field>
+                            </depends>
+                            <validate>validate-number validate-zero-or-greater required-entry</validate>
+                        </field>
+                        <field id="priceblock_minimium_interest_charge" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Minimium Interest Charge</label>
+                            <config_path>payment/synchrony_digitalbuy/marketing_priceblock_minimium_interest_charge</config_path>
+                            <depends>
+                                <field id="priceblock_strategy">2</field>
+                            </depends>
+                            <validate>validate-number validate-zero-or-greater required-entry</validate>
+                        </field>
+                        <field id="priceblock_term_mo" translate="label comment" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Term Length</label>
+                            <config_path>payment/synchrony_digitalbuy/marketing_priceblock_term_mo</config_path>
+                            <validate>required-entry validate-digits validate-greater-than-zero</validate>
+                            <depends>
+                                <field id="priceblock_strategy">2</field>
+                            </depends>
+                            <comment>Months</comment>
+                        </field>
+                        <field id="priceblock_start_date" translate="label comment" type="date" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Start Date</label>
+                            <config_path>payment/synchrony_digitalbuy/marketing_priceblock_start_date</config_path>
+                            <frontend_model>Synchrony\DigitalBuy\Block\Adminhtml\Form\Field\Date</frontend_model>
+                            <validate>validate-date validate-date-range date-range-priceblock-from</validate>
+                            <comment>Display block from this date, optional</comment>
+                        </field>
+                        <field id="priceblock_end_date" translate="label comment" type="date" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>End Date</label>
+                            <config_path>payment/synchrony_digitalbuy/marketing_priceblock_end_date</config_path>
+                            <frontend_model>Synchrony\DigitalBuy\Block\Adminhtml\Form\Field\Date</frontend_model>
+                            <validate>validate-date validate-date-range date-range-priceblock-to</validate>
+                            <comment>Stop displaying block after this date, optional</comment>
+                        </field>
+                    </group>
+                </group>
+                <group id="advanced" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Advanced Settings</label>
+                    <field id="version" type="text" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Module Version</label>
+                        <frontend_model>Synchrony\DigitalBuy\Block\Adminhtml\System\Config\Form\Version</frontend_model>
+                    </field>
+                    <field id="api_timeout" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>API Request Timeout</label>
+                        <config_path>payment/synchrony_digitalbuy/api_timeout</config_path>
+                        <comment>in seconds</comment>
+                        <validate>validate-digits validate-greater-than-zero</validate>
+                    </field>
+                    <group id="digitalbuy_api_endpoints" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1">
+                        <label>Digital Buy API</label>
+                        <field id="production_authentication_api_endpoint" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                            <label>Production Authentication API Endpoint</label>
+                            <config_path>payment/synchrony_digitalbuy/production_authentication_api_endpoint</config_path>
+                            <validate>validate-url</validate>
+                        </field>
+                        <field id="sandbox_authentication_api_endpoint" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                            <label>Sandbox Authentication API Endpoint</label>
+                            <config_path>payment/synchrony_digitalbuy/sandbox_authentication_api_endpoint</config_path>
+                            <validate>validate-url</validate>
+                        </field>
+                        <field id="production_status_inquiry_api_endpoint" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                            <label>Production Status Inquiry API Endpoint</label>
+                            <config_path>payment/synchrony_digitalbuy/production_status_inquiry_api_endpoint</config_path>
+                            <validate>validate-url</validate>
+                        </field>
+                        <field id="sandbox_status_inquiry_api_endpoint" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                            <label>Sandbox Status Inquiry API Endpoint</label>
+                            <config_path>payment/synchrony_digitalbuy/sandbox_status_inquiry_api_endpoint</config_path>
+                            <validate>validate-url</validate>
+                        </field>
+                        <field id="production_capture_api_endpoint" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                            <label>Production Capture API Endpoint</label>
+                            <config_path>payment/synchrony_digitalbuy/production_capture_api_endpoint</config_path>
+                            <validate>validate-url</validate>
+                        </field>
+                        <field id="sandbox_capture_api_endpoint" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                            <label>Sandbox Capture API Endpoint</label>
+                            <config_path>payment/synchrony_digitalbuy/sandbox_capture_api_endpoint</config_path>
+                            <validate>validate-url</validate>
+                        </field>
+                    </group>
+                    <group id="buyservice_api_urls" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1">
+                        <label>Buy Service API</label>
+                        <field id="production_buyservice_api_endpoint" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                            <label>Production Buyservice API Endpoint</label>
+                            <config_path>payment/synchrony_digitalbuy/production_buyservice_api_endpoint</config_path>
+                            <validate>validate-url</validate>
+                        </field>
+                        <field id="sandbox_buyservice_api_endpoint" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                            <label>Sandbox Buyservice API Endpoint</label>
+                            <config_path>payment/synchrony_digitalbuy/sandbox_buyservice_api_endpoint</config_path>
+                            <validate>validate-url</validate>
+                        </field>
+                        <field id="buyservice_client" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Buy Service Client Value</label>
+                            <config_path>payment/synchrony_digitalbuy/buyservice_client</config_path>
+                            <comment>Client parameter value to be passed over to Synchrony Buy Service APIs, should be 2 characters long</comment>
+                        </field>
+                        <field id="buyservice_partnercode" translate="label comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Buy Service Partner Code Value</label>
+                            <config_path>payment/synchrony_digitalbuy/buyservice_partnercode</config_path>
+                            <comment>PartnerCode parameter value to be passed over to Synchrony Buy Service APIs</comment>
+                        </field>
+                    </group>
+                </group>
+            </group>
+        </section>
+    </system>
+</config>

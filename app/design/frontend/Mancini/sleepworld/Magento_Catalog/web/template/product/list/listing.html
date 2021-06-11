@@ -1,0 +1,63 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<div if="hasData()"
+     class="block" css="additionalClasses">
+    <div class="recent-block-title">
+        <h2 class="recent-title">Recently You Viewed</h2>  
+    </div>
+    <div class="recent-view">
+        <div class="product-items owl-carousel owl-theme ">
+            <div class="product-item" repeat="foreach: filteredRows, item: '$row'">
+                <div class="product-item-info">
+                    <fastForEach args="data: getRegion('general-area'), as: '$col'" >
+                        <render args="$col.getBody()"/>
+                    </fastForEach>
+
+                    <div class="product-item-details">
+                        <fastForEach args="data: getRegion('details-area'), as: '$col'" >
+                            <render args="$col.getBody()"/>
+                        </fastForEach>
+                        <div if="regionHasElements('description-area')"
+                             class="product-item-description">
+                            <fastForEach args="data: getRegion('description-area'), as: '$col'" >
+                                <render args="$col.getBody()"/>
+                            </fastForEach>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </div>
+    <div class="recent-view-mobile">
+        <div class="mobile-items owl-carousel owl-theme">
+            <div class="chunk-container"  repeat="foreach: filteredMobRows, item: '$chunks'">
+                <div class="product-item" repeat="foreach: $chunks, item: '$row'">
+                    <div class="product-item-info">
+                        <div class="qty-left" data-bind="text: getQty($row());"></div>
+                        <fastForEach args="data: getRegion('general-area'), as: '$col'" >
+                            <render args="$col.getBody()"/>
+                        </fastForEach>
+    
+                        <div class="product-item-details">
+                            <fastForEach args="data: getRegion('details-area'), as: '$col'" >
+                                <render args="$col.getBody()"/>
+                            </fastForEach>
+                            <div if="regionHasElements('description-area')"
+                                 class="product-item-description">
+                                <fastForEach args="data: getRegion('description-area'), as: '$col'" >
+                                    <render args="$col.getBody()"/>
+                                </fastForEach>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+
+            </div>            
+        </div>
+    </div>
+    <div class="clear" data-bind="afterRender: pdpRvowlInit"></div>
+</div>

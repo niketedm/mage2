@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\Url\SecurityInfo">
+        <arguments>
+            <argument name="secureUrlList" xsi:type="array">
+                <item name="synchrony_digitalbuy" xsi:type="string">/digitalbuy</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Checkout\Model\CompositeConfigProvider">
+        <arguments>
+            <argument name="configProviders" xsi:type="array">
+                <item name="synchrony_digitalbuy_checkout_config_provider_revolving" xsi:type="object">Synchrony\DigitalBuy\Model\CheckoutConfigProvider\RevolvingProvider</item>
+                <item name="synchrony_digitalbuy_checkout_config_provider_installment" xsi:type="object">Synchrony\DigitalBuy\Model\CheckoutConfigProvider\InstallmentProvider</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Synchrony\DigitalBuy\Model\CheckoutConfigProvider\RevolvingProvider">
+        <arguments>
+            <argument name="paymentMethod" xsi:type="object">SynchronyDigitalBuyFacade</argument>
+            <argument name="config" xsi:type="object">Synchrony\DigitalBuy\Gateway\Config\RevolvingConfig</argument>
+        </arguments>
+    </type>
+    <type name="Synchrony\DigitalBuy\Model\CheckoutConfigProvider\InstallmentProvider">
+        <arguments>
+            <argument name="paymentMethod" xsi:type="object">SynchronyDigitalBuyInstallmentFacade</argument>
+            <argument name="config" xsi:type="object">Synchrony\DigitalBuy\Gateway\Config\InstallmentConfig</argument>
+        </arguments>
+    </type>
+    <type name="Synchrony\DigitalBuy\ViewModel\Checkout\Revolving\Link">
+        <arguments>
+            <argument name="paymentMethod" xsi:type="object">SynchronyDigitalBuyFacade</argument>
+        </arguments>
+    </type>
+    <type name="Synchrony\DigitalBuy\ViewModel\Catalog\Product\PaymentMarketing">
+        <arguments>
+            <argument name="paymentMethod" xsi:type="object">SynchronyDigitalBuyFacade</argument>
+        </arguments>
+    </type>
+    <type name="Synchrony\DigitalBuy\ViewModel\Checkout\CartValidationMessage">
+        <arguments>
+            <argument name="paymentInstances" xsi:type="array">
+                <item name="synchrony_digitalbuy_revolving" xsi:type="object">SynchronyDigitalBuyFacade</item>
+                <item name="synchrony_digitalbuy_installment" xsi:type="object">SynchronyDigitalBuyInstallmentFacade</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Quote\Model\Quote\Item\ToOrderItem">
+        <plugin name="synchrony_digital_buy_add_product_to_order_item" type="Synchrony\DigitalBuy\Plugin\Quote\Model\Quote\Item\ToOrderItemPlugin" />
+    </type>
+    <type name="Synchrony\DigitalBuy\Controller\Revolving\Modal\Auth">
+        <arguments>
+            <argument name="paymentMethod" xsi:type="object">SynchronyDigitalBuyFacade</argument>
+            <argument name="commandPool" xsi:type="object">SynchronyDigitalBuyCommandPool</argument>
+        </arguments>
+    </type>
+    <type name="Synchrony\DigitalBuy\Controller\Revolving\Modal\Auth\Complete">
+        <arguments>
+            <argument name="commandPool" xsi:type="object">SynchronyDigitalBuyCommandPool</argument>
+        </arguments>
+    </type>
+    <type name="Synchrony\DigitalBuy\Controller\Revolving\Modal\Payment">
+        <arguments>
+            <argument name="commandPool" xsi:type="object">SynchronyDigitalBuyCommandPool</argument>
+        </arguments>
+    </type>
+    <type name="Synchrony\DigitalBuy\Controller\Revolving\Modal\Payment\Complete">
+        <arguments>
+            <argument name="commandPool" xsi:type="object">SynchronyDigitalBuyCommandPool</argument>
+        </arguments>
+    </type>
+    <type name="Synchrony\DigitalBuy\Controller\Installment\Modal\Payment">
+        <arguments>
+            <argument name="commandPool" xsi:type="object">SynchronyDigitalBuyInstallmentCommandPool</argument>
+        </arguments>
+    </type>
+    <type name="Synchrony\DigitalBuy\Controller\Installment\Modal\Payment\Complete">
+        <arguments>
+            <argument name="commandPool" xsi:type="object">SynchronyDigitalBuyInstallmentCommandPool</argument>
+        </arguments>
+    </type>
+    <virtualType name="SynchronyDigitalBuySessionStorage" type="Magento\Framework\Session\Storage">
+        <arguments>
+            <argument name="namespace" xsi:type="string">synchrony_digitalbuy</argument>
+        </arguments>
+    </virtualType>
+    <type name="Synchrony\DigitalBuy\Model\Session">
+        <arguments>
+            <argument name="storage" xsi:type="object">SynchronyDigitalBuySessionStorage</argument>
+        </arguments>
+    </type>
+    <type name="Synchrony\DigitalBuy\Controller\Revolving\Modal\Payment\Complete">
+        <arguments>
+            <argument name="logger" xsi:type="object">SynchronyDigitalBuyLogger</argument>
+        </arguments>
+    </type>
+    <type name="Synchrony\DigitalBuy\Controller\Installment\Modal\Payment\Complete">
+        <arguments>
+            <argument name="logger" xsi:type="object">SynchronyDigitalBuyInstallmentLogger</argument>
+        </arguments>
+    </type>
+    <type name="Synchrony\DigitalBuy\ViewModel\Modal\Revolving\Payment">
+        <arguments>
+            <argument name="synchronyConfig" xsi:type="object">Synchrony\DigitalBuy\Gateway\Config\RevolvingConfig</argument>
+        </arguments>
+    </type>
+    <type name="Synchrony\DigitalBuy\ViewModel\Modal\Installment\Payment">
+        <arguments>
+            <argument name="synchronyConfig" xsi:type="object">Synchrony\DigitalBuy\Gateway\Config\InstallmentConfig</argument>
+        </arguments>
+    </type>
+</config>

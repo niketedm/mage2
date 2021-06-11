@@ -1,0 +1,126 @@
+<?php
+/**
+ * @var $block \Mancini\Featurehighlights\Block\Featurehighlights
+ */
+?>
+<?php $_product = $block->getCurrentProduct(); ?>
+
+<div class="productdescriptionformattress" id="product-description">
+  <?php if ($block->getAttributeSetName() == "Mattress") : ?>
+    <div class="product-desc row">
+        <?php if($_product->getDescription()): ?>
+            <div class="col-12 col-sm-12 col-lg-6 product-desc-left">
+              <div class="mattressdescription">
+                <div class="product-desc-heading">
+                  <h2>
+                    <div class="productname">
+                      <?php echo __("About" . " " . $_product->getName()); ?>
+                    </div>
+                  </h2>
+                </div>
+                <div class="product attribute description">
+                  <?php echo __($_product->getDescription()); ?>
+                </div>
+              </div>
+            </div>
+        <?php endif; ?>
+
+
+      <div class="col-12 col-sm-12 col-lg-6">
+        <div class="mattressfeaturehighlights">
+          <?php $featureHighlights = $block->getFeaturehighlights(); ?>
+              <?php if($featureHighlights): ?>
+                  <span class="feature-title-popup">
+                    <h2 class="feature-title"><?php echo __("Feature highlights") ?></h2>
+                  </span>
+
+                  <!-- mattress feature desktop -->
+                  <div class="feature-desktop">
+                    <div class="featurehighlights">
+                      <?php foreach ($featureHighlights as $featureHighlight) : ?>
+                          <?php $attributeCode = $featureHighlight['attribute_code']; ?>
+                            <div class="fh-item">
+                              <div class="fh-img">
+                                <img src="<?php echo $block->getViewFileUrl('Mancini_Featurehighlights::images/' . $attributeCode . '.png'); ?>" />
+                              </div>
+                              <div class="fh-text">
+                                <?php echo __($featureHighlight['attribute_label']). '<br />'; ?>
+                              </div>
+                            </div>
+                      <?php endforeach; ?>
+                    </div>
+                  </div>
+
+                  <!-- mattress feature mobile -->
+                  <div class="feature-mobile">
+                    <div class="owl-carousel owl-theme owlFH" id="FHslider">
+                      <?php foreach ($featureHighlights as $featureHighlight) : ?>
+                            <?php $attributeCode = $featureHighlight['attribute_code']; ?>
+                            <div class="fh-item">
+                              <div class="item">
+                                <div class="fh-img">
+                                  <img src="<?php echo $block->getViewFileUrl('Mancini_Featurehighlights::images/' . $attributeCode . '.png'); ?>" />
+                                </div>
+                                <div class="fh-text">
+                                  <?php echo __($featureHighlight['attribute_label']) . '<br />'; ?>
+                                </div>
+                              </div>
+                            </div>                  
+                      <?php endforeach; ?>
+                    </div>
+                  </div>
+              <?php endif; ?>
+        </div>
+      </div>
+    </div>
+  <?php endif; ?>
+</div>
+
+<div class="productdescriptionforfurniture">
+  <?php if ($block->getAttributeSetName() == "Furniture") : ?>
+    <div class="product-desc row">
+      <?php if($_product->getDescription()): ?>
+          <div class="col-12 col-sm-12 col-md-6">
+            <div class="furnituredescription">
+              <div class="description title">
+                <?php $brandValue = $_product->getResource()->getAttribute('brand')->getFrontend()->getValue($_product); ?>
+                <?php echo __($brandValue . " " . $_product->getName()); ?>
+              </div>
+              <div class="description">
+                <?php echo __($_product->getDescription()); ?>
+              </div>
+            </div>
+          </div>
+      <?php endif; ?>
+
+      <div class="col-12 col-sm-12 col-md-6">
+        <div class="furnitureattributes">
+          <div>
+            <?php $width = $_product->getResource()->getAttribute('width')->getFrontend()->getValue($_product); ?>
+            <?php $depth = $_product->getResource()->getAttribute('depth')->getFrontend()->getValue($_product); ?>
+            <?php $height = $_product->getResource()->getAttribute('height')->getFrontend()->getValue($_product); ?>
+            <?php if ($width && $depth && $height) : ?>
+              <?php echo __("Dimensions ") ?>
+              <?php echo __("Width:") . $width . " - " . __("Depth:") . $depth . " - " . __("Height:") . $height; ?>
+            <?php endif; ?>
+          </div>
+          <div>
+            <?php $weight = $_product->getResource()->getAttribute('weight')->getFrontend()->getValue($_product); ?>
+            <?php if ($weight) : ?>
+              <?php echo __("Weight ") .  (round($weight, 2)); ?>
+              <?php echo $block->getWeightUnit(); ?>
+            <?php endif; ?>
+          </div>
+          <div>
+            <?php $material = $_product->getResource()->getAttribute('Furniture_Type')->getFrontend()->getValue($_product); ?>
+            <?php if ($material) : ?>
+              <?php echo __("Material ") . $material ?>
+            <?php endif; ?>
+          </div>
+        </div>
+      </div>
+    </div>
+  <?php endif; ?>
+</div>
+
+

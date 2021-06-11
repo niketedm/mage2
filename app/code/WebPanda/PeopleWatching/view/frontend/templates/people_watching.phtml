@@ -1,0 +1,22 @@
+<?php /** @var $block \WebPanda\PeopleWatching\Block\PeopleWatching */ ?>
+<div id="people-watching-notification" style="display: none;"></div>
+<script>
+    require(['jquery'], function($) {
+        $(document).ready(function() {
+            $.ajax({
+                'data': {'product_id': <?= $block->getProduct()->getId() ?>},
+                'method': 'post',
+                'url': '<?= $block->getRegisterViewUrl() ?>',
+                'dataType': 'json',
+                'showLoader': false,
+                'success': function (res) {
+                    if (res.show) {
+                        $('#people-watching-notification').html(res.message);
+                        $('#people-watching-notification').show();
+                    }
+                }
+            })
+        });
+    });
+</script>
+<style><?= $block->getStyle() ?></style>

@@ -1,0 +1,37 @@
+{
+    "name": "synchrony/digital-buy-magento2-module",
+    "description": "Digital Buy payment method by Synchrony Financial for Magento 2",
+    "require": {
+        "php": "7.0.2||7.0.4||~7.0.6||~7.1.0||~7.2.0||~7.3.0||~7.4.0",
+        "ext-dom": "*",
+        "ext-simplexml": "*",
+        "magento/framework": ">=101 <104",
+        "magento/module-config": ">=101 <102",
+        "magento/module-payment": ">=100.2 <101",
+        "magento/module-customer": ">=101 <104",
+        "magento/module-checkout": ">=100.2 <101",
+        "magento/module-sales": ">=101 <104",
+        "magento/module-backend": ">=100.2 <103",
+        "magento/module-quote": ">=101 <102",
+        "magento/module-ui": ">=101 <102",
+        "magento/module-paypal": ">=100.2 <102",
+        "magento/module-rule": ">=100.2 <101",
+        "magento/module-store": ">=100.2 <102",
+        "magento/module-catalog": ">=102 <105"
+    },
+    "type": "magento2-module",
+    "version": "3.0.6",
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Synchrony\\DigitalBuy\\": "",
+            "Synchrony\\Gateway\\": "lib/synchrony-gateway-sdk-php/"
+        }
+    }
+}

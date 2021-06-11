@@ -1,0 +1,50 @@
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_SpinToWin
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<!--@subject {{var subject}}  @-->
+<!--@vars {
+"var this.getUrl($store, 'customer/account/')":"Customer Account URL",
+"var customer.email":"Customer Email",
+"var customer.name":"Customer Name"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+<table>
+    <tr class="email-intro">
+        <td>
+            <p class="greeting">{{trans "Dear %name," name=$name}}</p>
+        </td>
+    </tr>
+    <tr class="email-summary">
+        <td>
+            <p>{{trans 'You have won "%segmentlabel" in Spin to Win.' segmentlabel=$segmentlabel}}</p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table class="">
+                <tr>
+                    <td style=" width: 200px; ">{{trans 'Coupon Code'}}</td>
+                    <td>{{var coupon|raw}}</td>
+                </tr>
+                <tr>
+                    <td style=" width: 200px; ">{{trans 'Heading'}}</td>
+                    <td>{{var heading|raw}}</td>
+                </tr>
+                <tr>
+                    <td style=" width: 200px; ">{{trans 'Description'}}</td>
+                    <td>{{var description|raw}}</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+{{template config_path="design/email/footer_template"}}

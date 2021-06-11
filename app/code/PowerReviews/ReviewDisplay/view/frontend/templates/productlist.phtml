@@ -1,0 +1,8 @@
+<?php
+$helper = $this->helper('PowerReviews\ReviewDisplay\Helper\Data');
+$style = $helper->getSearchResultsCategoryPageSnippet() ? '' : 'display: none;';
+?>
+
+<div class="pwr-category-snippets" style="<?= $style ?>">
+  <div id="snippet-<?= preg_replace("/[^a-zA-Z0-9-]/", "", $this->getProduct()->getData()['sku']); ?>"></div>
+</div>

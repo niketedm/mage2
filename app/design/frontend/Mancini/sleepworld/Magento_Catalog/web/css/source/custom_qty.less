@@ -1,0 +1,105 @@
+/** This CSS help us to display the buttons increase and decrease qty*/
+.box-tocart {
+    .field.qty {
+        .label {
+            font-size: 20px;
+            font-family: "laca-Medium";
+            font-weight: normal;
+            color: #545454;
+        }
+    }
+
+    div.control {
+        position: relative;
+        // EDITED before-> width: 92px !important;
+        width: 25rem !important;
+        .minus,
+        .plus {
+            &:hover {
+                button {
+                    background: #dfdfdf;
+                    color: #d93e0e;
+                }
+            }
+            button {
+                position: absolute;
+                top: 0px;
+                border-radius: 4px 0 0 4px;
+                border: 1px solid #dfdfdf;
+                background: #fff;
+                height: 40px;
+                line-height: 40px;
+                padding: 0px;
+                width: 28px;
+                text-align: center;
+                cursor: pointer;
+                box-shadow: none;
+            }
+            .qty-button {
+                color: #d93e0e !important;
+                background: white !important;
+                font-size: 1em;
+                width: 5.3rem !important;
+                height: 5.3rem;
+            }
+        }
+        .minus {
+            button {
+                left: 0px;
+            }
+        }
+        .plus {
+            button {
+                // right: 0px;
+                border-radius: 0px 4px 4px 0px;
+                // EDITED
+                width: 2em !important;
+            }
+        }
+        .input-text.qty {
+            border-radius: 0px !important;
+            width: 40.5% !important;
+            text-align: center !important;
+            display: inline-block !important;
+            z-index: 5 !important;
+            padding: 0px 3px !important;
+            border: 1px solid #dfdfdf !important;
+            height: 5.3rem !important;
+            margin-left: 5.3rem !important;
+        }
+    }
+}
+.details-qty.qty {
+    .item-qty.cart-item-qty {
+        margin-right: 0px;
+    }
+    .decreasing-qty {
+        vertical-align: top;
+        margin-right: -5px;
+        padding: 7px 10px;
+        box-shadow: none;
+    }
+    .increasing-qty {
+        vertical-align: top;
+        margin-left: -5px;
+        padding: 7px 8px;
+        box-shadow: none;
+    }
+}
+
+// Css wrt sleepworld vd
+//________________________________________________________
+.box-tocart {
+    .plus {
+        .qty-button {
+            margin-right: 1rem;
+        }
+    }
+}
+
+//Mobile
+@media only screen and (max-width: 426px) {
+    .box-tocart div.control {
+        width: 16rem !important;
+    }
+}

@@ -1,0 +1,10 @@
+<?php if ($this->getFaqs()): ?>
+	<?php foreach($this->getFaqs() as $faq):?>
+		<div>
+			<h3><?php echo $faq->getFaq() ?></h3>
+			<p><?php echo $block->getFilterProvider()->getBlockFilter()->filter($faq->getFaqContent()) ?></p>
+		</div>
+	<?php endforeach?>
+<?php else: ?>
+	No FAQs yet.
+<?php endif ?>

@@ -1,0 +1,89 @@
+<?php
+
+/**
+ * @var $block \Mancini\Productdetail\Block\Foundationproduct
+ */
+?>
+<div class="field configurable foundation" id="foundation">
+    <?php //if($block->getAttributeSetName()== "Mattress"):
+    ?>
+    <label class="label" for="attribute foundation">
+        <span><?php echo __("Foundation"); ?></span>
+
+        <?php $questionMark      =     'foundationpoup';
+        $sizeClass      =     'foundation';
+        $staticBlock    =     $this->getLayout()->createBlock('Magento\Cms\Block\Block')
+            ->setBlockId('foundation_question_popup')
+            ->toHtml(); ?>
+
+        <!-- POPUP for protection plan -->
+        <div id="foundation-modal">
+            <div class="modal-body-content">
+                <?php echo $staticBlock    = $this->getLayout()->createBlock('Magento\Cms\Block\Block')
+                    ->setBlockId('foundation_question_popup')
+                    ->toHtml(); ?>
+
+            </div>
+        </div>
+        <span id="foundationpopup" tabindex="0">
+            <img class="question-mark" src='<?php echo $block->getViewFileUrl('images/question-mark.png'); ?>'>
+        </span>
+        <!-- Popup ends -->
+
+
+
+        <span class="addprice"> + </span>
+
+
+    </label>
+    <div class="control">
+        <select name="foundationprd" data-selector="foundationprd" id="foundationprd" class="foundation" disabled="disabled">
+            <option value=""><?php echo __('No Foundation'); ?></option>
+        </select>
+        <span class="size-price" id="fndprice"> $0.00 </span>
+    </div>
+    <?php //endif; 
+    ?>
+</div>
+
+<script type="text/x-magento-init">
+    {
+		"#foundation": { 
+			"Mancini_Productdetail/js/foundationselect": {
+			} 
+		} 
+	}
+</script>
+
+<script type="text/javascript">
+    require([
+        "jquery",
+        "Magento_Ui/js/modal/modal"
+    ], function($, modal) {
+
+        var options = {
+            type: 'popup',
+            responsive: false,
+            title: 'Foundation Product',
+            innerScroll: true,
+            buttons: [{
+                text: $.mage.__('Ok'),
+                class: '',
+                click: function() {
+                    this.closeModal();
+                }
+            }]
+        };
+
+        var popup = modal(options, $('#foundation-modal'));
+        $("#foundationpopup").click(function() {
+            $('#foundation-modal').modal('openModal');
+        });
+
+        $("#foundationpopup").keypress(function(event) {
+            if (event.keyCode === 13) {
+                $('#foundation-modal').modal('openModal');
+            }
+        });
+    });
+</script>

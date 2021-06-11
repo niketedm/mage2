@@ -1,0 +1,107 @@
+<?php 
+    //To get the core session values for Zipcode
+    $helper         = $this->helper('Mancini\Storelocator\Helper\Data');
+    $helper->flushCache();
+    $nearestStore   = $helper->getCookie("custloc");
+    $stateZipcode   = $helper->getCookie("zipcode");
+    $nearestStoreId = $helper->getCookie("nearestid");
+
+    $stateDetails   = explode(" ",$stateZipcode);
+    $nolocClass     = 'no-loc';
+    $nearestStoreDetails=  $storeDetails   = array();
+    $outsideCA          =   0;
+    $distance           =   '';
+    $noDelivery         =   0;
+
+    /*====Code for setting the nearest store in cookie===*/
+    if(!is_null($nearestStore)){
+        if($nearestStore == 'NA'){
+            $state  =   $stateDetails[0];
+            if($state != 'CA'){
+                $nolocClass     = 'no-loc';
+                $outsideCA      =   1;
+            } elseif(is_null($nearestStoreId)) {
+                $noDelivery     =   1;
+                $nolocClass     = 'no-loc';
+                $outsideCA      =   0;
+            }
+        }
+        if($nearestStore != 'NA'){
+            //Get the nearest Store id
+            $distance       =   $helper->getCookie("distance");
+            $storeDetails   =   $helper->getStoreDetails($nearestStoreId);
+            if($storeDetails){
+                foreach($storeDetails as $storeDetail){
+                    $state =  $helper->getRegionDataByName($storeDetail['state']);
+                    $nolocClass     = '';
+                    $outsideCA      =   0;
+                    $noDelivery     =   0;
+                    $nearestStoreDetails['name']    =   $storeDetail['name'];
+                    $nearestStoreDetails['address'] =   $storeDetail['address'];
+                    $nearestStoreDetails['state']   =   $state;
+                    $nearestStoreDetails['phone']   =   $storeDetail['phone'];
+                    $nearestStoreDetails['zip']     =   $storeDetail['zip'];
+                    $nearestStoreDetails['url_key'] =   $storeDetail['url_key'];
+                    $nearestStoreDetails['city']    =   $storeDetail['city'];
+
+                }
+            } else {
+                $noDelivery     =   1;
+                $nolocClass     = 'no-loc';
+            }
+            
+        }
+    }
+    /*==== End of code for setting nearest store in cookie ===*/
+?>
+<div class="SL-container">
+    <?php if($outsideCA == 1): ?>
+    <div class="SL-tbb <?php echo $nolocClass;?>">
+        <span class="outside-ca"><?php echo __("We’ll have to develop shipping methods for outside of CA.");?> </span>
+    </div>
+    <?php elseif($noDelivery == 1): ?>
+    <div class="SL-tbb <?php echo $nolocClass;?>">
+        <div class="nodelivery">
+            <span class="inside-no-delivery">
+                <?php echo __("No locations found within 100 miles,");?>
+            </span> <br />
+            <span class="no-delivery-call">
+                <?php echo __("please call");?>
+                <span class="no-delivery-phone">
+                    <a tabindex="0" href="tel:+1<?php echo __(" 800-647-5337 ");?>">
+                        <?php echo __(" 800-647-5337 ");?>
+                    </a>
+                </span>
+                <?php echo __("for the store nearest you");?>
+            </span>
+        </div>
+    </div>
+    <?php else: ?>
+    <?php if($nearestStoreDetails):?>
+    <div class="SL-tbb <?php echo $nolocClass;?>">
+        <div class="SL-name">
+            <?php echo $nearestStoreDetails['name']; ?>
+        </div>
+        <div class="addr-dir">
+            <div class="addr-name">
+                <div class="SL-address">
+                    <?php 
+                                    echo $nearestStoreDetails['address'].', <br>' . $nearestStoreDetails['city'] . ', ' .$nearestStoreDetails['state'] . ', ' .$nearestStoreDetails['zip'] . '<br>Call: <a tabindex="0" href="tel:+1 ' . $nearestStoreDetails['phone'].'">'.$nearestStoreDetails['phone'].'</a>';
+                                ?>
+                </div>
+            </div>
+            <div class="dist-dir">
+                <div class="SL-distance">
+                    <?php echo round($distance,1).' Miles';?>
+                </div>
+                <div class="direc">
+                    <a href='<?php echo $nearestStoreDetails['url_key']; ?>'>
+                        <?php echo __('Directions'); ?>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php endif;?>
+    <?php endif; ?>
+</div>

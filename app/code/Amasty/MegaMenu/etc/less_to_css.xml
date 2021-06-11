@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_MegaMenu
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_Base:etc/less_to_css.xsd">
+    <module name="Amasty_MegaMenu">
+        <handle name="default" />
+        <cssOptions fileName="ammegamenu" path="css/source/mkcss" />
+        <ifconfig>carriers/ammegamenu/active</ifconfig>
+    </module>
+</config>

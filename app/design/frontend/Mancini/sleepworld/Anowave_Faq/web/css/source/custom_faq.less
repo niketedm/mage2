@@ -1,0 +1,101 @@
+.product-faq-container {
+    background: #f7f7f7;
+    padding-top: 4rem !important;
+    padding-bottom: 4rem !important;
+
+    .product-faq-title {
+        width: 90%;
+        margin: auto;
+        margin-bottom: 3%;
+
+        h2 {
+            font-size: 30px !important;
+        }
+    }
+
+    .faq-accordion-parent {
+        margin-bottom: 2rem;
+        border: 1px solid #d9d9d9;
+    }
+
+    .faq-accordion {
+        width: 90%;
+        margin: auto;
+        background: white;
+    }
+
+    .faq-accordion-title:after {
+        float: right;
+        color: #f1592a;
+        margin-left: 0px;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        font-size: 46px;
+        line-height: inherit;
+        content: "\e622";
+        font-family: "icons-blank-theme";
+        margin: 0 12px;
+        vertical-align: top;
+        display: inline-block;
+        font-weight: normal;
+        overflow: hidden;
+        text-align: center;
+        transform: translateY(-75px);
+    }
+
+    .faq-accordion-title.active:after {
+        float: right;
+        color: #f1592a;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        font-size: 46px;
+        line-height: inherit;
+        content: "\e621";
+        font-family: "icons-blank-theme";
+        margin: 0 12px;
+        vertical-align: top;
+        display: inline-block;
+        font-weight: normal;
+        overflow: hidden;
+        text-align: center;
+        transform: translateY(-75px);
+    }
+
+    .faq-accordion-content {
+        padding: 2rem;
+        padding-top: 0px;
+        width: 100%;
+    }
+
+    .faq-product-title {
+        font-size: 20px !important;
+        padding: 2rem;
+        padding-top: 3rem;
+        width: 100%;
+        min-height: 8rem;
+    }
+}
+
+//mobile
+
+@media only screen and (max-width: 426px) {
+    .product-faq-container {
+        padding-top: 3rem !important;
+        padding-bottom: 0rem !important;
+
+        .product-faq-title {
+
+            margin-bottom: 8%;
+
+            h2 {
+                font-size: 24px !important;
+            }
+        }
+
+        .faq-product-title {
+            font-size: 18px !important;
+            width: 83%;
+            padding: 22px 0 15px 10px;
+        }
+    }
+}

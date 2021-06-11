@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+    <css src="Mancini_Productbrand::css/source/custom_links.css" rel="stylesheet" type="text/css" />
+    
+    </head>
+    <body>
+        <referenceContainer name="content" >
+            <block class="Mancini\Productbrand\Block\Productbrand" name="Mancini.Productbrand.index" template="Mancini_Productbrand::brand.phtml" before="product.info.main">
+            </block>
+        </referenceContainer>
+    
+        <move element ="Mancini.Productbrand.index" destination="product.info.main" before="-" />
+        
+        <referenceContainer name="product.info.media"> 
+            <block class="Mancini\Productbrand\Block\Productbrand" name="product.info.custom_block" template="Mancini_Productbrand::viewdetails.phtml" after="product.info.media.image" />
+
+            <!-- <block class="Mancini\Productbrand\Block\Productbrand" name="product.name.mobile" template="Mancini_Productbrand::mobile_name.phtml" before="product.info.media.image" /> -->
+
+        </referenceContainer>                           
+    </body>
+</page>
+

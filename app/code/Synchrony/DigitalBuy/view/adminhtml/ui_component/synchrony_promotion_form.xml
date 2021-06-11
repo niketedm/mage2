@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">synchrony_promotion_form.synchrony_promotion_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Synchrony Promotion</item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="delete" class="Synchrony\DigitalBuy\Block\Adminhtml\Promotion\Edit\DeleteButton"/>
+            <button name="save_and_continue" class="Synchrony\DigitalBuy\Block\Adminhtml\Promotion\Edit\SaveAndContinueButton"/>
+            <button name="reset" class="Synchrony\DigitalBuy\Block\Adminhtml\Promotion\Edit\ResetButton"/>
+            <button name="save" class="Synchrony\DigitalBuy\Block\Adminhtml\Promotion\Edit\SaveButton"/>
+            <button name="back">
+                <url path="*/*/"/>
+                <class>back</class>
+                <label translate="true">Back</label>
+            </button>
+        </buttons>
+        <namespace>synchrony_promotion_form</namespace>
+        <dataScope>data</dataScope>
+        <deps>
+            <dep>synchrony_promotion_form.synchrony_promotion_form_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="synchrony_promotion_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <submitUrl path="synchrony_digitalbuy/promotion/save"/>
+        </settings>
+        <dataProvider class="Synchrony\DigitalBuy\Model\Rule\DataProvider" name="synchrony_promotion_form_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>rule_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <fieldset name="rule_information" sortOrder="10">
+        <settings>
+            <collapsible>true</collapsible>
+            <opened>true</opened>
+            <label translate="true">Rule Information</label>
+        </settings>
+        <field name="name" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">synchrony_promotion</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Rule Name</label>
+                <visible>true</visible>
+                <dataScope>name</dataScope>
+            </settings>
+        </field>
+        <field name="description" formElement="textarea">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">synchrony_promotion</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Description</label>
+                <visible>true</visible>
+                <dataScope>description</dataScope>
+            </settings>
+        </field>
+        <field name="code" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">synchrony_promotion</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Code</label>
+                <visible>true</visible>
+                <dataScope>code</dataScope>
+            </settings>
+        </field>
+        <field name="is_active" formElement="checkbox">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">synchrony_promotion</item>
+                    <item name="default" xsi:type="number">1</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>boolean</dataType>
+                <label translate="true">Active</label>
+            </settings>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <valueMap>
+                            <map name="false" xsi:type="number">0</map>
+                            <map name="true" xsi:type="number">1</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field>
+        <field name="website_ids" formElement="multiselect">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">synchrony_promotion</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>number</dataType>
+                <tooltip>
+                    <link>http://docs.magento.com/m2/ce/user_guide/configuration/scope.html</link>
+                    <description>What is this?</description>
+                </tooltip>
+                <label translate="true">Websites</label>
+                <dataScope>website_ids</dataScope>
+            </settings>
+        </field>
+        <field name="customer_group_ids" formElement="multiselect">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">synchrony_promotion</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>number</dataType>
+                <label translate="true">Customer Groups</label>
+                <dataScope>customer_group_ids</dataScope>
+            </settings>
+        </field>
+        <field name="from_date" formElement="date">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">synchrony_promotion</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="validate-date" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">From</label>
+                <visible>true</visible>
+                <dataScope>from_date</dataScope>
+            </settings>
+        </field>
+        <field name="to_date" formElement="date">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">synchrony_promotion</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="validate-date" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">To</label>
+                <visible>true</visible>
+                <dataScope>to_date</dataScope>
+            </settings>
+        </field>
+        <field name="sort_order" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">synchrony_promotion</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Priority</label>
+                <dataScope>sort_order</dataScope>
+            </settings>
+        </field>
+    </fieldset>
+    <fieldset name="conditions" sortOrder="20">
+        <settings>
+            <collapsible>true</collapsible>
+            <label translate="true">Conditions</label>
+        </settings>
+        <container name="conditions_apply_to" sortOrder="10">
+            <htmlContent name="html_content">
+                <block name="conditions_apply_to" class="Synchrony\DigitalBuy\Block\Adminhtml\Promotion\Edit\Tab\Conditions" />
+            </htmlContent>
+        </container>
+    </fieldset>
+    <fieldset name="actions" sortOrder="30">
+        <settings>
+            <collapsible>true</collapsible>
+            <label translate="true">Actions</label>
+        </settings>
+        <container name="actions_apply_to" sortOrder="40">
+            <htmlContent name="html_content">
+                <block name="actions_apply_to" class="Synchrony\DigitalBuy\Block\Adminhtml\Promotion\Edit\Tab\Actions"/>
+            </htmlContent>
+        </container>
+    </fieldset>
+</form>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<preference for="Magento\Checkout\Controller\Sidebar\UpdateItemQty" type="Mancini\MinicartQty\Controller\Sidebar\UpdateItemQty" />
+
+	<preference for="Magento\Checkout\Model\Sidebar" type="Mancini\MinicartQty\Model\Sidebar" />
+	<preference for="Magento\Checkout\Model\Cart" type="Mancini\MinicartQty\Model\Cart" />
+
+	<preference for="Magento\Checkout\Block\Cart\Sidebar" type="Mancini\MinicartQty\Block\Cart\Sidebar" />
+
+	<type name="Magento\Checkout\CustomerData\AbstractItem">
+		<plugin name="Mancini_MinicartQty_Plugin_Checkout_CustomerData_AbstractItem" type="Mancini\MinicartQty\Plugin\Checkout\CustomerData\AbstractItem" sortOrder="10" disabled="false"/>
+	</type>
+</config>

@@ -1,0 +1,132 @@
+<?php
+
+/** @var $block \Magento\ConfigurableProduct\Block\Product\View\Type\Configurable*/
+?>
+
+<?php
+$_product    = $block->getProduct();
+$_attributes = $block->decorateArray($block->getAllowAttributes());
+?>
+
+<?php if ($_product->isSaleable() && count($_attributes)) : ?>
+    <?php foreach ($_attributes as $_attribute) : ?>
+
+        <? $questionMark   =    ''; ?>
+        <!-- Code for size dropdown -->
+        <?php if (($_attribute->getProductAttribute()->getStoreLabel()  ==  'Size') || ($_attribute->getProductAttribute()->getStoreLabel()  ==  'Select Size')||($_attribute->getAttributeId() == 188)) : ?>
+            <input type="hidden" name="sizeid" id="sizeid" value="attribute<?php echo $_attribute->getAttributeId();?>"/>
+
+            <!-- POPUP for protection plan -->
+            <div id="size-modal">
+                <div id="modal-body-content" class="modal-body-content">
+                    <?php echo $staticBlock    = $this->getLayout()->createBlock('Magento\Cms\Block\Block')
+                        ->setBlockId('size_question_popup_pdp')
+                        ->toHtml(); ?>
+
+                </div>
+            </div>
+
+
+            <div class="field configurable required">
+                <!-- attribute label -->
+                <label class="label pdp-size" for="attribute<?= $block->escapeHtmlAttr($_attribute->getAttributeId()) ?>">
+                    <span><?= $block->escapeHtml($_attribute->getProductAttribute()->getStoreLabel()) ?></span>
+                    <!-- size attribute question popup image -->
+                    <span id="sizepopup" tabindex="0">
+                        <img class="question-mark" src='<?php echo $block->getViewFileUrl('images/question-mark.png'); ?>'>
+                    </span>
+                </label>
+
+                <div class="control">
+                    <select name="super_attribute[<?= $block->escapeHtmlAttr($_attribute->getAttributeId()) ?>]" data-selector="super_attribute[<?= $block->escapeHtmlAttr($_attribute->getAttributeId()) ?>]" data-validate="{required:true}" id="attribute<?= $block->escapeHtmlAttr($_attribute->getAttributeId()) ?>" class="super-attribute-select attribute-select">
+                        <option value=""><?= $block->escapeHtml(__('Choose an Option...')) ?></option>
+                    </select>
+                    <span class="size-price" id="sizeprice"> $0.00 </span>
+                </div>
+                <div class="sizeprice">
+                </div>
+            </div>
+
+
+            <script type="text/javascript">
+                require([
+                    "jquery",
+                    "Magento_Ui/js/modal/modal"
+                ], function($, modal) {
+
+                    var options = {
+                        type: 'popup',
+                        responsive: false,
+                        title: 'Size Popup',
+                        innerScroll: true,
+                        buttons: [{
+                            text: $.mage.__('Ok'),
+                            class: '',
+                            click: function() {
+                                this.closeModal();
+                            }
+                        }]
+                    };
+
+                    var popup = modal(options, $('#size-modal'));
+                    $("#sizepopup").click(function() {
+                        $('#size-modal').modal('openModal');
+                    });
+
+                    $("#sizepopup").keypress(function(event) {
+                        if (event.keyCode === 13) {
+                            $('#size-modal').modal('openModal');
+                        }
+                    });
+
+                    $(window).load(function() {
+                        setTimeout(function() {
+                            $("#modal-body-content").css("display", "block");
+                        }, 5000);
+                    });
+                });
+            </script>
+
+        <?php endif; ?>
+
+        <!-- Code for color dropdown -->
+        <?php if (($_attribute->getProductAttribute()->getStoreLabel()  ==  'Color') || ($_attribute->getAttributeId() == 93)) : ?>
+            <input type="hidden" name="colorid" id="colorid" value="attribute<?php echo $_attribute->getAttributeId();?>"/>
+            <?php 
+                $questionMark   =     'colorpoup';
+                $sizeClass      =     'color';           
+            ?>
+            <div class="field configurable required">
+                <!-- attribute label -->
+                <label class="label" for="attribute<?= $block->escapeHtmlAttr($_attribute->getAttributeId()) ?>">
+                    <span><?= $block->escapeHtml($_attribute->getProductAttribute()->getStoreLabel()) ?></span>
+                </label>
+
+                <div class="control">
+                    <select name="super_attribute[<?= $block->escapeHtmlAttr($_attribute->getAttributeId()) ?>]" data-selector="super_attribute[<?= $block->escapeHtmlAttr($_attribute->getAttributeId()) ?>]" data-validate="{required:true}" id="attribute<?= $block->escapeHtmlAttr($_attribute->getAttributeId()) ?>" class="super-attribute-select attribute-select">
+                        <option value=""><?= $block->escapeHtml(__('Choose an Option...')) ?></option>
+                    </select>
+                    <!--   <span class="size-price" id="sizeprice"> $0.00 </span> -->
+                </div>
+                <!-- <div class="sizeprice"> </div> -->
+            </div>
+
+        <?php endif; ?>
+    <?php endforeach; ?>
+    <script type="text/x-magento-init">
+        {
+            "#product_addtocart_form": {
+                "configurable": {
+                    "spConfig": <?= /* @noEscape */ $block->getJsonConfig() ?>,
+                    "gallerySwitchStrategy": "<?= $block->escapeJs($block->getVar(
+                                                    'gallery_switch_strategy',
+                                                    'Magento_ConfigurableProduct'
+                                                ) ?: 'replace'); ?>"
+                }
+            },
+            "*" : {
+                "Magento_ConfigurableProduct/js/catalog-add-to-cart": {}
+            }
+        }
+    </script>
+<?php endif; ?>

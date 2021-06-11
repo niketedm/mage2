@@ -1,0 +1,67 @@
+<?php
+/** @var \Synchrony\DigitalBuy\ViewModel\Modal\Payment\Installment $viewModel */
+$viewModel = $block->getData('viewModel');
+$address = $viewModel->getAddress();
+?>
+<div id="checkout" class="checkout-container">
+    <div id="checkout-loader" class="loading-mask">
+        <div class="loader">
+            <img src="<?php echo $block->escapeHtmlAttr($block->getViewFileUrl('images/loader-1.gif')) ?>"  alt="<?php echo $block->escapeHtmlAttr(__('Loading...')) ?>" style="position: absolute;">
+        </div>
+    </div>
+    <div id="dbuymodel1"/>
+    <form name="dbuyform1" id="dbuyform1">
+        <input type="hidden" name="processInd" value="3"/>
+        <input type="hidden" id="tokenId" name="tokenId" value="<?php echo $block->escapeHtmlAttr($viewModel->getDigitalBuyTokenFromRegistry()) ?>"/>
+        <input type="hidden" id="merchantID" name="merchantID" value="<?php echo $block->escapeHtmlAttr($viewModel->getDigitalBuyMerchantId()) ?>"/>
+        <input type="hidden" name="clientTransId" value="<?php echo $block->escapeHtmlAttr($viewModel->getDigitalBuyClientTransId()) ?>"/>
+        <input type="hidden" id="MID" name="MID" value="<?php echo $block->escapeHtmlAttr($viewModel->getDigitalBuyMerchantId()) ?>" />
+        <input type="hidden" id="pcgc" name="pcgc" value="<?php echo $block->escapeHtmlAttr($viewModel->getPcgc()) ?>"/>
+        <input type="hidden" name="custFirstName" value="<?php echo $block->escapeHtmlAttr($address->getFirstname()) ?>"/>
+        <input type="hidden" name="custLastName" value="<?php echo $block->escapeHtmlAttr($address->getLastname()) ?>"/>
+        <input type="hidden" name="custZipCode" value="<?php echo $block->escapeHtmlAttr($address->getPostcode()) ?>"/>
+        <?php  $street = $address->getStreet(); ?>
+        <input type="hidden" name="custAddress1" value="<?php echo $block->escapeHtmlAttr($street[0]) ?>"/>
+        <input type="hidden" name="custAddress2" value="<?php echo $block->escapeHtmlAttr(isset($street[1])?$street[1]:'') ?>"/>
+        <input type="hidden" name="custCity" value="<?php echo $block->escapeHtmlAttr($address->getCity()) ?>"/>
+        <input type="hidden" name="custState" value="<?php echo $block->escapeHtmlAttr($viewModel->getRegionCode($address->getRegionId())) ?>"/>
+        <input type="hidden" name="phoneNumber" value="<?php echo $block->escapeHtmlAttr($address->getTelephone()) ?>">
+        <input type="hidden" name="emailAddress" value="<?php echo $block->escapeHtmlAttr($viewModel->getCustomerEmail()) ?>">
+        <input type="hidden" id="transPromo1" name="transPromo1" value=""/>
+        <input type="hidden" id="transAmount1" name="transAmount1" value="<?php echo $block->escapeHtmlAttr($viewModel->getOrderGrandTotal()) ?>"/>
+    </form>
+    <form name="postbackform" id="postbackform" method="post" action="<?php echo $block->escapeHtmlAttr($block->getUrl('digitalbuy/installment/modal_payment_complete')) ?>">
+        <?php echo $block->getBlockHtml('formkey') ?>
+        <input type="hidden" name="tokenId" value="<?php echo $block->escapeHtmlAttr($viewModel->getDigitalBuyTokenFromRegistry()); ?>"/>
+        <input type="hidden" name="timestamp" value="<?php echo /* @noEscape */ $viewModel->getCurrentTimestamp(); ?>"/>
+    </form>
+
+    <script type="text/javascript">
+        var digitalBuyModalManagerInitialized = false;
+        var digitalBuyModalManagerInitCallback = function() {
+            if (digitalBuyModalManagerInitialized) {
+                return;
+            }
+            digitalBuyModalManagerInitialized = true;
+            DigitalBuyModalManager.init({
+                formId: "dbuyform1",
+                postbackFormId: "postbackform",
+                digitalBuyInitFunctionName: "callInstallmentProcess"
+            });
+        };
+
+        if (document.addEventListener) {
+            document.addEventListener("DOMContentLoaded", digitalBuyModalManagerInitCallback, false);
+            window.addEventListener("load", digitalBuyModalManagerInitCallback, false);
+        } else if (document.attachEvent) {
+            document.attachEvent("onreadystatechange", function () {
+                if (document.readyState === "complete") {
+                    digitalBuyModalManagerInitCallback();
+                }
+            });
+            window.attachEvent("onload", digitalBuyModalManagerInitCallback);
+        } else {
+            digitalBuyModalManagerInitCallback();
+        }
+    </script>
+</div>

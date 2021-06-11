@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Magento_Catalog::css/source/bootstrap.min.css"/>
+        <css src="Magento_Catalog::css/source/custom_plp.css"/>
+        <!-- <css src="Magento_Catalog::css/source/_extend.css"/> -->
+
+    </head>
+    <body>
+
+        <referenceBlock name="head.additional">
+            <block class="Magento\Catalog\Block\Category\View" name="opengraph.category" template="Magento_Catalog::catalog/view/opengraph/category.phtml"></block>
+        </referenceBlock>
+        
+        <referenceContainer name="content">
+          <referenceBlock name="product_list_toolbar">
+          <action method="setDefaultDirection">
+              <argument name="dir" xsi:type="string">desc</argument>
+            </action>
+          </referenceBlock>
+        </referenceContainer>
+
+        <referenceBlock name="page.main.title" remove="true"/>
+
+        <referenceContainer name="content">
+            <block class="Magento\Framework\View\Element\Template" name="catalog.button" template="Magento_Catalog::button.phtml" after ="-"/>
+
+        </referenceContainer>
+        <referenceBlock name="category.product.type.details.renderers.configurable">
+
+            <referenceBlock name="category.product.addto.compare" remove="true"/>
+
+            <action method="setTemplate">
+
+                <argument name="template" xsi:type="string">Magento_Catalog::product/listing/renderer.phtml</argument>
+
+            </action>
+
+        </referenceBlock>
+
+
+    </body>
+</page>

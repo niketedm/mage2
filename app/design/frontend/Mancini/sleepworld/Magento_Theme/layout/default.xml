@@ -1,0 +1,155 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<head>
+		<link src="https://use.fontawesome.com/releases/v5.7.1/css/all.css" src_type="url" type="text/css" rel="stylesheet"/>
+	</head>
+	<body>
+		<referenceBlock name="logo">
+			<arguments>
+				<argument name="logo_file" xsi:type="string">images/logo.png</argument>
+				<argument name="logo_width" xsi:type="number">261</argument>
+				<argument name="logo_height" xsi:type="number">25</argument>
+				<argument name="logo_top" xsi:type="number">23</argument>
+				<argument name="logo_left" xsi:type="number">30</argument>
+				<argument name="logo_alt" xsi:type="string">Logo name</argument>
+			</arguments>
+		</referenceBlock>
+
+
+		<!-- Remove blocks -->
+		<referenceBlock name="report.bugs" remove="true" />
+		<referenceBlock name="register-link" remove="true" />
+		<referenceBlock name="header" remove="true" />
+		<referenceBlock name="advanced-search-link" remove="true" />
+		<referenceBlock name="authorization-link-login" remove="true" />
+		<referenceBlock name="header-wrapper" remove="true" />
+		<!-- <referenceBlock name="header.panel.wrapper" remove="true" /> -->
+
+
+		<!-- Move Elements -->
+		<!-- <move element="top.links" destination="header-wrapper" after="minicart" /> -->
+		<!-- <move element="header.links" destination="page-header" before="-" /> -->
+		<!-- <move element="customer-welcome" destination="page-header" before="-" /> -->
+		<!-- <move element="minicart" destination="header.panel" before="-"/> -->
+		<!-- <move element="top.search" destination="header.panel" before="top-links"/> -->
+		<!-- <move element="top.search" destination="header.wrapper" after="logo"/> -->
+		<!-- <move element="logo" destination="header.panel"/> -->
+		<!-- <move element="store_switcher" destination="header-panel" before="top.links" /> -->
+		<!-- <move element="custom-link" destination="header.panel" after="logo" /> -->
+		<!-- <move element="custom.block" destination="header.panel" after="logo" /> -->
+		<move element="logo" destination="header.panel" before="-"/>
+		<!-- <move element="logo" destination="header.panel" before="-"/> -->
+		<move element="header.links" destination="header.panel" after="navigation.sections"/>
+        <!-- 22 may -->
+		<move element="top.search" destination="header.panel"  />
+        <!-- 22 may -->
+		<!-- <move element="catalog.topnav" destination="header.panel" after="logo" /> -->
+		<!-- <move element="catalog.topnav" destination="header.panel"/> -->
+		<move element="copyright" destination="before.body.end"/>
+		<move element="navigation.sections" destination="header-wrapper" after="logo" />
+		<!-- <move element="mancinilocation.block" destination="page-wrapper" before="breadcrumbs"/> -->
+		
+
+		
+		
+		<!-- <move element="top.line" destination="catalog.topnav" after="-" /> -->
+
+		<!-- <move element="minicart" destination="top.line" after="-"/> -->
+		<!-- <move element="catalog.topnav" destination="sidebar.main" /> -->
+
+		<!-- <referenceBlock name="page.wrapper" remove="true"/> -->
+		
+
+
+		 <referenceContainer name="page.top">
+       		<container name="storelocator" htmlTag="div" htmlClass="storelocator-class" before="breadcrumbs"/>
+    	</referenceContainer> 
+
+    	<move element="minicart" destination="storelocator" after="-"/>
+		<move element="mancinilocation.block" destination="storelocator" before="minicart"/>
+		<move element="wishlist" destination="storelocator" before="minicart" /> 
+		<move element="wish-list-link-custom" destination="storelocator" before="-"/>
+
+
+
+		<!-- <move element="wishlist" destination="storelocator" after="-" />
+		<move element="wish-list-link-custom" destination="storelocator"/>
+		<move element="mancinilocation.block" destination="storelocator" before="wishlist"/>
+		<move element="minicart" destination="storelocator" before="wishlist"/> -->
+
+
+
+
+		<!-- location added in header -->
+		<!-- <referenceBlock name="header.links">
+			<block class="Magento\Framework\view\Element\Html\Link" name="custom-link" before="-">
+				<arguments>
+					<argument name="label" xsi:type="string" translate="true"> Custom Link </argument>
+					<argument name="path" xsi:type="string" translate="true"> customlink </argument>   
+					<argument name="class" xsi:type="string">custom-link</argument>  
+					        
+
+				</arguments>
+			</block>
+		</referenceBlock> -->
+
+		<!-- <referenceBlock name="logo">
+			<block class="Magento\Framework\View\Element\Template" name="custom.block" template="Magento_Theme::location_link.phtml" after="-" />
+		</referenceBlock> -->
+
+
+		
+		<!-- Drop down customer links -->
+		<referenceBlock name="header.links">
+			<block class="Magento\Customer\Block\Account\Customer" name="customer" template="account/customer.phtml" before="-"/>
+		</referenceBlock>
+		<move element="top.links" destination="customer" after="-"/>
+
+		<referenceContainer name="header.panel">
+			<block class="Magento\Framework\View\Element\Html\Links" name="header.links">
+				<arguments>
+					<argument name="css_class" xsi:type="string">header links</argument>
+				</arguments>
+			</block>
+		</referenceContainer>
+		<!-- <move element="custom-link" destination="panel-header" after="logo" /> -->
+
+		<referenceBlock name="footer_links" remove="true"/>
+		<referenceBlock name="form.subscribe" remove="true" />
+		<!-- <referenceBlock name="copyright" remove="true"/> -->
+
+		<!-- add custom div under menu bar -->
+		<!-- <referenceContainer name="catalog.topnav">
+            <block class="Magento\Framework\View\Element\Template" name="top.line" template="Magento_Theme::topline.phtml" />
+        </referenceContainer> -->
+
+
+		<!-- <referenceBlock name="header.panel">
+			<block class="Magento\Framework\View\Element\Template" name="mancinilocation.block" template="Magento_Theme::location_link.phtml" after="-" />
+		</referenceBlock>	 -->
+
+		
+		<referenceBlock name="header.panel">
+
+			<block class="Magento\Framework\View\Element\Template" name="mancinilocation.block" template="Magento_Theme::location_link.phtml" after="-">
+
+			  <!-- Wishlist sidebar section -->
+			<block class="Magento\Wishlist\Block\Customer\Sidebar" name="wishlist_sidebar_c" as="wishlistc" template="Magento_Wishlist::sidebar.phtml"/> 
+
+			</block>
+
+		</referenceBlock>
+
+		<!-- footer -->
+		<!-- <referenceContainer name="footer">
+            <referenceBlock name="footer_links" remove="true" />
+            <block class="Magento\Framework\View\Element\Template" name="footer.navigation.menu" before="-" template="Magento_Theme::footer_menu.phtml"/>
+        </referenceContainer> -->
+
+		<!-- header -->
+		<!-- <referenceContainer name="main.content" htmlTag="main" htmlClass="page-main-full-width" /> -->
+
+
+
+
+	</body>
+</page>

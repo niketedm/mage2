@@ -1,0 +1,114 @@
+/* progress bar */
+.spin-progress-bar-container {
+    margin-top: 20px;
+}
+.spin-progress-bar {
+    background-color: #e1e1e1;
+    height: 10px;
+    width: 250px;
+    background-size: 15px 15px;
+    background-image: linear-gradient(135deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+}
+.spin-progress-bar-progress {
+    display: inline-block;
+    vertical-align: top;
+    height: 100%;
+    transition: width .4s ease-in-out;
+    background-color: #23a900;
+    background-size: 15px 15px;
+    background-image: linear-gradient(135deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+    animation: animate-stripes 3s linear infinite;
+}
+.spin-progress-bar-message {
+    font-size: 12px;
+    opacity: .8;
+}
+@keyframes animate-stripes {
+    0% {background-position: 0 0;} 100% {background-position: 60px 0;}
+}
+/* progress bar end*/
+
+.spin-coupon-container{
+    margin: 20px 0;
+}
+.spin-coupon-code-container{
+    font-size: 0px;
+    width: 360px;
+}
+.spin-coupon-code {
+    display: inline-block;
+    padding: 10px 15px;
+    box-sizing: border-box;
+    font-weight: 700;
+    border-radius: 3px 0px 0px 3px;
+    border: 2px dashed;
+    border-right: none;
+    width: 240px;
+    letter-spacing: 5px;
+    font-size: 18px;
+    height: 50px;
+    line-height: 26px;
+    vertical-align: middle;
+    opacity: 1!important;
+    cursor: text!important;
+}
+.spin-coupon-code-copy {
+    width: 120px;
+    text-align: center;
+    display: inline-block;
+    padding: 10px;
+    box-sizing: border-box;
+    font-weight: 700;
+    border-radius: 0px 3px 3px 0px;
+    font-size: 16px;
+    border: 2px solid;
+    height: 50px;
+    line-height: 26px;
+    vertical-align: middle;
+    cursor: copy;
+}
+.spin-coupon-code-label {
+    margin-bottom: 5px;
+    display: inline-block;
+    font-size: 14px;
+}
+
+/* spin wheel css */
+#spin-wheel-wheel-container {
+    box-sizing: border-box;
+    padding-left: 40px;
+    padding-right: 40px;
+    width: 530px;
+    vertical-align: middle;
+    height: 550px;
+    position: relative;
+}
+#spin-wheel-canvas {
+    margin-top: 50px;
+}
+.spin-wheel-popup.modal-popup .modal-content {
+    padding: 0!important;
+}
+#spin-pin-image {
+    position: absolute;
+    top: calc(50% - 21.5px);
+    height: 43px;
+    width: 62px;
+    right: 10px;
+}
+.spin-wheel-popup .modal-header, .spin-wheel-popup .modal-footer {
+    display: none;
+}
+
+@media only screen and (max-width: 450px) {  
+    .spin-coupon-code {
+        padding: 7px;
+        font-size: 14px;
+        width: 160px;
+        letter-spacing: 2px;
+    }
+    .spin-coupon-code-copy {
+        width: 100px;
+        padding: 10px 0px;
+    }
+}

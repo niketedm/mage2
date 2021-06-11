@@ -1,0 +1,96 @@
+<?php
+/**
+ * Copyright © Magefan (support@magefan.com). All rights reserved.
+ * Please visit Magefan.com for license details (https://magefan.com/end-user-license-agreement).
+ *
+ * Glory to Ukraine! Glory to the heroes!
+ */
+?>
+<?php
+/**
+ * Blog related posts template
+ *
+ * @var $block \Magefan\Blog\Block\Post\View\RelatedPosts
+ */
+?>
+
+<?php if ($block->displayPosts()) { ?>
+<?php $postCollection = $block->getPostCollection(); ?>
+<?php if (count($postCollection)) { ?>
+<div class="block related similar-blogs">
+    <div class="blur">&nbsp;</div>
+    <!-- <div class="block-title title"> -->
+    <h1 class="text-center" id="block-relatedposts-heading" role="heading" aria-level="2">
+        <!-- <?= $block->escapeHtml(__('Related Posts')) ?> -->
+        <?= $block->escapeHtml(__('Similar Posts')) ?>
+    </h1>
+    <!-- </div> -->
+    <div class="row">
+        <div class="card-deck">
+            <?php foreach ($postCollection as $post) { ?>
+            <?php
+                $_postUrl = $block->escapeUrl($post->getPostUrl());
+                $_postName = $block->escapeHtml($post->getTitle());
+            ?>
+            <div class="card">
+                <?php $featuredImage = $post->getFeaturedListImage() ?: $post->getFeaturedImage(); ?>
+                <?php if ($featuredImage) { ?>
+                <?php
+                                $featuredImgAlt = $post->getData('featured_list_img_alt') ?: $post->getData('featured_img_alt');
+                            if (!$featuredImgAlt) {
+                                $featuredImgAlt = $_postName;
+                            }
+                            ?>
+                <div class="post-ftimg-hld">
+                    <a href="<?= /*@noEscape*/ $_postUrl ?>" title="<?= /*@noEscape*/ $_postName ?>">
+                        <img src="<?= $block->escapeHtml($featuredImage) ?>"
+                            alt="<?= $block->escapeHtml($featuredImgAlt) ?>" />
+                    </a>
+                </div>
+                <?php } ?>
+                <div class="card-body">
+                    <a class="post-item-link card-text" title="<?= $block->escapeHtml($post->getTitle()) ?>"
+                        href="<?= /*@noEscape*/ $_postUrl ?>">
+                        <?= /*@noEscape*/ $_postName ?>
+                    </a>
+                    <div class="date-posted card-text"><?= $block->escapeHtml($post->getPublishDate()) ?></div>
+                    <!-- <p class="card-text">Rise And Shine: 5 Secrets To Waking Up Happy</p> -->
+                    <!-- <p class="card-text"><small class="text-muted"></small> November 20,2020</p> -->
+                </div>
+            </div>
+            <?php } ?>
+        </div>
+    </div>
+
+    <!-- <ol class="block-content">
+        <?php foreach ($postCollection as $post) { ?>
+        <li class="item">
+            <?php
+                $_postUrl = $block->escapeUrl($post->getPostUrl());
+                $_postName = $block->escapeHtml($post->getTitle());
+            ?>
+            <?php $featuredImage = $post->getFeaturedListImage() ?: $post->getFeaturedImage(); ?>
+            <?php if ($featuredImage) { ?>
+            <?php
+                                $featuredImgAlt = $post->getData('featured_list_img_alt') ?: $post->getData('featured_img_alt');
+                            if (!$featuredImgAlt) {
+                                $featuredImgAlt = $_postName;
+                            }
+                            ?>
+            <div class="post-ftimg-hld">
+                <a href="<?= /*@noEscape*/ $_postUrl ?>" title="<?= /*@noEscape*/ $_postName ?>">
+                    <img src="<?= $block->escapeHtml($featuredImage) ?>"
+                        alt="<?= $block->escapeHtml($featuredImgAlt) ?>" />
+                </a>
+            </div>
+            <?php } ?>
+            <a class="post-item-link" title="<?= $block->escapeHtml($post->getTitle()) ?>"
+                href="<?= /*@noEscape*/ $_postUrl ?>">
+                <?= /*@noEscape*/ $_postName ?>
+            </a>
+        </li>
+        <?php } ?>
+    </ol> -->
+</div>
+<?php } ?>
+<?php } ?>

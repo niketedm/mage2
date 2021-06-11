@@ -1,0 +1,9 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+
+    <router id="standard">
+        <route id="storeloc" frontName="storeloc">
+        <module name="Mancini_Storelocator" before="Amasty_Storelocator" />
+        </route>
+    </router>
+
+</config>

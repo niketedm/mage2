@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <gdpr>
+            <general>
+                <is_enabled>1</is_enabled>
+            </general>
+
+            <personal_data>
+                <provide>
+                    <is_enabled>1</is_enabled>
+                </provide>
+                <anonymize>
+                    <is_enabled>1</is_enabled>
+                </anonymize>
+                <remove>
+                    <is_enabled>1</is_enabled>
+                 </remove>
+                <auto_remove>
+                    <is_enabled>0</is_enabled>
+                    <days>365</days>
+                </auto_remove>
+                <protection>
+                    <is_enabled>0</is_enabled>
+                    <days>365</days>
+                </protection>
+            </personal_data>
+        </gdpr>
+    </default>
+</config>

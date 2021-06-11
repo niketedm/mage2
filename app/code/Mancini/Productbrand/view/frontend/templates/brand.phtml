@@ -1,0 +1,26 @@
+<?php
+
+/**
+ * @var $block \Mancini\Productbrand\Block\Productbrand
+ */
+?>
+
+<?php $_product = $block->getCurrentProduct(); ?>
+<div class="brand-desktop">
+    <div class="brandname">
+        <!-- Product Brand -->
+        <?php if ($block->getAttributeSetName() == "Mattress") : ?>
+            <?php $_attributeValue = $_product->getResource()->getAttribute('brand')->getFrontend()->getValue($_product); ?>
+            <?php if ($_attributeValue) : ?>
+                <h2 class="page-title-brand"> <?php echo __($_attributeValue); ?> </h2>
+            <?php endif; ?>
+        <?php endif; ?>
+
+        <?php if ($block->getAttributeSetName() == "Furniture") : ?>
+            <?php $_attributeValue = $_product->getResource()->getAttribute('furniture_brand')->getFrontend()->getValue($_product); ?>
+            <?php if ($_attributeValue) : ?>
+                <h2 class="page-title-brand"> <?php echo __($_attributeValue); ?> </h2>
+            <?php endif; ?>
+        <?php endif; ?>
+    </div>
+</div>

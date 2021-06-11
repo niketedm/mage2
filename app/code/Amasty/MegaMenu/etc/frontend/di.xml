@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_MegaMenu
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Smartwave\Porto\Block\Template">
+        <plugin name="Amasty_MegaMenu::menu-for-porto" type="Amasty\MegaMenu\Plugin\Porto\Block\Template" />
+    </type>
+
+    <type name="Magento\Review\Block\Product\View\ListView">
+        <plugin name="Amasty_MegaMenu::fix-magento-bug-with-varnish-cache-on-product-view-page" type="Amasty\MegaMenu\Plugin\MagentoReviews\Block\Product\View\ListView" />
+    </type>
+
+    <type name="Magento\Store\Model\BaseUrlChecker">
+        <plugin name="Amasty_MegaMenu::fix-magento-bug-with-varnish-cache-and-ssl" type="Amasty\MegaMenu\Plugin\MagentoStore\Model\BaseUrlChecker" />
+    </type>
+
+    <type name="Magento\Store\Model\PathConfig">
+        <plugin name="Amasty_MegaMenu::fix-magento-bug-with-varnish-cache-and-ssl-suppress-redirect" type="Amasty\MegaMenu\Plugin\MagentoStore\Model\PathConfig" />
+    </type>
+
+    <type name="Magento\Theme\Block\Html\Topmenu">
+        <plugin name="Amasty_MegaMenu::varnishHighLight" type="Amasty\MegaMenu\Plugin\Theme\Block\Html\TopmenuPlugin" />
+    </type>
+
+    <type name="Magento\PageCache\Controller\Block\Esi">
+        <plugin name="Amasty_MegaMenu::varnishHighLight" type="Amasty\MegaMenu\Plugin\PageCache\Controller\Block\EsiPlugin" />
+    </type>
+</config>

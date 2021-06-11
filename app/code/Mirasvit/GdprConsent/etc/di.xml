@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <!--DATA-->
+    <preference for="Mirasvit\GdprConsent\Api\Data\ConsentInterface" type="Mirasvit\GdprConsent\Model\Consent"/>
+
+    <!--Entity Manager-->
+    <type name="Magento\Framework\EntityManager\MetadataPool">
+        <arguments>
+            <argument name="metadata" xsi:type="array">
+                <item name="Mirasvit\GdprConsent\Api\Data\ConsentInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="const">Mirasvit\GdprConsent\Api\Data\ConsentInterface::TABLE_NAME</item>
+                    <item name="identifierField" xsi:type="const">Mirasvit\GdprConsent\Api\Data\ConsentInterface::ID</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\HydratorPool">
+        <arguments>
+            <argument name="hydrators" xsi:type="array">
+                <item name="Mirasvit\GdprConsent\Api\Data\ConsentInterface" xsi:type="string">Magento\Framework\EntityManager\AbstractModelHydrator</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!--UI-->
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="gdpr_consent_listing_data_source" xsi:type="string">Mirasvit\GdprConsent\Model\ResourceModel\Consent\Grid</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

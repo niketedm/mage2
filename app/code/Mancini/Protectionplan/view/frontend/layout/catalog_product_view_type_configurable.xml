@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<head>
+          <css src="Mancini_Productdetail::css/select2.min.css" />
+     </head> 
+	<body>
+		<referenceBlock name="product.info.options.wrapper">
+			<block after="foundationprd" class="Mancini\Protectionplan\Block\Protectionplan" name="protectionplan" as="protectionplan" template="Mancini_Protectionplan::protectionplan.phtml"/>
+		</referenceBlock>
+	</body>
+</page>

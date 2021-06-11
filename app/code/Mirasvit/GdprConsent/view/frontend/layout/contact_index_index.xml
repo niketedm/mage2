@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="form.additional.info">
+            <block class="Mirasvit\GdprConsent\Block\ConsentCheckbox" name="mst_gdpr_consent_checkbox">
+                <action method="setType">
+                    <argument name="string" xsi:type="string">contact_us</argument>
+                </action>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

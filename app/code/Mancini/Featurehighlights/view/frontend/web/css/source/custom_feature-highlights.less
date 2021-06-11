@@ -1,0 +1,95 @@
+.feature-title-popup{
+    display: flex;
+}
+
+.feature-title{
+    font-size: 20px !important;
+    font-family: 'laca-Medium' !important;
+}
+
+//desktop
+@media only screen and (min-width: 769px) {
+
+    .product-desc-left{
+        padding-left: 0px !important;
+    }
+
+    .productdescriptionformattress{
+        margin-top: 40px;
+    }
+
+    .feature-mobile {
+        display: none;
+    }
+
+    .feature-desktop {
+        .featurehighlights {
+            display   : flex;
+            flex-wrap : wrap;
+            height    : 36rem;
+            width     : 103%;
+            margin-top: 15px;
+
+            .fh-item {
+                width       : 135px;
+                height      : 151px;
+                margin-right: 2rem;
+            }
+
+            .fh-img {
+                width      : 75px;
+                margin-left: 29px;
+                height     : 75px;
+            }
+
+            .fh-text {
+                text-align : center;
+                font-size  : 16px;
+                font-family: 'laca-Medium' !important;
+                color      : #002B4B;
+            }
+        }
+    }
+}
+
+//mobile
+@media only screen and (max-width: 769px) {
+
+    .productdescriptionformattress{
+        margin-top: 20px;
+    }
+
+    .mattressfeaturehighlights {
+        margin: 10px 0 30px;
+    }
+
+    .feature-desktop {
+        display: none;
+    }
+
+    .feature-mobile {
+        margin-top : 2rem;
+        font-family: 'laca-Medium' !important;
+
+        .item {
+            width     : 155px;
+            height    : 165px;
+            text-align: center;
+        }
+
+        .fh-img {
+            height     : 88px;
+            width      : 88px;
+            margin-left: 27%;
+        }
+
+        .fh-text {
+            font-size: 16px;
+            color    : #002B4B;
+        }
+
+        .owl-dots {
+            margin: 0px !important;
+        }
+    }
+}

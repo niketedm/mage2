@@ -1,0 +1,38 @@
+<?php
+  $helper = $this->helper('PowerReviews\ReviewDisplay\Helper\Data');
+  $prHelper = $this->helper('Mancini\PowerReviews\Helper\Data');
+
+?>
+<?php //$result = $prHelper->getProductQandA('Config');?>
+<?php //print_r($result);?>
+<div id="pr-question-answer">
+    <div id="accordion" class="QA-accordion-parent" data-mage-init='{
+          "accordion":{
+              "active": [1, 2],
+              "collapsible": true,
+              "openedState": "active",
+              "multipleCollapsible": true,
+              "animate":{"duration":"400"}
+          }}'>
+        <div data-role="collapsible" class="QA-collapsible">
+            <div data-role="trigger" class="QA-trigger">
+                <h4><?php echo __("Question & Answers");?></h4>
+            </div>
+        </div>
+        <div data-role="content">
+            <div id="pr-questiondisplay" style="<?= $helper->getProductPageQuestionDisplay() ? '' : '' ?>">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<?php if (!$helper->getProductPageQuestionDisplay()): ?>
+<script>
+(function() {
+    var qaTab = document.getElementById("tab-label-questiondisplay.tab");
+    qaTab.setAttribute("style", "display:block;");
+})();
+</script>
+<?php endif; ?>

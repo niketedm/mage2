@@ -1,0 +1,85 @@
+<?php
+
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var $block \Magento\Catalog\Block\Product\View */
+?>
+<?php $_product = $block->getProduct(); ?>
+<?php 
+    $blockQuntity = $this->getLayout()->createBlock('\Mancini\InventoryLeft\Block\Quantityavailable')->getQuantityDetail();
+?>
+<?php if($blockQuntity >= 1) : ?>
+    <?php $buttonTitle = __('Add to Cart'); ?>
+    <?php if ($_product->isSaleable()) : ?>
+        <div class="box-tocart">
+            <div class="fieldset">
+                <?php if ($block->shouldRenderQuantity()) : ?>
+                    <div class="field qty">
+                        <label class="label" for="qty"><span><?= $block->escapeHtml(__('Quantity')) ?></span></label>
+                        <div class="control">
+                            <span class="minus"><button type="button" class="qty-button" title="<?= __('Reduce the quantity'); ?>"><img class="minus-addto" src='<?php echo $block->getViewFileUrl('images/minus.svg'); ?>' alt="minus"></button></span>
+                            <input type="number" name="qty" id="qty" maxlength="12" value="<?php /* @escapeNotVerified */ echo $block->getProductDefaultQty() * 1 ?>" title="<?php /* @escapeNotVerified */ echo __('Qty') ?>" class="input-text qty" data-validate="<?php echo $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>" />
+                            <span class="plus"><button type="button" class="qty-button" title="<?= __('Increase the quantity'); ?>"><img class="plus-addto" src='<?php echo $block->getViewFileUrl('images/plus.svg'); ?>' alt="plus"></button></span>
+                            <script type="text/javascript">
+                                // This is the javascript codes help us to increase and decrease qty
+                                require(['jquery'], function($) {
+                                    $('.box-tocart .minus').on('click', function() {
+                                        var qty = parseInt($('#qty').val());
+                                        qty = qty - 1;
+                                        $('#qty').val(qty).trigger('change');
+                                    });
+                                    $('.box-tocart .plus').on('click', function() {
+                                        var qty = parseInt($('#qty').val());
+                                        qty = qty + 1;
+                                        $('#qty').val(qty).trigger('change');
+                                    });
+                                    $('#qty').on('change', function() {
+                                        var qty = parseInt($(this).val());
+                                        if (qty > 100) {
+                                            $(this).val('100');
+                                        } else if (qty < 1) {
+                                            $(this).val('1');
+                                        }
+                                    });
+                                });
+                            </script>
+                        </div>
+                    </div>
+                    <div class="temp-total">
+                        <span class="totaltext"><?php echo __("Total"); ?> </span>
+                        <?php echo $this->getLayout()
+                                ->createBlock('Magento\Catalog\Pricing\Render',
+                                    "product.price.final",
+                                        [
+                                            'data' => [
+                                                'price_render' => 'product.price.render.default',
+                                                'price_type_code' => 'final_price',
+                                                'zone' => 'item_view'
+                                            ]
+                                    ]
+                                    )
+                                ->toHtml();
+                        ?>
+                    </div>
+                <?php endif; ?>
+                <div class="actions">
+                    <button type="submit" title="<?= $block->escapeHtmlAttr($buttonTitle) ?>" class="action primary tocart" id="product-addtocart-button" disabled>
+                        <span><?= $block->escapeHtml($buttonTitle) ?></span>
+                    </button>
+                    <?= $block->getChildHtml('', true) ?>
+                </div>
+            </div>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>
+
+<script type="text/x-magento-init">
+    {
+        "#product_addtocart_form": {
+            "Magento_Catalog/js/validate-product": {}
+        }
+    }
+</script>

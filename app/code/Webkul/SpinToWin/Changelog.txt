@@ -1,0 +1,36 @@
+Legend
+
++ Features
+- Bugs
+
+-------------------------------- Version 4.0.0 --------------------------------------
+    + Compatible with Magento 2.4.*
+
+-------------------------------- Version 3.0.1 --------------------------------------
+    + Version upgraded
+
+-------------------------------- Version 3.0.0 --------------------------------------
+    + Version upgraded
+    + Priority feature added.
+    + Coupon expiry feature added
+
+-------------------------------- Version 2.1.0 --------------------------------------
+    + Compatible with Magento 2.3.x
+
+-------------------------------- Version 2.0.0 --------------------------------------
+    + Admin can create and manage the Spin Campaigns
+    + Admin can schedule the Spin Campaigns
+    + Admin can manage all the attributes of the spin wheel
+    + Admin can preview while editing welcome form
+    + Admin can preview while editing result form
+    + Admin can preview while editing the spin wheel
+    + Admin can preview while editing spin and coupon button
+    + Admin can manage the segments in the spin wheel
+    + Admin can manage the positions of the segments
+    + Admin can manage the Gravity or Probability of each segment
+    + Admin can manage the limit of each segment
+    + Admin can manage the layout
+    + Admin can manage the trigger option of the spin wheel
+    + Admin can visualize the report and statistics of each spin campaigns
+    + Customer can choose to spin the wheel by filling the data
+    + Customer will get coupon data in e-mail and as well as on the frontend

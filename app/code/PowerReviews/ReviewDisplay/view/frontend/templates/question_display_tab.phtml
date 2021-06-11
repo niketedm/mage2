@@ -1,0 +1,16 @@
+<?php
+  $helper = $this->helper('PowerReviews\ReviewDisplay\Helper\Data');
+?>
+
+<!-- start_review_render_code_widget_section -->
+<div id="pr-questiondisplay" style="<?= $helper->getProductPageQuestionDisplay() ? '' : 'display: none;' ?>"></div>
+<!-- end_review_render_code_widget_section -->
+
+<?php if (!$helper->getProductPageQuestionDisplay()): ?>
+  <script>
+    (function() {
+      var qaTab = document.getElementById("tab-label-questiondisplay.tab");
+      qaTab.setAttribute("style", "display:none;");
+    })();
+  </script>
+<?php endif; ?>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="gdpr" showInDefault="1" type="text" translate="label">
+            <label>GDPR</label>
+            <tab>mirasvit</tab>
+            <resource>Mirasvit_Gdpr::system</resource>
+
+            <group id="general" showInDefault="1" sortOrder="5">
+                <label>General Settings</label>
+
+                <field id="is_enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+
+            <group id="personal_data" showInDefault="1" sortOrder="5">
+                <label>Personal Data Protection</label>
+
+                <group id="provide" showInDefault="1" sortOrder="10">
+                    <label>Download Personal Data</label>
+                    <comment>If enabled, the extension provides CSV file by request with following personal information (customer account information, orders information, addresses information)
+                    </comment>
+
+                    <field id="is_enabled" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Enabled</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                </group>
+
+                <group id="anonymize" showInDefault="1" sortOrder="20">
+                    <label>Anonymize Personal Data</label>
+                    <comment>If enabled, the extension automatically (by request) anonymize user personal data (first name, last name, address, date of births) in all related sources (customer
+                        account,
+                        orders, addresses, etc). The customer can't request anonymization, while he has not completed/closed orders.
+                    </comment>
+
+                    <field id="is_enabled" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Enabled</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                </group>
+
+                <group id="remove" showInDefault="1" sortOrder="30">
+                    <label>Remove Personal Data and Account</label>
+                    <comment>If enabled, the extension anonymized customer-related information and then remove the customer account. The store administrator must confirm removal request.</comment>
+
+                    <field id="is_enabled" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Enabled</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                </group>
+
+                <group id="auto_remove" showInDefault="1" sortOrder="30">
+                    <label>Automatic removing data for abandoned accounts</label>
+
+                    <field id="is_enabled" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <comment>Danger: Once this option will be enabled, the extension will automatically create removal requests for abandoned accounts. Please backup the database before enabling
+                            the option.
+                        </comment>
+                        <label>Enabled</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+
+                    <field id="days" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <comment>Customer considered as abandoned if both conditions are meet: last order date and account creating date more than the specified number of days.</comment>
+                        <label>Number of Days</label>
+                        <validate>validate-number</validate>
+                    </field>
+                </group>
+
+                <group id="protection" showInDefault="1" sortOrder="40">
+                    <label>Order information protection</label>
+                    <comment>If enabled, the extension won't remove/anonymize data for selected entities within the specified period of time.</comment>
+
+                    <field id="is_enabled" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Enabled</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+
+                    <field id="days" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Number of Days</label>
+                        <validate>validate-number</validate>
+                    </field>
+
+                    <field id="entities" translate="label" type="multiselect" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Document Type</label>
+                        <source_model>Mirasvit\Gdpr\Model\Config\Source\EntitySource</source_model>
+                    </field>
+                </group>
+
+            </group>
+        </section>
+    </system>
+</config>

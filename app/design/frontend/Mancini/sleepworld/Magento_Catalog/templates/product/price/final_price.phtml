@@ -1,0 +1,61 @@
+<?php
+
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+
+<?php
+/** @var \Magento\Catalog\Pricing\Render\FinalPriceBox $block */
+
+/** ex: \Magento\Catalog\Pricing\Price\RegularPrice */
+/** @var \Magento\Framework\Pricing\Price\PriceInterface $priceModel */
+$priceModel = $block->getPriceType('regular_price');
+
+/** ex: \Magento\Catalog\Pricing\Price\FinalPrice */
+/** @var \Magento\Framework\Pricing\Price\PriceInterface $finalPriceModel */
+$finalPriceModel = $block->getPriceType('final_price');
+$idSuffix = $block->getIdSuffix() ? $block->getIdSuffix() : '';
+$schema = ($block->getZone() == 'item_view') ? true : false;
+?>
+
+<span class="special-price">
+    <span class="sr-only">Discount Price</span>
+    <?= /* @noEscape */ $block->renderAmount($finalPriceModel->getAmount(), [
+        //'display_label'     => __('Special Price'),
+        'price_id'          => $block->getPriceId('product-price-' . $idSuffix),
+        'price_type'        => 'finalPrice',
+        'include_container' => true,
+        'schema' => $schema
+    ]); ?>
+</span>
+<span class="old-price" style="font-size:14px;color:#545454;">
+    <span class="sr-only">Old Price</span>
+    <?= /* @noEscape */ $block->renderAmount($priceModel->getAmount(), [
+        //'display_label'     => __('Regular Price'),
+        'price_id'          => $block->getPriceId('old-price-' . $idSuffix),
+        'price_type'        => 'oldPrice',
+        'include_container' => true,
+        'skip_adjustments'  => true
+    ]); ?>
+</span>
+<?php $discountVal = (100 - round(($finalPriceModel->getAmount()->getValue() * 100 / $priceModel->getAmount()->getValue()), 2)) ?>
+<?php if ($discountVal > 0) : ?>
+    <span class="discount-percent"> (upto <?php echo 100 - round(($finalPriceModel->getAmount()->getValue() * 100 / $priceModel->getAmount()->getValue()), 2); ?>% off)</span>
+<?php endif; ?>
+
+
+
+
+<?php if ($block->showMinimalPrice()) : ?>
+    <?php if ($block->getUseLinkForAsLowAs()) : ?>
+        <a href="<?= $block->escapeUrl($block->getSaleableItem()->getProductUrl()) ?>" class="minimal-price-link">
+            <?= /* @noEscape */ $block->renderAmountMinimal() ?>
+        </a>
+    <?php else : ?>
+        <span class="minimal-price-link">
+            <?= /* @noEscape */ $block->renderAmountMinimal() ?>
+        </span>
+    <?php endif ?>
+<?php endif; ?>

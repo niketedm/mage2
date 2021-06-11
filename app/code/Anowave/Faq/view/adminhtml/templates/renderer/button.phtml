@@ -1,0 +1,68 @@
+<script>
+
+	if ("undefined" !== typeof jQuery)
+	{
+		var P = (function($)
+		{
+			return {
+				save: function(element)
+				{
+					var target = $(element).data('target');
+
+					/**
+					 * Send AJAX request
+					 */
+					$.post(target, 
+					{
+						faq_product_id: $('[id=faq_product_id]').val(),
+						faq: 			$('[id=faq]').val(),
+						faq_content: 	$('[id=faq_content]').val()
+						
+					}, function(response)
+					{
+						if (response.success)
+						{
+							P.grid().reload();
+
+							return true;
+						}
+						else 
+						{
+							alert(response.error);
+						}
+					}, 'json');
+					
+					return false;
+				},
+				apply: function()
+				{
+					return this;
+				},
+				grid: function()
+				{
+					return faq_gridJsObject;
+				}
+			}
+		})(jQuery).apply();
+	}
+	else 
+	{
+		var P = (function()
+		{
+			return {
+				save: function()
+				{
+					alert('<?php echo __('Requires jQuery 1.11+') ?>');
+					
+					return false;
+				}
+			}
+		})();
+	}
+</script>
+<div class="admin__field field field-faq  with-note">
+	<label class="label admin__field-label"></label>
+	<div class="admin__field-control control">
+		<button type="button" onclick="return P.save(this)" data-target="<?php echo $this->getTarget() ?>" class="action-default scalable action-secondary">Create</button>
+	</div>
+</div>

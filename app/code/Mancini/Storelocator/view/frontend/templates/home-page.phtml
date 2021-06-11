@@ -1,0 +1,63 @@
+<?php 
+    //To get the core session values for Zipcode
+    $helper             = $this->helper('Mancini\Storelocator\Helper\Data');
+    $helper->flushCache();
+    $nearestStore       = $helper->getCookie("custloc");
+  
+    $storeHourDetails   =  array();
+    $storeHours     =   $helper->getStoreHours();
+    foreach($storeHours as $storeHour){
+        $storeHourDetails   =   $storeHour['options'];
+    }
+    
+    /*====Code for setting the nearest store in cookie===*/
+    if(!is_null($nearestStore)){
+        if($nearestStore != 'NA' ){
+            //Get the nearest Store id
+            $nearestStoreId =   $helper->getCookie("nearestid");
+            $storeDetails   =   $helper->getStoreDetails($nearestStoreId);
+        }
+    }
+    /*==== End of code for setting nearest store in cookie ===*/
+?>
+
+<div class="homepage-store" id="homepage-store">
+    <?php if($nearestStore == 'NA' || $nearestStore == ''): ?>
+            <span class="na-store-footer"><?php echo __('NA'); ?></span>
+            <div class="nearest-loc-footer" style="display:none;">
+                <span class="contact-location" ></span>
+                <br><br>
+                    <img src="<?php echo $helper->getMediaPath().'/wysiwyg/ways_to_buy/time.png';?>" /> 
+                <br>
+                <span class="store-hours">
+                    <?php foreach ($storeHourDetails as $storeHourDetail):?>
+                        <?php echo $storeHourDetail['label'].'<br>';?>
+                    <?php endforeach; ?>
+                </span>    
+                <br>                   
+                <img src="<?php echo $helper->getMediaPath().'/wysiwyg/ways_to_buy/phone_icon.png';?>" /> 
+                <br>
+                <span class="store-phone"></span>
+            </div>
+    <?php else:?>
+        <?php foreach($storeDetails as $storeDetail):?>
+            <span class="contact-location">
+                    <?php echo $storeDetail['address'].",". $helper->getRegionDataByName($storeDetail['state'])." ".$storeDetail['zip'];?>
+            </span>
+            <br><br>
+            <img src="<?php echo $helper->getMediaPath().'/wysiwyg/ways_to_buy/time.png';?>" /> 
+            <br>
+            <span class="store-hours">
+                <?php foreach ($storeHourDetails as $storeHourDetail):?>
+                    <?php echo $storeHourDetail['label'].'<br>';?>
+                <?php endforeach; ?>
+            </span>    
+            <br>                  
+            <img src="<?php echo $helper->getMediaPath().'/wysiwyg/ways_to_buy/phone_icon.png';?>" /> 
+            <br>
+            <span class="store-phone">
+            <a tabindex="0" href="tel:+1 <?php echo $storeDetail['phone'];?>"><?php echo "+1 ".$storeDetail['phone'];?></a>
+            </span>
+            <?php endforeach;?>
+    <?php endif; ?>
+</div>

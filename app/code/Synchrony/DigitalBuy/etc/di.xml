@@ -1,0 +1,580 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- Gateway config -->
+
+    <!-- Common elements -->
+    <!-- Get Token Command -->
+    <type name="Synchrony\DigitalBuy\Gateway\Command\GetTokenCommand">
+        <arguments>
+            <argument name="requestBuilder" xsi:type="object">SynchronyDigitalBuyAuthenticationRequest</argument>
+            <argument name="transferFactory" xsi:type="object">Synchrony\DigitalBuy\Gateway\Http\TransferFactory</argument>
+            <argument name="validator" xsi:type="object">Synchrony\DigitalBuy\Gateway\Validator\AuthenticationResponseValidator</argument>
+        </arguments>
+    </type>
+    <virtualType name="SynchronyDigitalBuyAuthenticationRequest" type="Magento\Payment\Gateway\Request\BuilderComposite">
+        <arguments>
+            <argument name="builders" xsi:type="array">
+                <item name="store_id" xsi:type="string">Synchrony\DigitalBuy\Gateway\Request\StoreIdDataBuilder</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Authorize Command -->
+    <type name="Synchrony\DigitalBuy\Gateway\Command\AuthorizeCommand">
+        <arguments>
+            <argument name="requestBuilder" xsi:type="object">SynchronyStatusInquiryRequest</argument>
+            <argument name="transferFactory" xsi:type="object">Synchrony\DigitalBuy\Gateway\Http\TransferFactory</argument>
+        </arguments>
+    </type>
+    <virtualType name="SynchronyStatusInquiryRequest" type="Magento\Payment\Gateway\Request\BuilderComposite">
+        <arguments>
+            <argument name="builders" xsi:type="array">
+                <item name="store_id" xsi:type="string">Synchrony\DigitalBuy\Gateway\Request\StoreIdDataBuilder</item>
+                <item name="token" xsi:type="string">Synchrony\DigitalBuy\Gateway\Request\DigitalBuyTokenDataBuilder</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Adjust Command -->
+    <type name="Synchrony\DigitalBuy\Gateway\Command\AdjustCommand">
+        <arguments>
+            <argument name="transferFactory" xsi:type="object">Synchrony\DigitalBuy\Gateway\Http\TransferFactory</argument>
+            <argument name="handler" xsi:type="object">AdjustHandler</argument>
+            <argument name="validator" xsi:type="object">Synchrony\DigitalBuy\Gateway\Validator\AdjustResponseValidator</argument>
+        </arguments>
+    </type>
+    <virtualType name="AdjustHandler" type="Magento\Payment\Gateway\Response\HandlerChain">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="transaction_handler" xsi:type="string">Synchrony\DigitalBuy\Gateway\Response\AdjustResponseHandler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <!-- End Common elements -->
+
+    <!-- Revolving -->
+    <!-- Method Facade -->
+    <virtualType name="SynchronyDigitalBuyFacade" type="Synchrony\DigitalBuy\Model\Payment\Method\Adapter\Revolving">
+        <arguments>
+            <argument name="code" xsi:type="const">Synchrony\DigitalBuy\Gateway\Config\RevolvingConfig::METHOD_CODE</argument>
+            <argument name="formBlockType" xsi:type="string">Synchrony\DigitalBuy\Block\Form</argument>
+            <argument name="infoBlockType" xsi:type="string">Synchrony\DigitalBuy\Block\Info</argument>
+            <argument name="valueHandlerPool" xsi:type="object">SynchronyDigitalBuyValueHandlerPool</argument>
+            <argument name="validatorPool" xsi:type="object">SynchronyDigitalBuyValidatorPool</argument>
+            <argument name="commandPool" xsi:type="object">SynchronyDigitalBuyCommandPool</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Validators -->
+    <virtualType name="SynchronyDigitalBuyCountryValidator" type="Magento\Payment\Gateway\Validator\CountryValidator">
+        <arguments>
+            <argument name="config" xsi:type="object">Synchrony\DigitalBuy\Gateway\Config\RevolvingConfig</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="SynchronyDigitalBuyCurrencyValidator" type="Synchrony\DigitalBuy\Gateway\Validator\CurrencyValidator">
+        <arguments>
+            <argument name="config" xsi:type="object">Synchrony\DigitalBuy\Gateway\Config\RevolvingConfig</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="SynchronyDigitalBuyCartValidator" type="Synchrony\DigitalBuy\Gateway\Validator\CartValidator">
+        <arguments>
+            <argument name="config" xsi:type="object">Synchrony\DigitalBuy\Gateway\Config\RevolvingConfig</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="SynchronyDigitalBuyValidatorPool" type="Magento\Payment\Gateway\Validator\ValidatorPool">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="global" xsi:type="string">Synchrony\DigitalBuy\Gateway\Validator\GlobalValidator</item>
+                <item name="country" xsi:type="string">SynchronyDigitalBuyCountryValidator</item>
+                <item name="currency" xsi:type="string">SynchronyDigitalBuyCurrencyValidator</item>
+                <item name="cart" xsi:type="string">SynchronyDigitalBuyCartValidator</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Value Handlers -->
+    <virtualType name="SynchronyDigitalBuyValueHandlerPool" type="Magento\Payment\Gateway\Config\ValueHandlerPool">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="default" xsi:type="string">SynchronyDigitalBuyConfigValueHandler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="SynchronyDigitalBuyConfigValueHandler" type="Magento\Payment\Gateway\Config\ConfigValueHandler">
+        <arguments>
+            <argument name="configInterface" xsi:type="object">Synchrony\DigitalBuy\Gateway\Config\RevolvingConfig</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Loggers -->
+    <virtualType name="SynchronyDigitalBuyFileLogger" type="Magento\Framework\Logger\Handler\Base">
+        <arguments>
+            <argument name="fileName" xsi:type="string">/var/log/synchrony_digitalbuy.log</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="SynchronyDigitalBuyLogger" type="Synchrony\DigitalBuy\Model\Logger">
+        <arguments>
+            <argument name="config" xsi:type="object">Synchrony\DigitalBuy\Gateway\Config\RevolvingConfig</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="debug" xsi:type="object">SynchronyDigitalBuyFileLogger</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="SynchronyDigitalBuyPaymentInfoLogger" type="Magento\Payment\Model\Method\Logger">
+        <arguments>
+            <argument name="logger" xsi:type="object">SynchronyDigitalBuyLogger</argument>
+            <argument name="config" xsi:type="object">Synchrony\DigitalBuy\Gateway\Config\RevolvingConfig</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Command Pool -->
+    <virtualType name="SynchronyDigitalBuyCommandPool" type="Magento\Payment\Gateway\Command\CommandPool">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="get_token" xsi:type="string">SynchronyDigitalBuyGetTokenCommand</item>
+                <item name="authenticate" xsi:type="string">Synchrony\DigitalBuy\Gateway\Command\Revolving\AuthenticateCommand</item>
+                <item name="initialize" xsi:type="string">Synchrony\DigitalBuy\Gateway\Command\Revolving\InitializeCommand</item>
+                <item name="capture_stratergy" xsi:type="string">Synchrony\DigitalBuy\Gateway\Command\CaptureStratergyCommand</item>
+                <item name="authorize" xsi:type="string">SynchronyDigitalBuyAuthorizeCommand</item>
+                <item name="capture" xsi:type="string">Synchrony\DigitalBuy\Gateway\Command\Revolving\CaptureCommand</item>
+                <item name="force_purchase" xsi:type="string">Synchrony\DigitalBuy\Gateway\Command\Revolving\ForcePurchaseCommand</item>
+                <item name="refund" xsi:type="string">SynchronyDigitalBuyRefundCommand</item>
+                <item name="adjust" xsi:type="string">SynchronyDigitalBuyAdjustCommand</item>
+                <item name="cancel_payment" xsi:type="string">Synchrony\DigitalBuy\Gateway\Command\CancelPaymentCommand</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Get Token Command -->
+    <virtualType name="SynchronyDigitalBuyGetTokenCommand" type="Synchrony\DigitalBuy\Gateway\Command\GetTokenCommand">
+        <arguments>
+            <argument name="client" xsi:type="object">SynchronyDigitalBuyAuthenticationClient</argument>
+            <argument name="logger" xsi:type="object">SynchronyDigitalBuyLogger</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="SynchronyDigitalBuyAuthenticationClient" type="Synchrony\DigitalBuy\Gateway\Http\Client\Authentication">
+        <arguments>
+            <argument name="logger" xsi:type="object">SynchronyDigitalBuyLogger</argument>
+            <argument name="paymentDataLogger" xsi:type="object">SynchronyDigitalBuyPaymentInfoLogger</argument>
+            <argument name="apiClientFactory" xsi:type="object">SynchronyDigitalBuyApiClientFactory</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Authenticate Command -->
+    <type name="Synchrony\DigitalBuy\Gateway\Command\Revolving\AuthenticateCommand">
+        <arguments>
+            <argument name="requestBuilder" xsi:type="object">SynchronyStatusInquiryRequest</argument>
+            <argument name="transferFactory" xsi:type="object">Synchrony\DigitalBuy\Gateway\Http\TransferFactory</argument>
+            <argument name="client" xsi:type="object">SynchronyDigitalBuyStatusInquiryClient</argument>
+            <argument name="validator" xsi:type="object">Synchrony\DigitalBuy\Gateway\Validator\AuthenticationStatusInquiryResponseValidator</argument>
+            <argument name="handler" xsi:type="object">Synchrony\DigitalBuy\Gateway\Response\AuthenticationStatusInquiryHandler</argument>
+            <argument name="logger" xsi:type="object">SynchronyDigitalBuyLogger</argument>
+        </arguments>
+    </type>
+    <type name="Synchrony\DigitalBuy\Gateway\Response\AuthenticationStatusInquiryHandler">
+        <arguments>
+            <argument name="logger" xsi:type="object">SynchronyDigitalBuyLogger</argument>
+        </arguments>
+    </type>
+    <virtualType name="SynchronyDigitalBuyStatusInquiryClient" type="Synchrony\DigitalBuy\Gateway\Http\Client\StatusInquiry">
+        <arguments>
+            <argument name="logger" xsi:type="object">SynchronyDigitalBuyLogger</argument>
+            <argument name="paymentDataLogger" xsi:type="object">SynchronyDigitalBuyPaymentInfoLogger</argument>
+            <argument name="apiClientFactory" xsi:type="object">SynchronyDigitalBuyApiClientFactory</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Initialize Command -->
+    <type name="Synchrony\DigitalBuy\Gateway\Command\Revolving\InitializeCommand">
+        <arguments>
+            <argument name="logger" xsi:type="object">SynchronyDigitalBuyLogger</argument>
+        </arguments>
+    </type>
+    <type name="Synchrony\DigitalBuy\Gateway\Command\Revolving\Initialize\RuleValidator">
+        <arguments>
+            <argument name="logger" xsi:type="object">SynchronyDigitalBuyLogger</argument>
+        </arguments>
+    </type>
+
+    <!-- Authorize Command -->
+    <virtualType name="SynchronyDigitalBuyAuthorizeCommand" type="Synchrony\DigitalBuy\Gateway\Command\AuthorizeCommand">
+        <arguments>
+            <argument name="client" xsi:type="object">SynchronyDigitalBuyStatusInquiryClient</argument>
+            <argument name="logger" xsi:type="object">SynchronyDigitalBuyLogger</argument>
+            <argument name="validator" xsi:type="object">Synchrony\DigitalBuy\Gateway\Validator\Revolving\AuthorizationResponseValidator</argument>
+            <argument name="handler" xsi:type="object">SynchronyAuthorizationHandler</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="SynchronyAuthorizationHandler" type="Magento\Payment\Gateway\Response\HandlerChain">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="payment_details" xsi:type="string">Synchrony\DigitalBuy\Gateway\Response\AuthorizationResponseHandler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Capture Command -->
+    <type name="Synchrony\DigitalBuy\Gateway\Command\Revolving\CaptureCommand">
+        <arguments>
+            <argument name="commandPool" xsi:type="object">SynchronyDigitalBuyCommandPool</argument>
+        </arguments>
+    </type>
+
+    <!-- Force Purchase Command -->
+    <type name="Synchrony\DigitalBuy\Gateway\Command\Revolving\ForcePurchaseCommand">
+        <arguments>
+            <argument name="requestBuilder" xsi:type="object">ForcePurchaseRequest</argument>
+            <argument name="transferFactory" xsi:type="object">Synchrony\DigitalBuy\Gateway\Http\TransferFactory</argument>
+            <argument name="client" xsi:type="object">SynchronyDigitalBuyForcePurchaseClient</argument>
+            <argument name="handler" xsi:type="object">ForcePurchaseHandler</argument>
+            <argument name="validator" xsi:type="object">Synchrony\DigitalBuy\Gateway\Validator\ForcePurchaseResponseValidator</argument>
+            <argument name="logger" xsi:type="object">SynchronyDigitalBuyLogger</argument>
+        </arguments>
+    </type>
+    <virtualType name="ForcePurchaseHandler" type="Magento\Payment\Gateway\Response\HandlerChain">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="transaction_handler" xsi:type="string">Synchrony\DigitalBuy\Gateway\Response\ForcePurchaseResponseHandler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="ForcePurchaseRequest" type="Magento\Payment\Gateway\Request\BuilderComposite">
+        <arguments>
+            <argument name="builders" xsi:type="array">
+                <item name="store_id" xsi:type="string">Synchrony\DigitalBuy\Gateway\Request\StoreIdDataBuilder</item>
+                <item name="token" xsi:type="string">Synchrony\DigitalBuy\Gateway\Request\BuyServiceTokenBuilder</item>
+                <item name="merchant_number" xsi:type="string">SynchronyDigitalBuyMerchantNumberDataBuilder</item>
+                <item name="promo_code" xsi:type="string">Synchrony\DigitalBuy\Gateway\Request\PromoCodeDataBuilder</item>
+                <item name="force_purchase_data" xsi:type="string">Synchrony\DigitalBuy\Gateway\Request\ForcePurchaseDataBuilder</item>
+                <item name="buy_service_config" xsi:type="string">Synchrony\DigitalBuy\Gateway\Request\BuyServiceConfigDataBuilder</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="SynchronyDigitalBuyMerchantNumberDataBuilder" type="Synchrony\DigitalBuy\Gateway\Request\MerchantNumberDataBuilder">
+        <arguments>
+            <argument name="config" xsi:type="object">Synchrony\DigitalBuy\Gateway\Config\RevolvingConfig</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="SynchronyDigitalBuyForcePurchaseClient" type="Synchrony\DigitalBuy\Gateway\Http\Client\ForcePurchase">
+        <arguments>
+            <argument name="logger" xsi:type="object">SynchronyDigitalBuyLogger</argument>
+            <argument name="paymentDataLogger" xsi:type="object">SynchronyDigitalBuyPaymentInfoLogger</argument>
+            <argument name="apiClientFactory" xsi:type="object">SynchronyDigitalBuyApiClientFactory</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Adjust Command -->
+    <virtualType name="SynchronyDigitalBuyAdjustCommand" type="Synchrony\DigitalBuy\Gateway\Command\AdjustCommand">
+        <arguments>
+            <argument name="requestBuilder" xsi:type="object">AdjustRequest</argument>
+            <argument name="client" xsi:type="object">SynchronyDigitalBuyAdjustClient</argument>
+            <argument name="logger" xsi:type="object">SynchronyDigitalBuyLogger</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AdjustRequest" type="Magento\Payment\Gateway\Request\BuilderComposite">
+        <arguments>
+            <argument name="builders" xsi:type="array">
+                <item name="store_id" xsi:type="string">Synchrony\DigitalBuy\Gateway\Request\StoreIdDataBuilder</item>
+                <item name="promo_code" xsi:type="string">Synchrony\DigitalBuy\Gateway\Request\PromoCodeDataBuilder</item>
+                <item name="adjust_data" xsi:type="string">Synchrony\DigitalBuy\Gateway\Request\AdjustDataBuilder</item>
+                <item name="token" xsi:type="string">Synchrony\DigitalBuy\Gateway\Request\BuyServiceTokenBuilder</item>
+                <item name="merchant_number" xsi:type="string">SynchronyDigitalBuyMerchantNumberDataBuilder</item>
+                <item name="buy_service_config" xsi:type="string">Synchrony\DigitalBuy\Gateway\Request\BuyServiceConfigDataBuilder</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="SynchronyDigitalBuyAdjustClient" type="Synchrony\DigitalBuy\Gateway\Http\Client\Adjust">
+        <arguments>
+            <argument name="logger" xsi:type="object">SynchronyDigitalBuyLogger</argument>
+            <argument name="paymentDataLogger" xsi:type="object">SynchronyDigitalBuyPaymentInfoLogger</argument>
+            <argument name="apiClientFactory" xsi:type="object">SynchronyDigitalBuyApiClientFactory</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Refund Command -->
+    <virtualType name="SynchronyDigitalBuyRefundCommand" type="Synchrony\DigitalBuy\Gateway\Command\RefundCommand">
+        <arguments>
+            <argument name="commandPool" xsi:type="object">SynchronyDigitalBuyCommandPool</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Client Factory -->
+    <virtualType name="SynchronyDigitalBuyApiClientFactory" type="Synchrony\DigitalBuy\Model\Api\ClientFactory">
+        <arguments>
+            <argument name="config" xsi:type="object">Synchrony\DigitalBuy\Gateway\Config\RevolvingConfig</argument>
+        </arguments>
+    </virtualType>
+    <!-- End Revolving -->
+
+    <!-- Installment -->
+    <!-- Method Facade -->
+    <virtualType name="SynchronyDigitalBuyInstallmentFacade" type="Synchrony\DigitalBuy\Model\Payment\Method\AbstractAdapter">
+        <arguments>
+            <argument name="code" xsi:type="const">Synchrony\DigitalBuy\Gateway\Config\InstallmentConfig::METHOD_CODE</argument>
+            <argument name="formBlockType" xsi:type="string">Synchrony\DigitalBuy\Block\Form</argument>
+            <argument name="infoBlockType" xsi:type="string">Synchrony\DigitalBuy\Block\Info</argument>
+            <argument name="valueHandlerPool" xsi:type="object">SynchronyDigitalBuyInstallmentValueHandlerPool</argument>
+            <argument name="validatorPool" xsi:type="object">SynchronyDigitalBuyInstallmentValidatorPool</argument>
+            <argument name="commandPool" xsi:type="object">SynchronyDigitalBuyInstallmentCommandPool</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Validators -->
+    <virtualType name="SynchronyDigitalBuyInstallmentCountryValidator" type="Magento\Payment\Gateway\Validator\CountryValidator">
+        <arguments>
+            <argument name="config" xsi:type="object">Synchrony\DigitalBuy\Gateway\Config\InstallmentConfig</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="SynchronyDigitalBuyInstallmentCurrencyValidator" type="Synchrony\DigitalBuy\Gateway\Validator\CurrencyValidator">
+        <arguments>
+            <argument name="config" xsi:type="object">Synchrony\DigitalBuy\Gateway\Config\InstallmentConfig</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="SynchronyDigitalBuyInstallmentCartValidator" type="Synchrony\DigitalBuy\Gateway\Validator\CartValidator">
+        <arguments>
+            <argument name="config" xsi:type="object">Synchrony\DigitalBuy\Gateway\Config\InstallmentConfig</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="SynchronyDigitalBuyInstallmentValidatorPool" type="Magento\Payment\Gateway\Validator\ValidatorPool">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="global" xsi:type="string">Synchrony\DigitalBuy\Gateway\Validator\GlobalValidator</item>
+                <item name="country" xsi:type="string">SynchronyDigitalBuyInstallmentCountryValidator</item>
+                <item name="currency" xsi:type="string">SynchronyDigitalBuyInstallmentCurrencyValidator</item>
+                <item name="cart" xsi:type="string">SynchronyDigitalBuyInstallmentCartValidator</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Value Handlers -->
+    <virtualType name="SynchronyDigitalBuyInstallmentValueHandlerPool" type="Magento\Payment\Gateway\Config\ValueHandlerPool">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="default" xsi:type="string">SynchronyDigitalBuyInstallmentConfigValueHandler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="SynchronyDigitalBuyInstallmentConfigValueHandler" type="Magento\Payment\Gateway\Config\ConfigValueHandler">
+        <arguments>
+            <argument name="configInterface" xsi:type="object">Synchrony\DigitalBuy\Gateway\Config\InstallmentConfig</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Loggers -->
+    <virtualType name="SynchronyDigitalBuyInstallmentFileLogger" type="Magento\Framework\Logger\Handler\Base">
+        <arguments>
+            <argument name="fileName" xsi:type="string">/var/log/synchrony_digitalbuy_installment.log</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="SynchronyDigitalBuyInstallmentLogger" type="Synchrony\DigitalBuy\Model\Logger">
+        <arguments>
+            <argument name="config" xsi:type="object">Synchrony\DigitalBuy\Gateway\Config\InstallmentConfig</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="debug" xsi:type="object">SynchronyDigitalBuyInstallmentFileLogger</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="SynchronyDigitalBuyInstallmentPaymentInfoLogger" type="Magento\Payment\Model\Method\Logger">
+        <arguments>
+            <argument name="logger" xsi:type="object">SynchronyDigitalBuyInstallmentLogger</argument>
+            <argument name="config" xsi:type="object">Synchrony\DigitalBuy\Gateway\Config\InstallmentConfig</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Command Pool -->
+    <virtualType name="SynchronyDigitalBuyInstallmentCommandPool" type="Magento\Payment\Gateway\Command\CommandPool">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="get_token" xsi:type="string">SynchronyDigitalBuyInstallmentGetTokenCommand</item>
+                <item name="initialize" xsi:type="string">Synchrony\DigitalBuy\Gateway\Command\Installment\InitializeCommand</item>
+                <item name="capture_stratergy" xsi:type="string">Synchrony\DigitalBuy\Gateway\Command\CaptureStratergyCommand</item>
+                <item name="authorize" xsi:type="string">SynchronyDigitalBuyInstallmentAuthorizeCommand</item>
+                <item name="capture" xsi:type="string">Synchrony\DigitalBuy\Gateway\Command\Installment\CaptureCommand</item>
+                <item name="refund" xsi:type="string">SynchronyDigitalBuyInstallmentRefundCommand</item>
+                <item name="adjust" xsi:type="string">SynchronyDigitalBuyInstallmentAdjustCommand</item>
+                <item name="cancel_payment" xsi:type="string">Synchrony\DigitalBuy\Gateway\Command\CancelPaymentCommand</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Get Token Command -->
+    <virtualType name="SynchronyDigitalBuyInstallmentGetTokenCommand" type="Synchrony\DigitalBuy\Gateway\Command\GetTokenCommand">
+        <arguments>
+            <argument name="client" xsi:type="object">SynchronyDigitalBuyInstallmentAuthenticationClient</argument>
+            <argument name="logger" xsi:type="object">SynchronyDigitalBuyLogger</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="SynchronyDigitalBuyInstallmentAuthenticationClient" type="Synchrony\DigitalBuy\Gateway\Http\Client\Authentication">
+        <arguments>
+            <argument name="logger" xsi:type="object">SynchronyDigitalBuyInstallmentLogger</argument>
+            <argument name="paymentDataLogger" xsi:type="object">SynchronyDigitalBuyInstallmentPaymentInfoLogger</argument>
+            <argument name="apiClientFactory" xsi:type="object">SynchronyDigitalBuyInstallmentApiClientFactory</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Authorize Command -->
+    <virtualType name="SynchronyDigitalBuyInstallmentAuthorizeCommand" type="Synchrony\DigitalBuy\Gateway\Command\AuthorizeCommand">
+        <arguments>
+            <argument name="client" xsi:type="object">SynchronyDigitalBuyInstallmentStatusInquiryClient</argument>
+            <argument name="logger" xsi:type="object">SynchronyDigitalBuyInstallmentLogger</argument>
+            <argument name="validator" xsi:type="object">Synchrony\DigitalBuy\Gateway\Validator\Installment\AuthorizationResponseValidator</argument>
+            <argument name="handler" xsi:type="object">SynchronyInstallmentAuthorizationHandler</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="SynchronyInstallmentAuthorizationHandler" type="Magento\Payment\Gateway\Response\HandlerChain">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="payment_details" xsi:type="string">Synchrony\DigitalBuy\Gateway\Response\Installment\AuthorizationResponseHandler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="SynchronyDigitalBuyInstallmentStatusInquiryClient" type="Synchrony\DigitalBuy\Gateway\Http\Client\StatusInquiry">
+        <arguments>
+            <argument name="logger" xsi:type="object">SynchronyDigitalBuyInstallmentLogger</argument>
+            <argument name="paymentDataLogger" xsi:type="object">SynchronyDigitalBuyInstallmentPaymentInfoLogger</argument>
+            <argument name="apiClientFactory" xsi:type="object">SynchronyDigitalBuyInstallmentApiClientFactory</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Capture Command -->
+    <type name="Synchrony\DigitalBuy\Gateway\Command\Installment\CaptureCommand">
+        <arguments>
+            <argument name="requestBuilder" xsi:type="object">InstallmentCaptureRequest</argument>
+            <argument name="transferFactory" xsi:type="object">Synchrony\DigitalBuy\Gateway\Http\TransferFactory</argument>
+            <argument name="client" xsi:type="object">SynchronyDigitalBuyInstallmentCaptureClient</argument>
+            <argument name="handler" xsi:type="object">SynchronyDigitalBuyInstallmentCaptureHandler</argument>
+            <argument name="validator" xsi:type="object">Synchrony\DigitalBuy\Gateway\Validator\Installment\CaptureResponseValidator</argument>
+            <argument name="logger" xsi:type="object">SynchronyDigitalBuyInstallmentLogger</argument>
+        </arguments>
+    </type>
+
+    <virtualType name="InstallmentCaptureRequest" type="Magento\Payment\Gateway\Request\BuilderComposite">
+        <arguments>
+            <argument name="builders" xsi:type="array">
+                <item name="store_id" xsi:type="string">Synchrony\DigitalBuy\Gateway\Request\StoreIdDataBuilder</item>
+                <item name="merchant_number" xsi:type="string">SynchronyDigitalBuyInstallmentCaptureMerchantNumberDataBuilder</item>
+                <item name="authorization_data" xsi:type="string">Synchrony\DigitalBuy\Gateway\Request\Installment\AuthTransactionDataBuilder</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="SynchronyDigitalBuyInstallmentCaptureMerchantNumberDataBuilder" type="Synchrony\DigitalBuy\Gateway\Request\Installment\MerchantNumberDataBuilder">
+        <arguments>
+            <argument name="config" xsi:type="object">Synchrony\DigitalBuy\Gateway\Config\InstallmentConfig</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="SynchronyDigitalBuyInstallmentCaptureClient" type="Synchrony\DigitalBuy\Gateway\Http\Client\Installment\Capture">
+        <arguments>
+            <argument name="logger" xsi:type="object">SynchronyDigitalBuyInstallmentLogger</argument>
+            <argument name="paymentDataLogger" xsi:type="object">SynchronyDigitalBuyInstallmentPaymentInfoLogger</argument>
+            <argument name="apiClientFactory" xsi:type="object">SynchronyDigitalBuyInstallmentApiClientFactory</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="SynchronyDigitalBuyInstallmentCaptureHandler" type="Magento\Payment\Gateway\Response\HandlerChain">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="transaction_handler" xsi:type="string">Synchrony\DigitalBuy\Gateway\Response\Installment\CaptureResponseHandler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+
+    <!-- Adjust command -->
+    <virtualType name="SynchronyDigitalBuyInstallmentAdjustCommand" type="Synchrony\DigitalBuy\Gateway\Command\AdjustCommand">
+        <arguments>
+            <argument name="requestBuilder" xsi:type="object">AdjustRequestInstallment</argument>
+            <argument name="client" xsi:type="object">SynchronyDigitalBuyInstallmentAdjustClient</argument>
+            <argument name="logger" xsi:type="object">SynchronyDigitalBuyInstallmentLogger</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AdjustRequestInstallment" type="Magento\Payment\Gateway\Request\BuilderComposite">
+        <arguments>
+            <argument name="builders" xsi:type="array">
+                <item name="store_id" xsi:type="string">Synchrony\DigitalBuy\Gateway\Request\StoreIdDataBuilder</item>
+                <item name="promo_code" xsi:type="string">Synchrony\DigitalBuy\Gateway\Request\PromoCodeDataBuilder</item>
+                <item name="adjust_data" xsi:type="string">Synchrony\DigitalBuy\Gateway\Request\AdjustDataBuilder</item>
+                <item name="token" xsi:type="string">Synchrony\DigitalBuy\Gateway\Request\BuyServiceTokenBuilder</item>
+                <item name="merchant_number" xsi:type="string">SynchronyDigitalBuyInstallmentMerchantNumberDataBuilder</item>
+                <item name="buy_service_config" xsi:type="string">Synchrony\DigitalBuy\Gateway\Request\BuyServiceConfigDataBuilder</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="SynchronyDigitalBuyInstallmentMerchantNumberDataBuilder" type="Synchrony\DigitalBuy\Gateway\Request\MerchantNumberDataBuilder">
+        <arguments>
+            <argument name="config" xsi:type="object">Synchrony\DigitalBuy\Gateway\Config\InstallmentConfig</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="SynchronyDigitalBuyInstallmentAdjustClient" type="Synchrony\DigitalBuy\Gateway\Http\Client\Adjust">
+        <arguments>
+            <argument name="logger" xsi:type="object">SynchronyDigitalBuyInstallmentLogger</argument>
+            <argument name="paymentDataLogger" xsi:type="object">SynchronyDigitalBuyInstallmentPaymentInfoLogger</argument>
+            <argument name="apiClientFactory" xsi:type="object">SynchronyDigitalBuyInstallmentApiClientFactory</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Refund Command -->
+    <virtualType name="SynchronyDigitalBuyInstallmentRefundCommand" type="Synchrony\DigitalBuy\Gateway\Command\RefundCommand">
+        <arguments>
+            <argument name="commandPool" xsi:type="object">SynchronyDigitalBuyInstallmentCommandPool</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Client Factory -->
+    <virtualType name="SynchronyDigitalBuyInstallmentApiClientFactory" type="Synchrony\DigitalBuy\Model\Api\ClientFactory">
+        <arguments>
+            <argument name="config" xsi:type="object">Synchrony\DigitalBuy\Gateway\Config\InstallmentConfig</argument>
+        </arguments>
+    </virtualType>
+    <!-- End Installment -->
+
+    <!-- End Gateway Config -->
+
+    <preference for="Synchrony\DigitalBuy\Api\RuleRepositoryInterface" type="Synchrony\DigitalBuy\Model\RuleRepository" />
+    <preference for="Synchrony\DigitalBuy\Api\Data\RuleInterface" type="Synchrony\DigitalBuy\Model\Data\Rule" />
+    <preference for="Synchrony\DigitalBuy\Api\Data\RuleSearchResultInterface" type="Magento\Framework\Api\SearchResults" />
+    <preference for="Synchrony\DigitalBuy\Api\Data\ConditionInterface" type="Synchrony\DigitalBuy\Model\Data\Condition" />
+
+    <type name="Magento\Quote\Model\Quote\Config">
+        <plugin name="append_synchrony_promotion_product_attributes" type="Synchrony\DigitalBuy\Plugin\Quote\Model\Quote\ConfigPlugin"/>
+    </type>
+
+    <type name="Synchrony\DigitalBuy\Model\Rule\ChildrenValidationLocator">
+        <arguments>
+            <argument name="productTypeChildrenValidationMap" xsi:type="array">
+                <item name="bundle" xsi:type="boolean">false</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Sales\Model\ResourceModel\Order\Payment">
+        <plugin name="synchrony_digitalbuy_payment_rm_interceptor" type="Synchrony\DigitalBuy\Plugin\Sales\Model\ResourceModel\Order\PaymentPlugin" sortOrder="100"/>
+    </type>
+
+    <type name="Magento\Sales\Model\Order\Payment\Transaction">
+        <plugin name="synchrony_digitalbuy_payment_transaction_interceptor" type="Synchrony\DigitalBuy\Plugin\Sales\Model\Order\Payment\TransactionPlugin" sortOrder="100"/>
+    </type>
+
+    <type name="Magento\Email\Model\Template\Filter">
+        <plugin name="synchrony_payments_allow_variables" type="Synchrony\DigitalBuy\Plugin\Email\Model\Template\FilterPlugin" />
+    </type>
+    <type name="Magento\Email\Model\Source\Variables">
+        <plugin name="synchrony_payments_allow_variables" type="Synchrony\DigitalBuy\Plugin\Email\Model\Source\VariablesPlugin" />
+    </type>
+
+    <type name="Magento\Variable\Model\Source\Variables">
+        <arguments>
+            <argument name="configPaths" xsi:type="array">
+                <item name="payment/synchrony_digitalbuy/revolving" xsi:type="array">
+                    <item name="payment/synchrony_digitalbuy/title" xsi:type="string">1</item>
+                </item>
+                <item name="payment/synchrony_digitalbuy/revolving_payment_marketing" xsi:type="array">
+                    <item name="payment/synchrony_digitalbuy/apply_now_url" xsi:type="string">1</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+</config>

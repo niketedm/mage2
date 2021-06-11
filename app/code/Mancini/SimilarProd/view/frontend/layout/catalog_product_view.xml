@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<head>
+		<css src="Mancini_SimilarProd::css/owl.carousel.min.css" />
+		<css src="Mancini_SimilarProd::css/owl.theme.default.min.css" />
+		<css src="Mancini_SimilarProd::css/source/custom_similar.css" rel="stylesheet" type="text/css" />
+	</head>
+	<body>
+		<referenceContainer name="content.aside">
+			<block class="Mancini\SimilarProd\Block\SimilarProd" name="similarprod" as="similarprod" template="Mancini_SimilarProd::index.phtml" after="-"/>
+		</referenceContainer>
+		<referenceContainer name="before.body.end">
+            <block template="Mancini_SimilarProd::script.phtml" name="mancini.similar.carousel" class="Magento\Framework\View\Element\Template"/>
+        </referenceContainer>
+	</body>
+</page>

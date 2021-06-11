@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Config/etc/system_file.xsd">
+	<system>
+		<tab id="anowave" translate="label" sortOrder="1">
+			<label>Anowave Extensions</label>
+		</tab>
+		<section id="fee" translate="label" type="text" sortOrder="140" showInDefault="1" showInWebsite="1" showInStore="1">
+			<label>Extra Fee</label>
+			<tab>anowave</tab>
+			<resource>Anowave_Fee::anowave</resource>
+			<group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+				<label>General Options</label>
+				<field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="license" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>License</label>
+                    <frontend_model>Anowave\Package\Block\License\Field</frontend_model>
+                    <depends>
+                        <field id="*/*/active">1</field>
+                    </depends>
+                </field>
+			</group>
+			<group id="fee" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+				<label>Fee Options</label>
+                <field id="name" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Fee name</label>
+                    <comment>Enter Fee name</comment>
+                    <depends>
+                        <field id="*/*/active">1</field>
+                    </depends>
+                </field>
+                <field id="amount" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Fee amount</label>
+                    <comment>Enter Fee amount</comment>
+                    <depends>
+                        <field id="*/*/active">1</field>
+                    </depends>
+                </field>
+                <field id="type" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Fee type</label>
+                    <comment>Select fee type</comment>
+                    <depends>
+                        <field id="*/*/active">1</field>
+                    </depends>
+                    <source_model>Anowave\Fee\Model\Type</source_model>
+                </field>
+                <field id="calculate_per_product" translate="label" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Calculate per product</label>
+                    <comment>Enable to calculate fee by using product specific fee</comment>
+                    <depends>
+                        <field id="*/*/active">1</field>
+                    </depends>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="calculate_quantity" translate="label" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Multiply by quantity</label>
+                    <comment>If set to "Yes" fee will be multiplied by current item quantity.</comment>
+                    <depends>
+                        <field id="*/*/active">1</field>
+                        <field id="fee/fee/calculate_per_product">1</field>
+                    </depends>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="product_fee_attribute" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Use attribute for fee</label>
+                    <comment>Select product attribute used for product specific fee.</comment>
+                    <depends>
+                        <field id="*/*/active">1</field>
+                        <field id="fee/fee/calculate_per_product">1</field>
+                    </depends>
+                    <source_model>Anowave\Fee\Model\Attribute</source_model>
+                </field>
+                <field id="render_in_cart" translate="label" type="select" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show fee in cart header</label>
+                    <comment>Displays extra fee in cart page</comment>
+                    <depends>
+                        <field id="*/*/active">1</field>
+                    </depends>
+                    <source_model>Anowave\Fee\Model\System\Config\Source\Render</source_model>
+                </field>
+			</group>
+			<group id="preferences" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+				<label>Preferences</label>
+				<field id="conditions" translate="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Conditions</label>  
+					<frontend_model>Anowave\Fee\Block\Config\Conditions</frontend_model>
+				</field>
+            </group>
+            <group id="tax" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+				<label>Tax</label>
+				<field id="class" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Tax class</label>
+                    <comment>Select tax class</comment>
+                    <depends>
+                        <field id="*/*/active">1</field>
+                    </depends>
+                    <source_model>Anowave\Fee\Model\TaxClass</source_model>
+                </field>
+            </group>
+		</section>
+	</system>
+</config>

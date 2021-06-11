@@ -1,0 +1,231 @@
+<?php
+
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+/**
+ * Product list toolbar
+ *
+ * @var $block \Magento\Catalog\Block\Product\ProductList\Toolbar
+ */
+?>
+<div class="toolbar-sorter sorter">
+    <label class="sorter-label" for="sorter"><?= $block->escapeHtml(__('Sort By')) ?></label>
+
+
+    <div class="Sortby-mobile">
+        <div class="select-wraps">
+            <ul id="dopm" class="default-options">
+
+                <p>Sort By</p>
+
+            </ul>
+            <ul class="select_uls sorter-options" id="sorter" data-role="sorter" label="Sort BY">
+                <li value="" disabled selected hidden>
+                    <p>Sort By</p>
+                </li>
+
+                <?php foreach ($block->getAvailableOrders() as $_key => $_order) : ?>
+
+                    <li id="<?= $block->escapeHtmlAttr($_key) ?>" data-value="<?= $block->escapeHtmlAttr($_key) ?>" <?php if ($block->isOrderCurrent($_key)) : ?> class="selected" <?php endif; ?>>
+                        <p><?= $block->escapeHtml(__($_order)) ?></p>
+                    </li>
+
+
+
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    </div>
+    <div class="Sortby-Desktop" id="sortby-d">
+        <div class="select-wrap">
+            <ul id="dop" class="default-option">
+                <li class="option">
+                    <!-- <p>Default</p> -->
+                </li>
+            </ul>
+            <ul class="select_ul sorter-options" id="sorter" data-role="sorter">
+                <?php foreach ($block->getAvailableOrders() as $_key => $_order) : ?>
+                    <li id="<?= $block->escapeHtmlAttr($_key) ?>" data-value="<?= $block->escapeHtmlAttr($_key) ?>" <?php if ($block->isOrderCurrent($_key)) : ?> class="selected" <?php endif; ?>>
+                        <p><?= $block->escapeHtml(__($_order)) ?></p>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    </div>
+
+    <?php if ($block->getCurrentDirection() == 'desc') : ?>
+        <a title="<?= $block->escapeHtmlAttr(__('Set Ascending Direction')) ?>" href="#" class="action sorter-action sort-desc" data-role="direction-switcher" data-value="asc">
+            <span><?= $block->escapeHtml(__('Set Ascending Direction')) ?></span>
+        </a>
+    <?php else : ?>
+        <a title="<?= $block->escapeHtmlAttr(__('Set Descending Direction')) ?>" href="#" class="action sorter-action sort-asc" data-role="direction-switcher" data-value="desc">
+            <span><?= $block->escapeHtml(__('Set Descending Direction')) ?></span>
+        </a>
+    <?php endif; ?>
+</div>
+<script type="text/javascript">
+    require(['jquery'], function($) {
+        $(document).ready(function() {
+            var expandedState = false;
+            var setDefault = $(".select_ul li.selected").html();
+            $(".default-option li").html(setDefault);
+            $(".default-option").click(function() {
+                console.log("tushar");
+
+                if (expandedState === false) {
+                    console.log("karan");
+                    $(".select-wrap").addClass("active");
+                    expandedState = true;
+
+                    $(".mst-nav__apply-button-wrapper").css("display", "none");
+                    if ($(".filter-options-item").hasClass('active')) {
+                        $('.active .filter-options-title').trigger('click');
+
+                    }
+
+                } else {
+                    $(".select-wrap").removeClass("active");
+                    expandedState = false;
+
+                }
+            });
+
+            $(".select_ul li").click(function() {
+                $(".select_ul li").removeClass('selected');
+                $(this).addClass('selected');
+                var activeItem = $(this).html();
+                var test = $(".select_ul li.selected p").text();
+                var test2 = $(this).attr("data-value");
+                $(".default-option li").html(activeItem);
+                $(this).parents(".select-wrap").removeClass("active");
+                expandedState = false;
+            });
+
+            // $(document).click(function() {
+
+            //     //event handling code
+            //     if ($(".select-wrap").hasClass('active')) {
+            //         console.log("tushar click if");
+            //         $(".select-wrap").removeClass("active");
+            //         expandedState = false;
+            //     }
+
+
+            // });
+            $('body').on('click', function(e) {
+                if (!$('.default-option').is(e.target) &&
+                    $('.default-option').has(e.target).length === 0 &&
+                    $('.default-option').has(e.target).length === 0
+                ) {
+                    $('.select-wrap').removeClass('active');
+                    expandedState = false;
+                }
+            });
+        });
+
+
+    });
+</script>
+<!-- mobile -->
+
+<script type="text/javascript">
+    require(['jquery'], function($) {
+        $(document).ready(function() {
+            var expandedState = false;
+            var setDefault = $(".select_uls li.selected").html();
+            $(".default-options li").html(setDefault);
+            $(".default-options").click(function() {
+                if (expandedState === false) {
+
+                    $(".select-wraps").addClass("active");
+                    expandedState = true;
+                    $(".filter-options-item").removeClass("active");
+                    $(".filter-options-title").attr("aria-selected", "false");
+                    $(".filter-options-title").attr("aria-expanded", "false");
+                    $(".filter-options-content").css("display", "none");
+                    $(".filter-options-content").attr("aria-hidden", "true");
+                    $(".mst-nav__apply-button-wrapper").css("display", "none");
+
+
+
+
+                } else {
+                    console.log("true");
+                    $(".select-wraps").removeClass("active");
+                    expandedState = false;
+                }
+
+
+            });
+
+
+
+            $(".select_uls li").click(function() {
+                $(".select_uls li").removeClass('selected');
+                $(this).addClass('selected');
+                var activeItem = $(this).html();
+                var test = $(".select_uls li.selected p").text();
+                var test2 = $(this).attr("data-value");
+                $(".default-options li").html(activeItem);
+                $(this).parents(".select-wraps").removeClass("active");
+                expandedState = false;
+            });
+        });
+        $(document).click(function(evt) {
+
+
+            if ($(".select-wraps").hasClass('active')) {
+
+
+                $('#dopm').trigger('click');
+                expandedState = false;
+            }
+
+        });
+        $('.Sortby-mobile').click(function(e) {
+
+            e.stopPropagation();
+        });
+    });
+</script>
+<!-- 
+<script>
+    require([
+        'jquery',
+    ], function($) {
+
+        $(document).ready(function() {
+            $("#read-more2").click(function() {
+
+                var divs = document.querySelectorAll('.mores');
+                var btnText = document.getElementById("read-more2");
+                var dots = document.getElementById("dots");
+
+                if (dots.style.display == "none") {
+
+                    dots.style.display = "inline";
+
+                    for (var i = 0; i < divs.length; i++) {
+                        divs[i].classList.add('newclass');
+                    }
+                    btnText.innerHTML = "Read more";
+
+                } else {
+
+                    dots.style.display = "none";
+
+                    for (var i = 0; i < divs.length; i++) {
+                        divs[i].classList.remove('newclass');
+                    }
+                    btnText.innerHTML = "Read less";
+
+                }
+            });
+        });
+
+    });
+</script> -->

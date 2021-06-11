@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <spintowin>
+            <general>
+                <manager_email>admin@example.com</manager_email>
+                <send_coupon_to_customer>spintowin_general_send_coupon_to_customer</send_coupon_to_customer>
+            </general>
+        </spintowin>
+    </default>
+</config>

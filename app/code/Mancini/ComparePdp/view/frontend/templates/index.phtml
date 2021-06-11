@@ -1,0 +1,105 @@
+<script type="text/x-magento-init">
+	{
+		"#compareresponse": { 
+			"Mancini_ComparePdp/js/compareselect": {
+			} 
+		} 
+	}
+</script>
+
+<?php $compareProducts =  $block->getInitialCompareProducts() ?>
+<?php if (!empty($compareProducts)) : ?>
+	<?php $counter = 0; ?>
+	<?php $comparePrds  = $compareProducts[0]; ?>
+	<?php $compareSecs	= $compareProducts[1]; ?>
+	<div class="prod-count">
+		<?//php echo $comparePrds[0]['name'] . " With " .  (count($comparePrds) - 1) . " Others"; ?>
+	</div>
+	<div class="comparison" id="compareresponse">
+		<h2 class="comparison-title">
+			<?php echo __('Product Comparison'); ?>
+		</h2>
+		<div class="prod-count">
+			<?php echo $comparePrds[0]['name'] . " With " .  (count($comparePrds) - 1) . " Others"; ?>
+		</div>
+		<table>
+			<thead>
+				<tr>
+					<th class="tl">
+						<h2 class="selected-product"> <?php echo __('Selected Product'); ?> </h2>
+						<?php echo $comparePrds[0]['name'] . " With " .  (count($comparePrds) - 1) . " Others"; ?>
+					</th>
+					<?php foreach ($comparePrds as $comparePrd) : ?>
+						<th class="compare-heading">
+							<?php
+							if ($counter == 0) {
+								$class = "main-prd";
+							} else {
+								$class	=	"compare-prd";
+							}
+							?>
+							<div class="<?php echo $class; ?> compare-tab" id="size<?php echo $comparePrd['size']; ?>">
+								<div class="compareimage">
+									<img src="<?php echo $comparePrd['image']; ?>" />
+								</div>
+								<div class="comparetitle">
+									<a href="<?php echo $comparePrd['url']; ?>"><?php echo $comparePrd['name']; ?></a>
+								</div>
+								<div class="compareprice">
+									<?php echo $comparePrd['price']; ?>
+								</div>
+								<div class="comparecart">
+									<form data-role="compare-tocart-form" action="<?php echo $comparePrd['addtocart']; ?>" method="post">
+										<input type="hidden" name="product" value="<?php echo $comparePrd['id']; ?>">
+										<?php echo $block->getBlockHtml('formkey') ?>
+										<div class="btn">
+											<button type="submit" title="Add to Cart" class="action tocart primary">
+												<span><?php echo __('Add to Cart'); ?></span>
+											</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</th>
+					<?php $counter++;
+					endforeach; ?>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php foreach ($compareSecs as $key => $compareSec) : ?>
+					<?php
+					if ($key == 'type') :
+						$label = 'Construction Type/Material';
+					else :
+						$label = ucfirst($key);
+					endif;
+					?>
+					<tr>
+						<td></td>
+						<td colspan="2" class="sticky-label"><?php echo $label; ?></td>
+					</tr>
+					<tr class="compare-row <?php echo $key; ?>-row">
+						<td><?php echo $label; ?></td>
+						<?php foreach ($compareSec as $comparePrd) : ?>
+							<td class="compare-<?php echo $key; ?>">
+								<?php
+								if ($counter == 0) {
+									$class = "main-prd-" . $key;
+								} else {
+									$class	=	"compare-prd-.$key";
+								}
+								?>
+								<div class="<?php echo $class; ?>">
+									<div class="compare-<?php echo $key; ?>-value">
+										<?php echo $comparePrd; ?>
+									</div>
+								</div>
+							</td>
+						<?php endforeach; ?>
+					</tr>
+				<?php endforeach; ?>
+			</tbody>
+		</table>
+	</div>
+<?php endif; ?>

@@ -1,0 +1,264 @@
+<?php
+
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+use Magento\Framework\App\Action\Action;
+
+// phpcs:disable Magento2.Templates.ThisInTemplate
+
+/** @var \Magento\CatalogWidget\Block\Product\ProductsList $block */
+?>
+<?php
+
+$blockObj = $block->getLayout()->createBlock('Mancini\Catalog\Block\Product\ListProduct');
+$shipping_zone = $blockObj->getShippingZone();
+?>
+<?php if ($exist = ($block->getProductCollection() && $block->getProductCollection()->getSize())) : ?>
+    <?php
+
+    $type = 'widget-product-carousel';
+
+    $image = 'new_products_content_widget_grid';
+    $items = $block->getProductCollection()->getItems();
+
+    $showWishlist = true;
+    $showCompare = true;
+    $showCart = true;
+    $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+
+
+    ?>
+    <ol class="product-items <?=/* @noEscape */ $type ?>">
+        <?php $iterator = 1; ?>
+        <?php foreach ($items as $_item) : ?>
+            <?=/* @noEscape */ ($iterator++ == 1) ? '<li class="product-item">' : '</li><li class="product-item">' ?>
+            <div class="product-item-info">
+
+                <div class="product-item-photo" onclick="window.location.href='<?= $block->escapeUrl($block->getProductUrl($_item)) ?>'">
+                    <?= $block->getImage($_item, $image)->toHtml() ?>
+                </div>
+                <div class="product-item-details">
+                    <a href="<?= $block->escapeUrl($block->getProductUrl($_item)) ?>">
+                        <div class=" brand-name">
+                            <?php if ($_item->getResource()->getAttribute('brand')->getFrontend()->getValue($_item)) : ?>
+                                <div class="product-brand" href="<?= $escaper->escapeUrl($_item->getProductUrl()) ?>">
+                                    <?php echo $_item->getResource()->getAttribute('brand')->getFrontend()->getValue($_item) ?>
+                                </div>
+                            <?php endif; ?>
+                            <?php if ($_item->getResource()->getAttribute('furniture_brand')->getFrontend()->getValue($_item)) : ?>
+                                <div class="product-brand" href="<?= $escaper->escapeUrl($_item->getProductUrl()) ?>">
+                                    <?php echo $_item->getResource()->getAttribute('furniture_brand')->getFrontend()->getValue($_item) ?>
+                                </div>
+                            <?php endif; ?>
+
+                        </div>
+                        <?php $product_name = $block->escapeHtml($_item->getName()); ?>
+                        <?php $product_brand = "" ?>
+                        <?php if ($_item->getResource()->getAttribute('brand')->getFrontend()->getValue($_item)) : ?>
+                            <?php
+                            $product_brand = $_item->getResource()->getAttribute('brand')->getFrontend()->getValue($_item);
+                            ?>
+                        <?php endif; ?>
+                        <?php if ($_item->getResource()->getAttribute('furniture_brand')->getFrontend()->getValue($_item)) : ?>
+                            <?php
+                            $product_brand = $_item->getResource()->getAttribute('furniture_brand')->getFrontend()->getValue($_item);
+                            ?>
+                        <?php endif; ?>
+                        <h4 class="product-item-name">
+                            <div title="<?= $block->escapeHtml($_item->getName()) ?>" href="<?= $block->escapeUrl($block->getProductUrl($_item)) ?>" class="product-item-link">
+
+
+                                <?php if (str_contains($product_name, $product_brand)) {
+                                    echo trim($product_name, $product_brand);
+                                } else {
+                                    echo $product_name;
+                                } ?>
+                            </div>
+                        </h4>
+
+                        <div class="product-rating">
+                            <?php $productRating = $blockObj->getProductRating($_item); ?>
+
+                            <?php if ($productRating == "0") : ?>
+                                <?php for ($x = 0; $x < 5; $x++) : ?>
+                                    <img class="rating-icon" src='<?php echo $this->getViewFileUrl('images/star.svg') ?>' alt="">
+                                <?php endfor; ?>
+                            <?php endif; ?>
+                            <?php if ($productRating > 0) : ?>
+                                <?php for ($x = 0; $x < $productRating; $x++) : ?>
+                                    <img class="rating-icon" src='<?php echo $this->getViewFileUrl('images/star-1.svg') ?>' alt="">
+                                <?php endfor; ?>
+                            <?php endif; ?>
+
+                            <span>(<?php echo $productRating ?>/5)</span>
+                        </div>
+
+                        <?php if ($templateType) : ?>
+                            <?= $block->getReviewsSummaryHtml($_item, $templateType) ?>
+                        <?php endif; ?>
+
+                        <?= $block->getProductPriceHtml($_item, $type) ?>
+
+                        <?= $block->getProductDetailsHtml($_item) ?>
+
+                        <?php if ($showWishlist || $showCompare || $showCart) : ?>
+
+                            <hr class="line-1" />
+                    </a>
+                    <div class="product-item-inner">
+
+                        <div class="shipping-text">
+                            <div class="row">
+
+                                <?php
+                                $deliverByDate = $block->getArrivalDate($_item);
+                                if ($shipping_zone != null && $deliverByDate != null) {
+                                ?>
+
+                                    <img alt="" class="Shipping-image" src='<?php echo $this->getViewFileUrl('images/truck.png'); ?>' alt="" height="12px" width="15px">
+                                <?php } ?>
+                                <div class="arrivaldate">
+                                    <?php
+                                    $deliverByDate = $block->getArrivalDate($_item);
+                                    if ($shipping_zone != null && $deliverByDate != null) {
+                                    ?>
+                                        <span class="ddate label"><?php echo __("Delivery by: "); ?></span>
+                                        <span class="dddate value"><?php echo __($deliverByDate); ?> </span>
+                                    <?php } else { ?>
+
+                                        <a class="ddate labels" href="tel:+66554432" aria-label="Call for Shipping options for <?php echo $block->escapeHtml($_item->getName()) ?>">
+                                            <img alt="phone-icon" class="Shipping-image-call" src='<?php echo $this->getViewFileUrl('images/callforshipping.svg'); ?>' alt="" height="12px" width="15px"><?php echo __("Call for shipping options"); ?></a>
+
+                                    <?php } ?>
+                                </div>
+                            </div>
+                            <hr class="line-2" />
+                        </div>
+                        <?php if ($_item->getResource()->getAttribute('comfort')->getFrontend()->getValue($_item)) : ?>
+                            <?php if (trim(($_item->getResource()->getAttribute('comfort')->getFrontend()->getValue($_item))) == "Firm") : ?>
+                                <img class="Comfort-icon" src='<?php echo $this->getViewFileUrl('images/FIRM.png') ?>' alt="">
+
+                            <?php endif; ?>
+                            <?php if (trim(($_item->getResource()->getAttribute('comfort')->getFrontend()->getValue($_item))) == "Very Firm") : ?>
+                                <img class="Comfort-icon" src='<?php echo $this->getViewFileUrl('images/VERY_FIRM.png') ?>' alt="">
+                            <?php endif; ?>
+                            <?php if (trim(($_item->getResource()->getAttribute('comfort')->getFrontend()->getValue($_item))) == "Soft") : ?>
+                                <img class="Comfort-icon" src='<?php echo $this->getViewFileUrl('images/soft.png') ?>' alt="">
+                            <?php endif; ?>
+                            <?php if (trim(($_item->getResource()->getAttribute('comfort')->getFrontend()->getValue($_item))) == "Hard Rock") : ?>
+                                <img class="Comfort-icon" src='<?php echo $this->getViewFileUrl('images/VERY_SOFT.png') ?>' alt="">
+                            <?php endif; ?>
+                            <?php if (trim(($_item->getResource()->getAttribute('comfort')->getFrontend()->getValue($_item))) == "Medium") : ?>
+                                <img class="Comfort-icon" src='<?php echo $this->getViewFileUrl('images/MEDIUM.png') ?>' alt="">
+                            <?php endif; ?>
+
+
+                            <?php if (trim(($_item->getResource()->getAttribute('comfort')->getFrontend()->getValue($_item))) == "Firm") : ?>
+                                <img class="Comfort-icon-mobile" src='<?php echo $this->getViewFileUrl('images/Firm_mobile.png') ?>' alt="">
+
+                            <?php endif; ?>
+
+                            <?php if (trim(($_item->getResource()->getAttribute('comfort')->getFrontend()->getValue($_item))) == "Very Firm") : ?>
+                                <img class="Comfort-icon-mobile" src='<?php echo $this->getViewFileUrl('images/vfm.png') ?>' alt="">
+                            <?php endif; ?>
+                            <?php if (trim(($_item->getResource()->getAttribute('comfort')->getFrontend()->getValue($_item))) == "Soft") : ?>
+                                <img class="Comfort-icon-mobile" src='<?php echo $this->getViewFileUrl('images/Soft_mobile.png') ?>' alt="">
+                            <?php endif; ?>
+                            <?php if (trim(($_item->getResource()->getAttribute('comfort')->getFrontend()->getValue($_item))) == "Hard Rock") : ?>
+                                <img class="Comfort-icon-mobile" src='<?php echo $this->getViewFileUrl('images/vsm.png') ?>' alt="">
+                            <?php endif; ?>
+                            <?php if (trim(($_item->getResource()->getAttribute('comfort')->getFrontend()->getValue($_item))) == "Medium") : ?>
+                                <img class="Comfort-icon-mobile" src='<?php echo $this->getViewFileUrl('images/Medium_mobile.png') ?>' alt="">
+                            <?php endif; ?>
+                        <?php endif; ?>
+
+
+                        <?php $delivery_label = $block->getFreeDeliveryLabel($_item); ?>
+                        <?php if (!empty($delivery_label)) : ?>
+                            <div class="free-delivery">
+                                <span><?php echo __($delivery_label); ?> </span>
+                            </div>
+                        <?php endif; ?>
+                        <?php $sale_label = $block->getOnSaleLabel($_item); ?>
+
+                        <?php if ($sale_label) : ?>
+                            <div class="On-sale">
+                                <span><?php echo __($sale_label); ?> </span>
+                            </div>
+                        <?php endif; ?>
+
+                        <div class="product-item-actions">
+                            <?php if ($showCart) : ?>
+                                <div class="actions-primary">
+                                    <?php if ($_item->isSaleable()) : ?>
+                                        <?php $postParams = $block->getAddToCartPostParams($_item); ?>
+                                        <form data-role="tocart-form" data-product-sku="<?= $block->escapeHtml($_item->getSku()) ?>" action="<?= $block->escapeUrl($postParams['action']) ?>" method="post">
+                                            <input type="hidden" name="product" value="<?= $block->escapeHtmlAttr($postParams['data']['product']) ?>">
+                                            <input type="hidden" name="<?=/* @noEscape */ Action::PARAM_NAME_URL_ENCODED ?>" value="<?=/* @noEscape */ $postParams['data'][Action::PARAM_NAME_URL_ENCODED] ?>">
+                                            <?= $block->getBlockHtml('formkey') ?>
+                                            <button type="submit" title="<?= $block->escapeHtml(__('Add to Cart')) ?>" class="action tocart primary">
+                                                <span><?= $block->escapeHtml(__('Shop Now')) ?></span>
+                                            </button>
+                                        </form>
+
+
+                                    <?php else : ?>
+
+                                        <!-- Start free Delivery label -->
+
+
+
+                                        <!-- End free Delivery label -->
+                                        <?php if ($_item->getIsSalable()) : ?>
+                                            <div class="stock available"><span><?= $block->escapeHtml(__('In stock')) ?></span></div>
+                                        <?php else : ?>
+                                            <div class="stock unavailable"><span><?= $block->escapeHtml(__('Out of stock')) ?></span></div>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
+                                </div>
+                            <?php endif; ?>
+                            <div class="free-delivery-text">
+                                <?php if ($shipping_zone == 'zone 1') :
+                                ?>
+                                    <?php echo "Free Delivery"; ?>
+                                <?php endif;
+                                ?>
+                            </div>
+
+                            <?php if ($showWishlist || $showCompare) : ?>
+                                <div class="actions-secondary" data-role="add-to-links">
+                                    <?php if ($this->helper(\Magento\Wishlist\Helper\Data::class)->isAllow() && $showWishlist) : ?>
+                                        <?php $wishlistHelper = $this->helper(\Magento\Wishlist\Helper\Data::class); ?>
+                                        <a href=" javascript:void(0);"
+                                           class="action towishlist"
+                                           data-action="add-to-wishlist"
+                                           title="<?= $block->escapeHtmlAttr(__('Add to Wish List')) ?>"
+                                           data-post='<?= /* @noEscape */ $wishlistHelper->getAddParams($_item->getId()) ?>'
+                                           data-productid="<?php echo $_item->getId(); ?>">
+                                            <img class="whislist-icon product-id-<?php echo $_item->getId(); ?>" src="<?php /* @escapeNotVerified */ echo $block->getViewFileUrl('images/whislist.png'); ?>" />
+                                            <img class="whislist-icon show-img-<?php echo $_item->getId(); ?>" src="<?php /* @escapeNotVerified */ echo $block->getViewFileUrl('images/wishlist_color.png'); ?>" style="display:none;" alt="" />
+                                            <span><?= $block->escapeHtml(__('Add to Wish List')) ?></span>
+                                        </a>
+                                    <?php endif; ?>
+                                    <?php if ($block->getAddToCompareUrl() && $showCompare) : ?>
+                                        <?php $compareHelper = $this->helper(\Magento\Catalog\Helper\Product\Compare::class); ?>
+                                        <a href="#" class="action tocompare" data-post='<?= /* @noEscape */ $compareHelper->getPostDataParams($_item) ?>' title="<?= $block->escapeHtmlAttr(__('Add to Compare')) ?>">
+                                            <span><?= $block->escapeHtml(__('Add to Compare')) ?></span>
+                                        </a>
+                                    <?php endif; ?>
+                                </div>
+                            <?php endif; ?>
+
+                        </div>
+                    </div>
+                <?php endif; ?>
+
+                </div>
+                <?= ($iterator == count($items) + 1) ? '</li>' : '' ?>
+            </div>
+        <?php endforeach ?>
+    </ol>
+<?php endif; ?>

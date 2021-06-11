@@ -1,0 +1,116 @@
+<?php
+$spinInfo = $block->getSpinInfo();
+$websites = $block->getWebsites();
+?>
+<div class="spin-content-information admin__scope-old">
+    <div class="form-inline entry-edit">
+        <form class= "spin-form" action="<?php /* @escapeNotVerified */echo $block->getUrl('spintowin/manage/save') ?>" enctype="multipart/form-data" method="post" id="spininfoformedit">
+            <?php /* @escapeNotVerified */echo $block->getBlockHtml('formkey')?>
+            <fieldset class="fieldset admin__fieldset">
+                <legend class="legend">
+                    <span><?php /* @escapeNotVerified */echo __('Spin Campaign Information') ?></span>
+                </legend>
+                <div class="admin__field field field-attribute_label  required _required">
+                    <div class="control">
+                        <input type="hidden" value="<?php echo  $spinInfo->getEntityId(); ?>" name="entity_id"/>                                                
+                    </div>
+                </div>
+                <div class="field admin__field  field-attribute_label  required _required">
+                    <label class="label" for="name">
+                        <span><?php /* @escapeNotVerified */echo __('Campaign Name')?></span>
+                    </label>
+                    <div class="control">
+                        <input id="name" name="name" type="text" class="input-text required-entry validate-no-html-tags" value="<?php echo  $spinInfo->getName(); ?>"/>
+                    </div>
+                </div>
+                <div class="field admin__field field-attribute_label required _required">
+                    <label class="label" for="scheduled">
+                        <span><?php /* @escapeNotVerified */echo __('Scheduled')?></span>
+                    </label>
+                    <div class="control">
+                        <select id="scheduled" name="scheduled" type="text" class="input-text required-entry">
+                            <option <?php echo $spinInfo->getScheduled()? 'selected':''; ?> value="1"><?php /* @escapeNotVerified */echo __('Yes')?></option>
+                            <option <?php echo $spinInfo->getId() && !$spinInfo->getScheduled()? 'selected':''; ?> value="0"><?php /* @escapeNotVerified */echo __('No')?></option>                        
+                        </select>
+                    </div>
+                </div>
+                <div class="field admin__field  field-attribute_label  required _required">
+                    <label class="label" for="start_date">
+                        <span><?php /* @escapeNotVerified */echo __('Start Date')?></span>
+                    </label>
+                    <div class="control">
+                        <input id="start_date" name="start_date" type="text" class="input-text required-entry" value="<?php echo  $spinInfo->getStartDate(); ?>"/>
+                    </div>
+                </div>
+                <div class="field admin__field  field-attribute_label  required _required">
+                    <label class="label" for="end_date">
+                        <span><?php /* @escapeNotVerified */echo __('End Date')?></span>
+                    </label>
+                    <div class="control">
+                        <input id="end_date" name="end_date" type="text" class="input-text required-entry" value="<?php echo  $spinInfo->getEndDate(); ?>"/>
+                    </div>
+                </div>
+                <div class="field admin__field field-attribute_label required _required">
+                    <label class="label" for="status">
+                        <span><?php /* @escapeNotVerified */echo __('Status')?></span>
+                    </label>
+                    <div class="control">
+                        <select id="status" name="status" type="text" class="input-text required-entry">
+                            <option <?php echo $spinInfo->getStatus()? 'selected':''; ?> value="1"><?php /* @escapeNotVerified */echo __('Enabled')?></option>
+                            <option <?php echo $spinInfo->getId() && !$spinInfo->getStatus()? 'selected':''; ?> value="0"><?php /* @escapeNotVerified */echo __('Disabled')?></option>                        
+                        </select>
+                    </div>
+                </div>
+                <!-- <div class="field admin__field  field-attribute_label  required _required">
+                    <label class="label" for="budget">
+                        <span><?php //echo __('Budget')?></span>
+                    </label>
+                    <div class="control">
+                        <input id="budget" name="budget" type="text" class="input-text required-entry validate-greater-than-zero" value="<?php //echo  $spinInfo->getBudget(); ?>"/>
+                    </div>
+                </div> -->
+                <div class="field admin__field  field-attribute_label  required _required">
+                    <label class="label" for="website_ids">
+                        <span><?php /* @escapeNotVerified */echo __('Websites')?></span>
+                    </label>
+                    <div class="control">
+                        <select id="website_ids" name="website_ids[]" class="input-text required-entry select multiselect admin__control-multiselect" style="height:10em" size="10" multiple="multiple">
+                            <?php
+                            foreach ($websites as $website) { ?>
+                                <option <?php if (in_array($website['value'], explode(',', $spinInfo->getWebsiteIds()))) {
+                                    echo 'selected';
+                                        }?> value="<?php echo $website['value'] ?>"><?php /* @escapeNotVerified */echo __($website['label'])?></option>
+                            <?php }
+                            ?>
+                        </select>
+                    </div>
+                </div>
+                 <div class="field admin__field  field-attribute_label">
+                    <label class="label" for="priority">
+                        <span><?php echo __('Priority')?></span>
+                    </label>
+                    <div class="control">
+                        <input id="priority" name="priority" type="text" class="input-text validate-number validate-zero-or-greater" value="<?php echo  $spinInfo->getPriority(); ?>"/>
+                        <div class="note admin__field-note" id="priority-note"><?= __('The default value is 0. The higher the value, the higher the priority.');?></div>
+                    </div>
+                </div>
+                <button title="<?php /* @escapeNotVerified */echo __('Save Info') ?>" type="button" id="update-spininfo" class="action-default save spin-save <?php echo ($block->getRequest()->getParam('id')? 'spin-save-ajax':'') ?>" data-spin-bind-form="spininfoformedit">
+                    <span><?php /* @escapeNotVerified */echo __('Save Info') ?></span>
+                    <span class="admin__page-nav-item-messages">
+                        <span class="admin__page-nav-item-message _changed">
+                            <span class="admin__page-nav-item-message-icon"></span>
+                            <span class="admin__page-nav-item-message-tooltip" data-bind="i18n: 'Changes have been made to this section that have not been saved.'"></span>
+                        </span>
+                    </span>
+                </button>
+            </fieldset>
+        </form>
+    </div>
+</div>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "spininfo": {}
+        }
+    }
+</script>

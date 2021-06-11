@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Mirasvit_GdprCookie::gdpr_cookie_consent" title="Cookie Consent" module="Mirasvit_GdprCookie" resource="Mirasvit_GdprCookie::gdpr_cookie" sortOrder="1010"
+             parent="Magento_Customer::customer"/>
+
+        <add id="Mirasvit_Gdpr::gdpr_cookie_cookies" title="Cookies" module="Mirasvit_GdprCookie" resource="Mirasvit_GdprCookie::gdpr_cookie"
+             action="gdpr_cookie/cookie" parent="Mirasvit_GdprCookie::gdpr_cookie_consent"/>
+
+        <add id="Mirasvit_Gdpr::gdpr_cookie_groups" title="Cookie Groups" module="Mirasvit_GdprCookie" resource="Mirasvit_GdprCookie::gdpr_cookie"
+             action="gdpr_cookie/cookiegroup" parent="Mirasvit_GdprCookie::gdpr_cookie_consent"/>
+
+        <add id="Mirasvit_Gdpr::gdpr_cookie_consents" title="Cookie Consents" module="Mirasvit_GdprCookie" resource="Mirasvit_GdprCookie::gdpr_cookie"
+             action="gdpr_cookie/cookieconsent" parent="Mirasvit_GdprCookie::gdpr_cookie_consent"/>
+    </menu>
+</config>

@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+        <config xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <preference type="Mancini\Customer\Block\Order\History" for="Magento\Sales\Block\Order\History"/>
+        <preference type="Mancini\Customer\Block\Account\Dashboard\Address" for="Magento\Customer\Block\Account\Dashboard\Address" />
+        <preference type="Mancini\Customer\Controller\Address\FormPost" for="Magento\Customer\Controller\Address\FormPost" />
+</config>

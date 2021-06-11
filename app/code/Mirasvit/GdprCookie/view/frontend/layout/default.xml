@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="after.body.start">
+            <block class="Mirasvit\GdprCookie\Block\CookieBar" name="gdpr_cookie_cbar" template="Mirasvit_GdprCookie::cookie_bar.phtml"/>
+            <block class="Mirasvit\GdprCookie\Block\CookieFilter" name="gdpr_cookie_filter" template="Mirasvit_GdprCookie::cookie_filter.phtml"/>
+            <block class="Mirasvit\GdprCookie\Block\SettingsModal" name="gdpr_cookie_settings" template="Mirasvit_GdprCookie::settings_bar.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

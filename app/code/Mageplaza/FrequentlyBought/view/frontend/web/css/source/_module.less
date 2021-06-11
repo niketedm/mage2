@@ -1,0 +1,490 @@
+.desktop-freq {
+  margin-bottom: 40px;
+
+  //for checkbox customization
+  .check-container {
+    display: block;
+    position: relative;
+    padding-left: 45px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    font-size: 20px;
+    width: 16px;
+  }
+
+  /* Hide the default checkbox */
+  input[type="checkbox"] {
+    visibility: hidden;
+  }
+
+  /* Creating a custom checkbox
+    based on demand */
+  .cus-check {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 16px;
+    width: 16px;
+    background-color: white;
+    border: solid #d93e0e 1px;
+  }
+
+  /* Specify the background color to be
+    shown when checkbox is checked */
+  .check-container input:checked ~ .cus-check {
+    background-color: #d93e0e;
+  }
+
+  /* Checkmark to be shown in checkbox */
+  /* It is not be shown when not checked */
+  .cus-check:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+
+  /* Display checkmark when checked */
+  .check-container input:checked ~ .cus-check:after {
+    display: block;
+  }
+
+  /* Styling the checkmark using webkit */
+  /* Rotated the rectangle by 45 degree and 
+    showing only two border to make it look
+    like a tickmark */
+  .check-container .cus-check:after {
+    left: 4px;
+    bottom: 2px;
+    width: 7px;
+    height: 13px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+
+  //for left aliging content
+  .products-grid.grid {
+    justify-content: normal !important;
+  }
+
+  //for left aligning bought together title
+  .freq-title {
+    text-align: left !important;
+
+    h2 {
+      font-size: 3rem;
+    }
+  }
+
+  .frequent-col {
+    //checkbox
+    .freq-desktop-checkbox {
+      width: 16px;
+      height: 16px;
+    }
+
+    .product-image-wrapper {
+      padding-bottom: 88% !important;
+    }
+
+    // for items left and wishlist on product image
+    .frequent-product-image {
+      position: relative;
+      margin-top: 13%;
+
+      .items-left {
+        z-index: 2;
+        position: absolute;
+        top: 1rem;
+        left: 0rem;
+        width: 50%;
+        background: #002b4b;
+        text-align: center;
+        color: white;
+        border-radius: 22px;
+      }
+
+      .wishlist-image-frequently-bought {
+        position: absolute;
+        z-index: 2;
+        top: 10px;
+        right: 5px;
+
+        .whislist-icon {
+          width: auto !important;
+        }
+      }
+    }
+  }
+
+  //for increment/decrement buttons
+  .frequent-qty {
+    .control {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 3rem;
+      margin-top: 2rem;
+
+      input {
+        width: 78px !important;
+        text-align: center;
+        height: 50px;
+      }
+    }
+
+    button {
+      color: #f1592a !important;
+      background-color: white !important;
+      width: 50px;
+      height: 50px;
+    }
+  }
+
+  .title-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 3.1%;
+
+    .mageplaza-fbt-add-to-wishlist {
+      display: none;
+    }
+
+    .mageplaza-fbt-buttons {
+      width: 170px;
+
+      button {
+        width: 100%;
+        height: 50px;
+      }
+    }
+
+    .mageplaza-fbt-add-to-cart {
+      margin-top: 0px;
+    }
+
+    .mageplaza-fbt-price-box {
+      display: flex;
+      margin-right: 3rem;
+    }
+
+    .mageplaza-fbt-total-price {
+      margin-right: 4rem;
+
+      .mageplaza-fbt-price {
+        color: #002b4b;
+        font-size: 24px;
+        font-family: "laca-Semibold" !important;
+      }
+    }
+  }
+
+  .product-image-container {
+    width: 100% !important;
+  }
+
+  .product-item-photo {
+    display: grid;
+  }
+
+  .mageplaza-fbt-checkbox-label {
+    width: 100%;
+    height: auto;
+    text-align: center;
+    background: #f8f7f7;
+    padding-top: 2.9rem;
+
+    // desktop price
+    .frequent-price {
+      .discount-price {
+        font-family: "laca-Semibold" !important;
+        color: #002b4b;
+        font-size: 24px;
+      }
+
+      .total-price {
+        font-size: 16px;
+        color: #707070;
+        text-decoration: line-through;
+        height: 19px;
+
+        .hide-price {
+          display: none;
+        }
+      }
+    }
+
+    .frequent-product-name {
+      color: #545454;
+      text-decoration: none !important;
+      display: block;
+      line-height: 30px;
+      width: 80%;
+      margin: auto;
+      margin-bottom: 20px;
+      font-size: 20px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+  }
+
+  .mageplaza-fbt-rows ul {
+    padding-inline-start: 0px !important;
+  }
+}
+
+@media only screen and (min-width: 426px) {
+  .mobile-freq {
+    display: none;
+  }
+}
+
+//mobile
+@media only screen and (max-width: 425px) {
+  .desktop-freq {
+    display: none;
+  }
+  .frequent-col {
+    li {
+      list-style: none;
+    }
+  }
+  // .owl-item img{
+  //     width: 80% !important;
+  // }
+
+  hr {
+    width: 95% !important;
+  }
+
+  .mobile-freq {
+    .owl-stage {
+      padding: 20px 0 5px !important;
+      display: flex;
+      justify-content: space-between;
+      margin-left: 10px;
+    }
+
+    .frequent-row {
+      .owl-item {
+        width: 85px !important;
+      }
+    }
+
+    .mobile-freq-title {
+      margin-bottom: 2rem;
+
+      h2 {
+        font-size: 24px !important;
+        font-family: 'laca-regular, sans-serif' !important;
+      }
+    }
+
+    form {
+      background: #f8f7f7;
+    }
+
+    .freq-item {
+      display: flex;
+    }
+
+    .accordion {
+      width: auto !important;
+    }
+
+    .mobile-checkbox {
+      padding: 20px;
+      padding-top: 26px;
+
+      .related-checkbox {
+        width: 23px;
+        height: 23px;
+      }
+    }
+
+    .mageplaza-fbt-mobile-total-price {
+      text-align: center;
+      padding-bottom: 20px;
+    }
+
+    .price-add-tocart-bottom {
+      .mageplaza-fbt-mobile-total-price {
+        padding-bottom: 10px;
+      }
+    }
+
+    .mageplaza-fbt-mobile-price {
+      font-size: 1.8rem;
+      color: #002b4b;
+      font-family: "laca-Semibold" !important;
+    }
+
+    .mageplaza-fbt-add-to-cart {
+      display: flex;
+      justify-content: center;
+      padding-bottom: 30px;
+
+      button {
+        width: 42%;
+        height: 50px;
+      }
+    }
+
+    a.frequent-product-name {
+      font-size: 16px;
+      color: #545454;
+      font-family: "laca-Medium" !important;
+      line-height: 19px !important;
+    }
+
+    .freq-mobile-price-outer {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 24px;
+      margin-bottom: 20px;
+    }
+
+    .freq-mobile-price-inner {
+      display: flex;
+      width: auto;
+
+      .total-price {
+        margin-left: 10px;
+
+        .item-price {
+          font-size: 14px;
+          color: #545454 !important;
+          text-decoration: line-through;
+        }
+      }
+    }
+
+    .item-price {
+      color: #002b4b;
+      font-size: 16px;
+      font-family: "laca-Semibold" !important;
+    }
+
+    .hide-price {
+      display: none;
+    }
+
+    .items-left {
+      float: right;
+      font-size: 13px;
+      font-family: "laca-Medium" !important;
+      background: #002b4b;
+      text-align: center;
+      color: white;
+      border-radius: 22px;
+      width: 25%;
+      margin-right: 12px;
+      height: 20px;
+    }
+
+    //for checkbox customization
+    .check-container {
+      display: block;
+      position: relative;
+      padding-left: 30px;
+      margin-bottom: 15px;
+      cursor: pointer;
+      font-size: 20px;
+      width: 16px;
+    }
+
+    /* Hide the default checkbox */
+    input[type="checkbox"] {
+      visibility: hidden;
+    }
+
+    /* Creating a custom checkbox
+        based on demand */
+    .cus-check {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 24px;
+      width: 24px;
+      background-color: white;
+      border: solid #d93e0e 1px;
+    }
+
+    /* Specify the background color to be
+        shown when checkbox is checked */
+    .check-container input:checked ~ .cus-check {
+      background-color: #d93e0e;
+    }
+
+    /* Checkmark to be shown in checkbox */
+    /* It is not be shown when not checked */
+    .cus-check:after {
+      content: "";
+      position: absolute;
+      display: none;
+    }
+
+    /* Display checkmark when checked */
+    .check-container input:checked ~ .cus-check:after {
+      display: block;
+    }
+
+    /* Styling the checkmark using webkit */
+    /* Rotated the rectangle by 45 degree and 
+        showing only two border to make it look
+        like a tickmark */
+    .check-container .cus-check:after {
+      left: 6px;
+      bottom: 4px;
+      width: 10px;
+      height: 19px;
+      border: solid white;
+      border-width: 0 3px 3px 0;
+      -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      transform: rotate(45deg);
+    }
+
+    .freq-accordion.active:before {
+      position: absolute;
+      right: 0px;
+      color: #f1592a;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-size: 46px;
+      line-height: inherit;
+      content: "\e621";
+      font-family: "icons-blank-theme";
+      margin: 0 12px;
+      vertical-align: top;
+      display: inline-block;
+      font-weight: normal;
+      overflow: hidden;
+      text-align: center;
+      transform: translateY(-20px);
+    }
+
+    .freq-accordion:before {
+      position: absolute;
+      right: 0;
+      color: #f1592a;
+      margin-left: 0px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-size: 46px;
+      line-height: inherit;
+      content: "\e622";
+      font-family: "icons-blank-theme";
+      margin: 0 12px;
+      vertical-align: top;
+      display: inline-block;
+      font-weight: normal;
+      overflow: hidden;
+      text-align: center;
+      transform: translateY(-20px);
+    }
+  }
+}

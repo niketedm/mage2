@@ -1,0 +1,48 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_MegaMenu
+ */
+?>
+<?php
+/** @var \Amasty\MegaMenu\Block\Html\Topmenu $block */
+/** @var $escaper \Magento\Framework\Escaper */
+
+$mainNode = $block->getData('mainNode');
+$widthMode = $escaper->escapeHtml($block->getWidth($mainNode));
+$widthValue = $escaper->escapeHtml($block->getWidthValue($mainNode));
+?>
+
+<?php if ($block->isSubmenuContentEnabled()): ?>
+<script type="text/x-magento-init">
+{
+    "#ammenu-submenu-<?= $escaper->escapeHtml($mainNode->getId()) ?>": {
+            "Magento_Ui/js/core/app": {
+            "components": {
+                "submenu-id-<?= $escaper->escapeJs($mainNode->getId()) ?>": {
+                    "component": "Amasty_MegaMenu/js/components/submenu",
+                    "config": {
+                        "submenuData": <?= /* @noEscape */ json_encode($block->getNodeData($mainNode), 1) ?>,
+                        "submenuId": "<?= $escaper->escapeJs($mainNode->getId()) ?>"
+                    }
+                }
+            }
+        }
+    }
+}
+</script>
+<section id="ammenu-submenu-<?= $escaper->escapeHtmlAttr($mainNode->getId()) ?>"
+         class="ammenu-submenu-container -content -<?= /* @noEscape */ $widthMode; ?>"
+    <?= /* @noEscape */ ($widthValue) ? 'style="width: ' . $widthValue . 'px"' : '' ?>>
+    <!-- ko scope: 'submenu-id-<?= $escaper->escapeHtml($mainNode->getId()) ?>' -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+    <!-- /ko -->
+</section>
+<?php elseif ($mainNodeContent = $block->getContent($mainNode)): ?>
+    <section class="ammenu-submenu-container ammenu-submenu -<?= /* @noEscape */ $widthMode; ?>"
+        <?= /* @noEscape */ ($widthValue) ? 'style="width: ' . $widthValue . 'px"' : '' ?>>
+        <?= /* @noEscape */ $mainNodeContent; ?>
+    </section>
+<?php endif; ?>
+

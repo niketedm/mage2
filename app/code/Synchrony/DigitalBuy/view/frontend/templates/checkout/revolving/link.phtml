@@ -1,0 +1,10 @@
+<?php
+/** @var  Synchrony\DigitalBuy\ViewModel\Checkout\Revolving\Link $viewModel */
+$viewModel = $block->getData('viewModel');
+if ($viewModel->canRenderBlock()): ?>
+<div class="synchrony-digitalbuy-link">
+    <a href="<?= $block->escapeUrl($viewModel->getCartButtonImageHref()) ?>">
+        <img src="<?= $block->escapeUrl($viewModel->getCartButtonImageUrl()) ?>" alt="<?= $block->escapeHtml($viewModel->getCartButtonImageAlt());?>" title="<?= $block->escapeHtml($viewModel->getCartButtonImageAlt());?>" />
+    </a>
+</div>
+<?php endif; ?>

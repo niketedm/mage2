@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Michal Walkowiak
+ * @copyright Copyright (c) 2017 PowerReviews (http://www.powerreviews.com)
+ * @package PowerReviews_ReviewDisplay
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="root">
+            <block class="Magento\Framework\View\Element\Template" template="PowerReviews_ReviewDisplay::afterbody.phtml" before="-" />
+        </referenceContainer>
+        <referenceContainer name="product.info.main">
+            <block name="powerreviews_reviewdisplay.reviewdisplay" class="PowerReviews\ReviewDisplay\Block\Catalog\Product\ReviewDisplay" before="-" template="product/reviewdisplay.phtml" />
+        </referenceContainer>
+        <referenceBlock name="product.info.details">
+           <block class="Magento\Catalog\Block\Product\View" name="reviewdisplay.tab" template="PowerReviews_ReviewDisplay::review_display_tab.phtml" group="detailed_info" >
+               <arguments>
+                   <argument translate="true" name="title" xsi:type="string">Reviews</argument>
+               </arguments>
+           </block>
+           <block class="Magento\Catalog\Block\Product\View" name="questiondisplay.tab" template="PowerReviews_ReviewDisplay::question_display_tab.phtml" group="detailed_info" >
+               <arguments>
+                   <argument translate="true" name="title" xsi:type="string">Questions&amp;Answers</argument>
+               </arguments>
+           </block>
+       </referenceBlock>
+    </body>
+</page>

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_layout.xsd">
+    <update handle="empty"/>
+    <referenceContainer name="page.wrapper">
+        <container name="checkout.header.container" as="checkout_header_container" label="Checkout Page Header Container" htmlTag="header" htmlClass="page-header" before="main.content">
+            <container name="checkout.header.wrapper" label="Checkout Page Header" as="checkout_header_wrapper" htmlTag="div" htmlClass="header content">
+                <block class="Magento\Theme\Block\Html\Header\Logo" name="logo">
+                    <arguments>
+                        <argument name="logo_img_width" xsi:type="number">148</argument>
+                        <argument name="logo_img_height" xsi:type="number">43</argument>
+                    </arguments>
+                </block>
+            </container>
+        </container>
+    </referenceContainer>
+    <referenceContainer name="main">
+        <container name="content.top" label="Main Content Top"/>
+        <container name="content" label="Main Content Area">
+            <block class="Magento\Framework\View\Element\FormKey" name="formkey"/>
+        </container>
+        <container name="content.aside" label="Main Content Aside"/>
+        <container name="content.bottom" label="Main Content Bottom"/>
+    </referenceContainer>
+    <referenceContainer name="before.body.end">
+        <block class="Magento\Theme\Block\Html\Footer" name="copyright" template="Magento_Theme::html/copyright.phtml"/>
+    </referenceContainer>
+</layout>

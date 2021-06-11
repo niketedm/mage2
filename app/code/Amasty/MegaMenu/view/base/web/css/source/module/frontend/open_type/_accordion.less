@@ -1,0 +1,88 @@
+//
+//  Accordion Open Type
+//  __________________________
+
+//
+//  imports
+//  ----------------------------------------------
+
+@import '../../_mixins';
+
+//
+//  Common
+//  --------------------------
+
+& when (@media-common = true) {
+    .ammenu-nav-sections.-accordion {
+        .ammenu-menu-header {
+            margin: @ammenu__indent 0 0;
+            padding: 0 @ammenu__indent__xxl @ammenu__indent;
+        }
+
+        .ammenu-menu-wrapper {
+            padding: 0;
+        }
+
+        .ammenu-categories {
+            & {
+                padding: 0;
+            }
+
+            & > .ammenu-item > .ammenu-wrapper {
+                margin: 0 0 0 35px;
+            }
+        }
+
+        .ammenu-item.-child {
+            margin: 0;
+        }
+
+        .ammenu-item > .ammenu-wrapper {
+            width: auto;
+        }
+
+        .ammenu-link.-level1 + .-child {
+            & {
+                padding: 0;
+            }
+
+            > .ammenu-wrapper {
+                margin: 0;
+            }
+        }
+
+        .ammenu-icon.-small {
+            & {
+                .am-flex(center, center);
+
+                top: 5px;
+                right: @ammenu__indent;
+                z-index: 9;
+                box-sizing: border-box;
+                padding: @ammenu__indent__l;
+                min-width: @ammenu__indent__xl;
+                width: @ammenu__indent__xl;
+            }
+
+            &:before,
+            &:after {
+                width: 8px;
+                height: 2px;
+            }
+        }
+
+        .ammenu-icon.-small.-down {
+            transform: rotate(-90deg);
+        }
+
+        .ammenu-toggle {
+            top: 0;
+            right: 0;
+            padding: 17px @ammenu__indent__l;
+        }
+
+        .ammenu-link.-level3 {
+            font-weight: 400;
+        }
+    }
+}

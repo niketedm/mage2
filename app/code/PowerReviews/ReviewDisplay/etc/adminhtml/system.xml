@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<!-- /** * @author Michal Walkowiak * @copyright Copyright (c) 2017 PowerReviews (http://www.powerreviews.com) * @package PowerReviews_ReviewDisplay */ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Config/etc/system_file.xsd">
+    <system>
+        <tab id="powerreviews" translate="label" sortOrder="10">
+            <label>PowerReviews</label>
+        </tab>
+
+        <section id="powerreviews_reviewdisplay" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Review Display</label>
+            <tab>powerreviews</tab>
+            <resource>PowerReviews_ReviewDisplay::powerreviews_reviewdisplay</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Review Display</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>
+                        Enable `Review Display` from `PowerReviews`
+                    </comment>
+                </field>
+                <field id="merchant_group_id" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Merchant Group ID</label>
+                </field>
+                <field id="merchant_id" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Merchant ID</label>
+                </field>
+                <field id="api_key" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>API Key</label>
+                </field>
+                <field id="locale" translate="label" type="text" sortOrder="45" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Locale</label>
+                </field>
+            </group>
+            <group id="on_off_sections" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>On/Off Sections</label>
+                <field id="product_page_review_snippet" translate="label comment" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Page Review Snippet</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>
+                        Enable `Product Page Review Snippet`
+                    </comment>
+                </field>
+                <field id="product_page_review_display" translate="label comment" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Page Review Display</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>
+                        Enable `Product Page Review Display`
+                    </comment>
+                </field>
+                <field id="search_results_category_page_snippet" translate="label comment" type="select" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Search Results/Category Page Snippet</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>
+                        Enable `Search Results/Category Page Snippet`
+                    </comment>
+                </field>
+                <field id="product_page_question_snippet" translate="label comment" type="select" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Questions &amp; Answers Summary Snippet</label>
+                    <validate>validate-question-enabled</validate>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>
+                        Enable `Questions &amp; Answers Summary Snippet`
+                    </comment>
+                </field>
+                <field id="product_page_question_display" translate="label comment" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Question &amp; Answers Display</label>
+                    <validate>validate-question-enabled</validate>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>
+                        Enable `Question &amp; Answers Display`
+                    </comment>
+                </field>
+            </group>
+        </section>
+
+    </system>
+</config>

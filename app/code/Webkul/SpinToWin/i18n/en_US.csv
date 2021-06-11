@@ -1,0 +1,231 @@
+Id,Id
+Name,Name
+Email,Email
+"Spin Time","Spin Time"
+Result,Result
+Lose,Lose
+Win,Win
+Status,Status
+N/A,N/A
+"To Redeem","To Redeem"
+Redeemed,Redeemed
+Coupon,Coupon
+"Add Segment","Add Segment"
+Information,Information
+Label,Label
+"Label is shown on the wheel.","Label is shown on the wheel."
+Heading,Heading
+"Heading is shown on result form as {{Success Title}}.","Heading is shown on result form as {{Success Title}}."
+Description,Description
+"Description is shown on result form as {{Success Description Text}}.","Description is shown on result form as {{Success Description Text}}."
+Limit,Limit
+"Maximum number of times it can occur.","Maximum number of times it can occur."
+Gravity,Gravity
+"Gravity/Probability of occurrence between 0-100.","Gravity/Probability of occurrence between 0-100."
+Position,Position
+"To manage position on the spin wheel.","To manage position on the spin wheel."
+Type,Type
+"Apply the rule only if the following conditions are met (leave blank for all products).","Apply the rule only if the following conditions are met (leave blank for all products)."
+Conditions,Conditions
+Action,Action
+Apply,Apply
+"Discount Amount","Discount Amount"
+"Maximum Qty Discount is Applied To","Maximum Qty Discount is Applied To"
+"Discount Qty Step (Buy X)","Discount Qty Step (Buy X)"
+"Discard Subsequent Rules","Discard Subsequent Rules"
+"Expiry Date","Expiry Date"
+"Percent of product price discount","Percent of product price discount"
+"Fixed amount discount","Fixed amount discount"
+"Fixed amount discount for whole cart","Fixed amount discount for whole cart"
+"Buy X get Y free (discount amount is Y)","Buy X get Y free (discount amount is Y)"
+No,No
+Yes,Yes
+Availed,Availed
+Delete,Delete
+"Are you sure want to delete?","Are you sure want to delete?"
+"Spin to Win Details","Spin to Win Details"
+"Spin Campaign Information","Spin Campaign Information"
+Form,Form
+"Spin Wheel","Spin Wheel"
+Segments,Segments
+Layout,Layout
+Trigger,Trigger
+Report,Report
+"You have successfully deleted the spin info.","You have successfully deleted the spin info."
+"Something went wrong while deleting the spin info. Please review the error log.","Something went wrong while deleting the spin info. Please review the error log."
+Lists,Lists
+"Manage Campaign","Manage Campaign"
+"Manage Spin to Win Campaigns","Manage Spin to Win Campaigns"
+"This campaign no longer exists.","This campaign no longer exists."
+"Edit %1","Edit %1"
+"New Campaign","New Campaign"
+"Edit Info","Edit Info"
+"New Info","New Info"
+"A total of %1 spin(s) have been deleted.","A total of %1 spin(s) have been deleted."
+"A total of %1 spin(s) have been disabled.","A total of %1 spin(s) have been disabled."
+"A total of %1 spin(s) have been enabled.","A total of %1 spin(s) have been enabled."
+"Date must be valid.","Date must be valid."
+"Start Date must be less than End Date.","Start Date must be less than End Date."
+"Spin to Win info successfully saved.","Spin to Win info successfully saved."
+"Spin Campaign data has been saved successfully.","Spin Campaign data has been saved successfully."
+"Something went wrong while saving the campaign data. Please review the error log.","Something went wrong while saving the campaign data. Please review the error log."
+"Spin to Win button data successfully saved.","Spin to Win button data successfully saved."
+"Invalid data.","Invalid data."
+"Won Coupon button data successfully saved.","Won Coupon button data successfully saved."
+"Welcome form data successfully saved.","Welcome form data successfully saved."
+"Layout data successfully saved.","Layout data successfully saved."
+"Result form data successfully saved.","Result form data successfully saved."
+"Visibility data successfully saved.","Visibility data successfully saved."
+"Spin wheel data successfully saved.","Spin wheel data successfully saved."
+"Spin Id not found in param.","Spin Id not found in param."
+"A total of %1 segment(s) have been deleted.","A total of %1 segment(s) have been deleted."
+"Segment data successfully saved.","Segment data successfully saved."
+"Something went wrong.","Something went wrong."
+"Successfully spinned.","Successfully spinned."
+"You have already spinned the wheel once.","You have already spinned the wheel once."
+"Something went wrong in getting spin wheel.","Something went wrong in getting spin wheel."
+"Full View","Full View"
+"Split View","Split View"
+"Bottom Right","Bottom Right"
+"Top Right","Top Right"
+"Bottom Left","Bottom Left"
+"Top Left","Top Left"
+"Middle Left","Middle Left"
+"Middle Right","Middle Right"
+Left,Left
+Right,Right
+"Home Page","Home Page"
+"Login Page","Login Page"
+"Registration Page","Registration Page"
+"Product View Page","Product View Page"
+"Category Page","Category Page"
+"Product Search Page","Product Search Page"
+"Cart Page","Cart Page"
+"Checkout Page","Checkout Page"
+"Other pages","Other pages"
+"After x seconds","After x seconds"
+Immediately,Immediately
+"When scroll to x %","When scroll to x %"
+"When Exit","When Exit"
+All,All
+"Select Specifics","Select Specifics"
+"Pop Up Dialog","Pop Up Dialog"
+"Sidebar Slide","Sidebar Slide"
+Repeat,Repeat
+"Repeat Horizontal","Repeat Horizontal"
+"Repeat Vertical","Repeat Vertical"
+"No Repeat","No Repeat"
+Space,Space
+Round,Round
+Initial,Initial
+"You are not authorised to use this Coupon.","You are not authorised to use this Coupon."
+"You need to log in to use this Coupon.","You need to log in to use this Coupon."
+"Spin to Win notification","Spin to Win notification"
+label,label
+heading,heading
+description,description
+"Cart %1 doesn't contain products","Cart %1 doesn't contain products"
+"Cart isn't assigned to correct store","Cart isn't assigned to correct store"
+"Could not apply coupon code","Could not apply coupon code"
+"Coupon code is not valid","Coupon code is not valid"
+Edit,Edit
+"Spin Wheel Statistics","Spin Wheel Statistics"
+"Total Spins","Total Spins"
+"Total Wins","Total Wins"
+"Sales Statistics","Sales Statistics"
+"Total Orders","Total Orders"
+"Total Sales","Total Sales"
+"Welcome Form","Welcome Form"
+"Edit Form","Edit Form"
+"Background Color","Background Color"
+"Text Color","Text Color"
+"Brand Logo","Brand Logo"
+"Customer's Full Name","Customer's Full Name"
+Enable,Enable
+Required,Required
+"Customer's Email Address Label","Customer's Email Address Label"
+"Button Background Color","Button Background Color"
+"Button Text Color","Button Text Color"
+"Button Label","Button Label"
+"Show Progress Meter","Show Progress Meter"
+Enabled,Enabled
+Disabled,Disabled
+"Progress Percentage","Progress Percentage"
+"Progress Label","Progress Label"
+"Update Form","Update Form"
+"Preview Form","Preview Form"
+"Result Form","Result Form"
+"Coupon Background Color","Coupon Background Color"
+"Coupon Text Color","Coupon Text Color"
+"Coupon Button Background Color","Coupon Button Background Color"
+"Coupon Button Text Color","Coupon Button Text Color"
+"Coupon Code","Coupon Code"
+"Copy Code","Copy Code"
+"Campaign Name","Campaign Name"
+Scheduled,Scheduled
+"Start Date","Start Date"
+"End Date","End Date"
+Websites,Websites
+Priority,Priority
+"The default value is 0. The higher the value, the higher the priority.","The default value is 0. The higher the value, the higher the priority."
+"Save Info","Save Info"
+"Layout Configuration","Layout Configuration"
+View,View
+"Wheel View","Wheel View"
+"Trigger Button Position","Trigger Button Position"
+"Update Layout","Update Layout"
+Visibility,Visibility
+"Spin Wheel Visibility","Spin Wheel Visibility"
+"Spin to Win Button Visibility","Spin to Win Button Visibility"
+"Show Spin Wheel on event","Show Spin Wheel on event"
+"Please select","Please select"
+"Update Visibility","Update Visibility"
+"Spin to Win Button","Spin to Win Button"
+"Configure Button","Configure Button"
+"Show Spin to Win Button","Show Spin to Win Button"
+"Spin to Win image","Spin to Win image"
+"Update Button","Update Button"
+"Preview Button","Preview Button"
+"Won Coupon Button","Won Coupon Button"
+"Show Won Coupon Button","Show Won Coupon Button"
+"Update Won Coupon","Update Won Coupon"
+"Spin Wheel Form","Spin Wheel Form"
+"Edit Spin Wheel","Edit Spin Wheel"
+"Background Image","Background Image"
+"Background Image Repeat property","Background Image Repeat property"
+"Show Inner Wheel","Show Inner Wheel"
+"Inner Radius","Inner Radius"
+"Center Color","Center Color"
+"Center Logo","Center Logo"
+"Pin image","Pin image"
+"Stroke Color","Stroke Color"
+"Segment Font Size","Segment Font Size"
+"Text Direction","Text Direction"
+Normal,Normal
+Reversed,Reversed
+"Result Segment Background Color","Result Segment Background Color"
+"Result Segment Text Color","Result Segment Text Color"
+"Add Segment Style","Add Segment Style"
+"Update Spin Wheel","Update Spin Wheel"
+"Click here to Preview","Click here to Preview"
+"You must save the data before previewing to see the changes.","You must save the data before previewing to see the changes."
+"Dear %name,","Dear %name,"
+"You have won ""%segmentlabel"" in Spin to Win.","You have won ""%segmentlabel"" in Spin to Win."
+Success,Success
+Error,Error
+"Save Segment","Save Segment"
+"Changes have been made to this section that have not been saved.","Changes have been made to this section that have not been saved."
+"Only '.jpeg','.jpg', '.png', '.gif' formats are allowed.","Only '.jpeg','.jpg', '.png', '.gif' formats are allowed."
+Webkul,Webkul
+"Spin to Win","Spin to Win"
+"General Settings","General Settings"
+"Email Validation","Email Validation"
+"If email validation is enabled then only logged in user can apply the coupon.","If email validation is enabled then only logged in user can apply the coupon."
+"Manage E-mail","Manage E-mail"
+"Send Coupon Code to customer","Send Coupon Code to customer"
+"Add New Campaign","Add New Campaign"
+"Delete Selected Campaigns","Delete Selected Campaigns"
+"Are you sure you want to delete?","Are you sure you want to delete?"
+"Manage Status","Manage Status"
+Disable,Disable
+ID,ID

@@ -1,0 +1,7 @@
+<container name="header.panel" label="Page Header Panel" htmlTag="div" htmlClass="panel ">
+    <block class="Magento\Framework\View\Element\Html\Links" name="top.links">
+        <arguments>
+            <argument name="css_class" xsi:type="string">header links</argument>
+        </arguments>
+    </block>
+</container>

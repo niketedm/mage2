@@ -1,0 +1,215 @@
+<?php
+
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+/**
+ * Category layered navigation
+ * @var $block \Magento\LayeredNavigation\Block\Navigation
+ */
+?>
+<?php //echo "abc"; 
+?>
+<?php $current_layout = $this->helper('Mancini\Catalog\Helper\Data'); ?>
+<?php if ($block->canShowBlock()) : ?>
+    <div class="block filter" id="layered-filter-block" data-mage-init='
+    {
+        "collapsible":
+        {
+            "openedState": "active",
+            "collapsible": true,
+            "active": false,
+            "collateral":
+            {
+                "openedState": "filter-active",
+                "element": "body"
+            }
+        }
+    }'>
+        <?php $filtered = count($block->getLayer()->getState()->getFilters()) ?>
+        <div class="block-title filter-title" data-count="<?= /* @noEscape */
+                                                            $filtered ?>">
+            <strong data-role="title"><?= $block->escapeHtml(__('Filter By')); ?></strong>
+        </div>
+        <div class="block-content filter-content">
+
+            <?php $wrapOptions = false; ?>
+            <?php if ($current_layout->getCurrentPageLayout() == '2columns-left-furniture-deals') { ?>
+                <?php foreach ($block->getFilters() as $filter) : ?>
+                    <?php if ($filter->getItemsCount()) : ?>
+                        <?php if (!$wrapOptions) : ?>
+                            <strong role="heading" aria-level="2" class="block-subtitle filter-subtitle"><?= $block->escapeHtml(__('Filter By')) ?></strong>
+                            <div class="filter-options" id="narrow-by-list" data-role="content" data-mage-init='
+                        {
+                            "accordion":
+                            {
+                                "openedState": "active",
+                                "collapsible": true,
+                                "active": false,
+                                "multipleCollapsible": false
+                            }
+                        }'>
+                            <?php $wrapOptions = true;
+                        endif; ?>
+                            <div data-role="collapsible" class="filter-options-item">
+                                <div data-role="title" class="filter-options-title"><?= $block->escapeHtml(__($filter->getName())) ?>
+                                </div>
+                                <div data-role="content" class="filter-options-content">
+                                    <?= /* @noEscape */
+                                    $block->getChildBlock('renderer')->render($filter) ?></div>
+                            </div>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                <?php } else { ?>
+                    <?php foreach ($block->getFilters() as $filter) : ?>
+                        <?php if ($filter->getRequestVar() != 'cat') : ?>
+                            <?php if ($filter->getItemsCount()) : ?>
+                                <?php if (!$wrapOptions) : ?>
+                                    <strong role="heading" aria-level="2" class="block-subtitle filter-subtitle"><?= $block->escapeHtml(__('Filter By')) ?></strong>
+                                    <div class="filter-options" id="narrow-by-list" data-role="content" data-mage-init='
+                            {
+                                "accordion":
+                                {
+                                    "openedState": "active",
+                                    "collapsible": true,
+                                    "active": false,
+                                    "multipleCollapsible": false
+                                }
+                            }'>
+                                    <?php $wrapOptions = true;
+                                endif; ?>
+                                    <div data-role="collapsible" class="filter-options-item" id="filters-u">
+                                        <div data-role="title" class="filter-options-title"><?= $block->escapeHtml(__($filter->getName())) ?>
+                                        </div>
+                                        <div data-role="content" class="filter-options-content">
+                                            <?= /* @noEscape */
+                                            $block->getChildBlock('renderer')->render($filter) ?></div>
+                                    </div>
+                                <?php endif; ?>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    <?php } ?>
+                    <?php if ($wrapOptions) : ?>
+                                    </div>
+
+                                    <?= $block->getChildHtml('state') ?>
+
+                                    <?php if ($block->getLayer()->getState()->getFilters()) : ?>
+                                        <div class="block-actions filter-actions">
+                                            <a href="<?= $block->escapeUrl($block->getClearUrl()) ?>" class="action clear filter-clear">
+                                                <span><?= $block->escapeHtml(__('Clear All')) ?></span>
+                                            </a>
+                                        </div>
+                                    <?php endif; ?>
+
+                                <?php else : ?>
+                                    <?= $block->getChildHtml('state') ?>
+                                    <script>
+                                        require([
+                                            'jquery'
+                                        ], function($) {
+                                            $('#layered-filter-block').addClass('filter-no-options');
+                                            $('.sidebar-main #layered-filter-block').addClass('filter-no-options');
+                                        });
+                                    </script>
+                                <?php endif; ?>
+                            </div>
+        </div>
+    <?php endif; ?>
+    <script>
+        require([
+            'jquery'
+        ], function($) {
+            $(document).ready(function() {
+
+
+
+                $(".filter-options-title").click(function() {
+
+
+                    if ($(".select-wrap").hasClass('active')) {
+
+                        $(".select-wrap").removeClass("active");
+                        expandedState = false;
+
+
+
+                    }
+                });
+
+
+                $(".filter-title strong").click(function() {
+                    var elmnt = document.getElementById("layered-filter-block");
+                    //elmnt.scrollIntoView();
+                    elmnt.scrollIntoView({
+                        block: "center"
+                    });
+
+                    $(".filter-button").css("display", "none");
+
+                    // if ($(".select-wrap").hasClass('active')) {
+
+                    //     // $(".select-wrap").removeClass("active");
+                    //     $('#dop').trigger('click');
+
+                    // }
+
+
+                    if ($("li.item.mst-nav__label-item._mode-checkbox").hasClass('_highlight')) {
+
+                        // $(".select-wrap").removeClass("active");
+                        $('._highlight').trigger('click');
+
+                    }
+
+                    //elmnt.scrollIntoView();
+
+
+                });
+
+
+                // $(".filter-options-title").click(function() {
+                //     $(".mst-nav__apply-button-wrapper").css("display", "none");
+                // });
+                var elmnt = document.getElementById("layered-filter-block");
+                $(".filter-title strong").click(function() {
+
+                    elmnt.scrollIntoView({
+                        block: "center"
+                    });
+                });
+                $(".filter-options-item allow active").click(function() {
+                    $(".mst-nav__apply-button-wrapper").css("display", "block");
+                });
+                // $(document).click(function() {
+
+
+                //     if ($(".filter-options-item").hasClass('active')) {
+
+                //         // $(".select-wrap").removeClass("active");
+                //         $('.active .filter-options-title').trigger('click');
+
+                //     }
+
+                // });
+                // $('.filter-options-title').click(function(et) {
+
+                //     et.stopPropagation();
+
+                // });
+                $('body').on('click', function(e) {
+                    if (!$('.filter-options-item').is(e.target) &&
+                        $('.filter-options-item').has(e.target).length === 0 &&
+                        $('.filter-options-item').has(e.target).length === 0
+                    ) {
+                        $('.active .filter-options-title').trigger('click');
+
+                    }
+                });
+
+            });
+        });
+    </script>

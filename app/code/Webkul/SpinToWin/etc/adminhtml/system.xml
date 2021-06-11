@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_SpinToWin
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Config/etc/system_file.xsd">
+    <system>
+        <tab id="webkul" translate="label">
+            <label>Webkul</label>
+        </tab>
+        <section id="spintowin" translate="label" type="text" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Spin to Win</label>
+            <tab>webkul</tab>
+            <resource>Webkul_SpinToWin::config_spintowin</resource>
+            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Settings</label>
+                <field id="email_validation" translate="label comment" sortOrder="2" type="select" showInDefault="1" showInWebsite="1" >
+                    <label>Email Validation</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <validate>required-entry</validate>
+                    <comment>If email validation is enabled then only logged in user can apply the coupon.</comment>
+                </field>
+                <field id="manager_email" translate="label comment" sortOrder="7" type="text" showInDefault="1" showInWebsite="1" >
+                    <label>Manage E-mail</label>
+                    <validate>required-entry validate-email</validate>
+                </field>
+                <field id="send_coupon_to_customer" translate="label comment" type="select" sortOrder="17" showInDefault="1" showInStore="1" >
+                    <label>Send Coupon Code to customer</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

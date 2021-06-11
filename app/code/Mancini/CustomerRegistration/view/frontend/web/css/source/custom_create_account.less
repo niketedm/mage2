@@ -1,0 +1,304 @@
+::-webkit-input-placeholder {
+    color: #707070 !important;
+    font-size: 16px !important;
+    font-family: 'laca-Regular' !important;
+    font-style: normal;
+}
+
+.customer-account-create {
+    .page-main {
+        .page-title-wrapper {
+            h1.page-title {
+                display: none;
+            }
+        }
+    }
+
+    .login-img-wall {
+        // width: 656px;
+        width: 93.9%;
+        height: 1200px;
+        object-fit: cover;
+    }
+
+    .create-account-right {
+        padding: 0 5.2%;
+    }
+
+    form.form-create-account {
+        padding-right: 75px;
+
+        input {
+            height: 5.5rem;
+            border: 1px solid #949596;
+            font-size: 16px;
+            color: #545454;
+        }
+
+        input:focus {
+            border: 1px solid #D93E0E !important;
+            box-shadow: none;
+        }
+
+        input::placeholder {
+            font-family: 'laca-regular, sans-serif';
+            font-size: 16px;
+            color: #707070;
+            line-height: 19px;
+        }
+
+        .field.choice.newsletter,
+        .field.tcagreecreateaccount.required {
+            display: flex;
+            align-items: center;
+        }
+
+        .field.choice.newsletter {
+            input[type=checkbox] {
+                height: 18px;
+                width: 18px;
+            }
+
+            .label-signup {
+                padding-top: 5px;
+                padding-left: 1rem;
+            }
+        }
+
+        .field.choice.consent {
+            display: flex;
+
+            input[type=checkbox] {
+                height: 18px;
+                width: 18px;
+            }
+
+            #is_consented-error {
+                order: 3;
+                //margin-left: 1rem;
+                width: max-content;
+                font-family: 'laca-Book';
+            }
+
+            // #is_consented-error::before {
+            //     content: "\a";
+            //     white-space: pre;
+            // }
+
+            label.label {
+                padding-left: 1rem;
+                padding-top: 5px;
+            }
+
+        }
+
+        .field {
+            margin: 0 0 1rem;
+        }
+
+        .signin-link {
+            font-size: 20px;
+            font-family: 'laca-Medium';
+            line-height: 24px;
+            color: #545454;
+        }
+    }
+
+    .fieldset {
+        margin: 0px 0 0px;
+
+        .legend {
+            font-size: 36px !important;
+            float: left;
+            margin-left: 0px;
+            font-family: 'laca-Medium';
+            margin-bottom: 30px !important;
+            line-height: 43px;
+        }
+
+        .create-account-sub-text {
+            // margin-bottom: 50px;
+            margin-bottom: 25px;
+        }
+
+        .field:not(.choice) {
+            .label {
+                width: auto;
+                font-size: 20px;
+                float: none;
+                font-family: 'laca-Book';
+                // margin-bottom: 10px;
+                margin-bottom: 5px;
+            }
+
+            .control {
+                width: auto;
+                float: none;
+                font-family: 'laca-Book';
+            }
+        }
+
+        .field.choice:before {
+            width: auto;
+            padding: 0px !important;
+        }
+    }
+
+    .field.tcagreecreateaccount {
+        padding-bottom: 50px;
+
+        .label {
+            display: inline !important;
+            font-size: 16px;
+            font-family: 'laca-regular, sans-serif' !important;
+        }
+    }
+
+    .signin-link {
+        text-align: center;
+        margin-bottom: 70px;
+    }
+
+    .actions-toolbar {
+        margin-left: 0px !important;
+        margin-bottom: 30px !important;
+
+        .primary {
+            width: 100% !important;
+
+            .action {
+                width: 100% !important;
+                // margin: 0px !important;
+                font-size: 18px !important;
+                height: 5rem;
+                margin-top: 2.8rem;
+                border-radius: 0px;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .customer-account-create {
+        .login-img-wall {
+            // width: 656px;
+            width: 100%;
+            height: 200px;
+        }
+
+        .fieldset .legend {
+            margin-top: 30px;
+            margin-bottom: 20px !important;
+        }
+
+        form.form-create-account {
+            padding-right: 0px;
+        }
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .form.create.account {
+        min-width: unset;
+        width: unset;
+    }
+}
+
+@media only screen and (min-width: 769px) and (max-width: 991px) {
+    .customer-account-create .create-account-left {
+        flex: 0 0 50%;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .customer-account-create img.login-img-wall {
+        width: 100%;
+    }
+
+    .customer-account-create .create-account-right {
+        flex: 0 0 50%;
+        padding: 0 3.2%;
+    }
+
+    .customer-account-create form.form-create-account {
+        padding-right: 0px;
+    }
+}
+
+//Custom Tick css
+
+//for checkbox customization
+.check-container {
+    display: block;
+    position: relative;
+    // padding-left: 45px;
+    // margin-bottom: 15px;
+    cursor: pointer;
+    font-size: 18px;
+    width: 18px;
+}
+
+/* Hide the default checkbox */
+input[type="checkbox"] {
+    visibility: hidden;
+}
+
+/* Creating a custom checkbox
+    based on demand */
+.cus-check {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    height: 18px;
+    width: 18px;
+    background-color: white;
+    border: solid #d93e0e 1px;
+}
+
+/* Specify the background color to be
+    shown when checkbox is checked */
+.check-container input:checked~.cus-check {
+    background-color: #d93e0e;
+}
+
+/* Checkmark to be shown in checkbox */
+/* It is not be shown when not checked */
+.cus-check:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Display checkmark when checked */
+.check-container input:checked~.cus-check:after {
+    display: block;
+}
+
+/* Styling the checkmark using webkit */
+/* Rotated the rectangle by 45 degree and 
+    showing only two border to make it look
+    like a tickmark */
+.check-container .cus-check:after {
+    left: 4px;
+    bottom: 2px;
+    width: 7px;
+    height: 13px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+@media only screen and (max-width: 768px) {
+    .customer-account-create {
+        .login-img-wall {
+            .customer-signin-image {
+                .pagebuilder-mobile-hidden {
+                    display: none;
+                }
+
+            }
+        }
+    }
+}

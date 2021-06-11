@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <columns name="widget_columns">
+        <column name="qty" component="Mancini_Recentproduct/js/product/qty" displayArea="details-area">
+            <settings>
+                <label translate="true">Qty</label>
+                <bodyTmpl>Mancini_Recentproduct/product/qty</bodyTmpl>
+            </settings>
+        </column>
+    </columns>
+</listing>

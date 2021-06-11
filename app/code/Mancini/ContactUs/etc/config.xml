@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <customer>
+            <captcha>
+                <shown_to_logged_in_user>
+                    <employment>1</employment>
+                </shown_to_logged_in_user>
+                <always_for>
+                    <employment>1</employment>
+                </always_for>
+            </captcha>
+        </customer>
+        <captcha translate="label">
+            <frontend>
+                <areas>
+                    <employment>
+                        <label>Employment</label>
+                    </employment>
+                </areas>
+            </frontend>
+        </captcha>
+        <contact>
+            <email>
+                <response_email_template>contact_email_response_email_template</response_email_template>
+                <!--<sales_emails>dchristie@sleepworld.com</sales_emails>
+                <customer_service_emails>iramos@sleepworld.com</customer_service_emails>
+                <website_qsuestion_emails>mburke@sleepworld.com</website_qsuestion_emails>-->
+            </email>
+        </contact>
+    </default>
+
+</config>

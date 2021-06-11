@@ -1,0 +1,30 @@
+<script type="text/javascript">
+    function callParentFunction(str) {
+        console.log('vish 2'+str);
+        if (str && str.length > 0 && window.top && window.top.CommunicationHandler && window.parent.CommunicationHandler.onReceiveCommunication) {
+            var referrer = document.referrer;
+            console.log('vish 3'+referrer);
+            window.top.CommunicationHandler.onReceiveCommunication({qstr : str , parent : referrer});
+        }
+    }
+    function receiveMessage(event) {
+        console.log('vish 4');
+        if (event && event.data) {
+            console.log('vish 4 4');
+            callParentFunction(event.data);
+        }
+    }
+    if (window.addEventListener) {
+        console.log('vish 10');
+        window.addEventListener("message", receiveMessage, false);
+    } else if (window.attachEvent) {
+        console.log('vish 11'+receiveMessage);
+        window.attachEvent("onmessage", receiveMessage);
+    }
+    
+    if (window.location.hash && window.location.hash.length > 1) {
+        console.log('vish 1');
+        callParentFunction(window.location.hash.substring(1));
+    }
+</script>
+ 

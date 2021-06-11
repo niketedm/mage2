@@ -1,0 +1,20 @@
+<svg id="Component_43_1" data-name="Component 43 – 1" xmlns="http://www.w3.org/2000/svg" width="26" height="24" viewBox="0 0 26 24">
+  <g id="Rectangle_2764" data-name="Rectangle 2764" fill="#fff" stroke="#e2e2e2" stroke-width="0.5">
+    <rect width="26" height="24" stroke="none"/>
+    <rect x="0.25" y="0.25" width="25.5" height="23.5" fill="none"/>
+  </g>
+  <g id="Component_38" data-name="Component 38" transform="translate(5 1)">
+    <g id="Component_17_2" data-name="Component 17 – 2" transform="translate(0 4)">
+      <rect id="Rectangle_2623" data-name="Rectangle 2623" width="16" height="1" rx="0.5" transform="translate(0)" fill="#002b4b"/>
+    </g>
+    <g id="Component_17_3" data-name="Component 17 – 3" transform="translate(0 8)">
+      <rect id="Rectangle_2623-2" data-name="Rectangle 2623" width="16" height="1" rx="0.5" transform="translate(0)" fill="#002b4b"/>
+    </g>
+    <g id="Component_17_4" data-name="Component 17 – 4" transform="translate(0 13)">
+      <rect id="Rectangle_2623-3" data-name="Rectangle 2623" width="16" height="1" rx="0.5" transform="translate(0)" fill="#002b4b"/>
+    </g>
+    <g id="Component_17_5" data-name="Component 17 – 5" transform="translate(0 17)">
+      <rect id="Rectangle_2623-4" data-name="Rectangle 2623" width="16" height="1" rx="0.5" fill="#002b4b"/>
+    </g>
+  </g>
+</svg>

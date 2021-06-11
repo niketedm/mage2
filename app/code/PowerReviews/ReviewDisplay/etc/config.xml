@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Michal Walkowiak
+ * @copyright Copyright (c) 2017 PowerReviews (http://www.powerreviews.com)
+ * @package PowerReviews_ReviewDisplay
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Magento/Store/etc/config.xsd">
+    <default>
+        <powerreviews_reviewdisplay>
+            <general>
+                <enable>1</enable>
+                <block_label>Test Block Label</block_label>
+                <text_align>center</text_align>
+            </general>
+        </powerreviews_reviewdisplay>
+    </default>
+</config>

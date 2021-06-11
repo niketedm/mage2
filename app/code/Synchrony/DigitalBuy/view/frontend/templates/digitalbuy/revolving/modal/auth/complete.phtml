@@ -1,0 +1,26 @@
+<?php
+/** @var \Synchrony\DigitalBuy\ViewModel\Modal\Revolving\Auth $viewModel */
+$viewModel = $block->getData('viewModel');
+?>
+<div id="checkout" class="checkout-container">
+    <div id="checkout-loader" class="loading-mask" style="background: rgba(255,255,255,1);">
+        <div class="loader">
+            <img src="<?php echo $block->escapeHtmlAttr($block->getViewFileUrl('images/loader-1.gif')) ?>"  alt="<?php echo $block->escapeHtmlAttr(__('Loading...')) ?>" style="position: absolute;">
+        </div>
+    </div>
+</div>
+
+<script type="text/x-magento-init">
+<?php echo /* @noEscape */ $this->helper(\Magento\Framework\Json\Helper\Data::class)->jsonEncode([
+        '*' => ['Synchrony_DigitalBuy/js/modal/auth-complete' => [
+            'isSuccessful' => $viewModel->isAuthSuccessful(),
+            'successUrl' => $viewModel->getCheckoutUrl(),
+            'failureUrl' => $viewModel->getCartUrl(),
+            'paymentMethodCode' => $viewModel->getPaymentMethodCode(),
+            'addressData' => $viewModel->getAuthAddressData(),
+            'isQuoteVirtual' => $viewModel->isQuoteVirtual(),
+            'createAddressAsNew' => $viewModel->getCreateAddressAsNew()
+        ]],
+    ]);
+    ?>
+</script>

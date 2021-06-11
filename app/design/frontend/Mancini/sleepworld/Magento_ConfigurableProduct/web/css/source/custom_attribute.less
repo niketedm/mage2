@@ -1,0 +1,207 @@
+.product-info-main {
+  .field.configurable {
+    .control {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .select2-container--default
+        .select2-selection--single
+        .select2-selection__arrow
+        b {
+        position: absolute;
+        top: 9px;
+        right: 20px;
+        content: "";
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-left: none;
+        border-bottom: none;
+        border-right: 0.2em solid #f1592a;
+        border-top: 0.2em solid #f1592a;
+        transform: rotate(135deg);
+        font-size: 9px;
+      }
+      .select2-container--default.select2-container--open
+        .select2-selection--single
+        .select2-selection__arrow
+        b {
+        position: absolute;
+        top: 13px;
+        right: 20px;
+        content: "";
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-left: none;
+        border-bottom: none;
+        border-right: 0.2em solid #f1592a;
+        border-top: 0.2em solid #f1592a;
+        transform: rotate(-45deg);
+        font-size: 9px;
+      }
+
+      .select2-container {
+        width: 80.8% !important;
+      }
+
+      //today
+      .select2-selection {
+        height: 55px;
+        border-radius: 0px;
+
+        .select2-selection__rendered {
+          padding-left: 20px !important;
+          padding-top: 13px !important;
+          padding-bottom: 18px !important;
+        }
+      }
+      /*  .select2-selection > span > span > span {
+        padding-left: 0px !important;
+      } */
+
+      //today end
+
+      .select2-selection__arrow {
+        top: 12px !important;
+        right: 12px !important;
+      }
+
+      .size-price {
+        font-size: 24px;
+        margin-left: 2rem;
+        font-family: "laca-Medium" !important;
+        color: #545454;
+      }
+    }
+  }
+
+  //for getting add to cart button below qunatity
+  .field.qty {
+    display: inline-table !important;
+  }
+
+  //for select size label
+  .field.configurable {
+    .pdp-size {
+      margin-top: 19px !important;
+    }
+
+    .label {
+      color: #545454;
+      font-size: 2rem;
+      font-weight: unset;
+      font-family: "laca-Medium" !important;
+    }
+  }
+}
+
+//magento popup content css
+// .modal-inner-wrap {
+//     width: 70rem !important;
+// }
+
+//pdp modal css
+.catalog-product-view {
+  .modal-popup .modal-title {
+    border-bottom: none !important;
+    font-size: 2.4rem !important;
+    color: #545454 !important;
+    font-family: "laca-Medium" !important;
+  }
+
+  .modal-inner-wrap {
+    top: 30px;
+  }
+  .modal-header {
+    border: none;
+
+    .action-close {
+      background: white !important;
+    }
+    .action-close:before {
+      color: #d93e0e;
+    }
+  }
+
+  .modal-content {
+    border: none;
+  }
+
+  .modal-footer {
+    display: none;
+  }
+}
+
+.modal-title {
+  font-size: 2rem !important;
+}
+.modal-content-head {
+  color: #545454;
+  font-size: 2.4rem;
+}
+.modal-content-main {
+  color: #545454;
+  font-size: 1.6rem;
+}
+.modal-body-content {
+  display: none;
+}
+
+@media only screen and (max-width: 767px) {
+  .catalog-product-view {
+    .modal-inner-wrap {
+      width: 89% !important;
+
+      .modal-header {
+        background: white !important;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .product-info-main {
+    .field.configurable {
+      .control {
+        .select2-container {
+          width: 100% !important;
+        }
+
+        .size-price {
+          display: none !important;
+        }
+      }
+    }
+  }
+}
+
+//mobile
+@media only screen and (max-width: 426px) {
+  .product-info-main {
+    .field.configurable {
+      .label {
+        font-size: 1.8rem;
+      }
+    }
+  }
+}
+
+//dropdwon options hover
+.catalog-product-view {
+  .select2-dropdown ul li:hover {
+    background: #d93e0e;
+    color: white;
+  }
+
+  .select2-dropdown ul li[aria-selected="true"] {
+    border:solid #d93e0e 2px;
+  }
+
+  .select2-dropdown ul li {
+    height: 9rem;
+    border: solid 1px #d9d9d9;
+    padding-top: 30px;
+  }
+}

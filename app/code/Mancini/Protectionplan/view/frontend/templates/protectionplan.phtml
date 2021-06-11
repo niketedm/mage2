@@ -1,0 +1,78 @@
+<?php
+
+/**
+ * @var $block \Mancini\Protectionplan\Block\Protectionplan
+ */
+?>
+<?php //if($block->getAttributeSetName()== "Mattress"):
+?>
+<div class="protectionplan">
+    <div class="field configurable protection" id="protection">
+        <label class="label" for="attribute protection">
+            <span><?php echo __("Protection Plan"); ?></span>
+
+            <!-- POPUP for protection plan -->
+            <div id="protection-modal">
+                <div class="modal-body-content">
+                    <?php echo $staticBlock    = $this->getLayout()->createBlock('Magento\Cms\Block\Block')
+                        ->setBlockId('protection_question_popup')
+                        ->toHtml(); ?>
+
+                </div>
+            </div>
+            <span id="protectionpopup" tabindex="0">
+                <img class="question-mark" src='<?php echo $block->getViewFileUrl('images/question-mark.png'); ?>'>
+            </span>
+            <!-- Popup ends -->
+
+            <span class="addprice"> + </span>
+        </label>
+        <div class="control">
+            <select name="protectionprd" data-selector="protectionprd" id="protectionprd" class="protection" disabled="disabled">
+                <option value=""><?php echo __('No Protector'); ?></option>
+            </select>
+            <span class="size-price" id="planprice"> $0.00 </span>
+        </div>
+    </div>
+</div>
+<?php //endif; 
+?>
+<script type="text/x-magento-init">
+    {
+		"#protection": { 
+			"Mancini_Protectionplan/js/protection": {
+			} 
+		} 
+	}
+</script>
+<script type="text/javascript">
+    require([
+        "jquery",
+        "Magento_Ui/js/modal/modal"
+    ], function($, modal) {
+
+        var options = {
+            type: 'popup',
+            responsive: false,
+            title: 'Protection Plan',
+            innerScroll: true,
+            buttons: [{
+                text: $.mage.__('Ok'),
+                class: '',
+                click: function() {
+                    this.closeModal();
+                }
+            }]
+        };
+
+        var popup = modal(options, $('#protection-modal'));
+        $("#protectionpopup").click(function() {
+            $('#protection-modal').modal('openModal');
+        });
+        $("#protectionpopup").keypress(function(event) {
+            if (event.keyCode === 13) {
+                $('#protection-modal').modal('openModal');
+            }
+        });
+    });
+</script>

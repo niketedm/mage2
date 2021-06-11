@@ -1,0 +1,102 @@
+//
+//  Compatibility with Amasty Jet Theme
+//  ____________________________________
+
+//
+//  Import
+//  ------------------------------------
+
+@import '../module/_mixins';
+
+//
+//  Common
+//  ------------------------------------
+
+& when (@media-common = true) {
+    .amtheme-navigation-icon {
+        display: none;
+    }
+
+    .ammenu-menu-toggle {
+        position: initial;
+    }
+
+    .amasty-jet-theme {
+        .ammenu-menu-wrapper.-sticky {
+            z-index: 1001;
+        }
+
+        .ammenu-link.-main > .ammenu-icon-block {
+            transition: background .4s ease-in-out;
+        }
+    }
+
+    .amasty-jet-theme .ammenu-nav-sections.-hamburger {
+        .header.links {
+            display: block;
+            margin: 0;
+        }
+
+        .amtheme-item {
+            .am-flex(none, center);
+        }
+
+        .amtheme-icon {
+            margin: 0 @ammenu__indent 0 0;
+        }
+
+        .amtheme-item-bottom {
+            &:extend(.ammenu-link.-main all);
+        }
+
+        .amtheme-item-bottom .section-item-content {
+            padding: @ammenu__indent 0;
+            background: initial;
+        }
+
+        .amtheme-item-bottom .title {
+            display: none;
+        }
+    }
+}
+
+//
+//  Desktop
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .amasty-jet-theme .header.content > .ammenu-menu-toggle + .logo {
+        margin-bottom: 0;
+    }
+}
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .amasty-jet-theme .header.content .ammenu-menu-wrapper.-hamburger-top {
+        order: -1;
+        margin: 0 auto 0 10px;
+        background: transparent !important; // Override MegaMenu module important style
+    }
+
+    .amasty-jet-theme .header.content > .ammenu-menu-toggle.-hamburger {
+        & {
+            order: -1;
+        }
+
+        & + .logo {
+            order: -1;
+            margin-right: 0;
+        }
+    }
+}
+
+//
+//  Mobile
+//  -------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .amasty-jet-theme {
+        .ammenu-menu-toggle {
+            padding: @ammenu__indent 5px;
+        }
+    }
+}

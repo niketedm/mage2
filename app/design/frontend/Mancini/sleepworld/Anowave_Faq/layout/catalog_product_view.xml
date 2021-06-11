@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Anowave_Faq::css/source/custom_faq.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <!-- <referenceBlock name="product.info.details">
+            <block class="Anowave\Faq\Block\Faq" name="faq.tab" as="faq" template="Anowave_Faq::faq.phtml" group="detailed_info" after="-"></block>
+        </referenceBlock> -->
+
+        <!-- <referenceBlock name="content.aside">
+            <block class="Anowave\Faq\Block\Faq" name="faq.tab" as="faq" template="Anowave_Faq::faq.phtml" before="similarprod"></block>
+        </referenceBlock> -->
+
+        <referenceContainer name="product.info.details.after.wrapper.main">
+            <block class="Anowave\Faq\Block\Faq" name="faq.tab" as="faq" template="Anowave_Faq::faq.phtml" after="product.attributes.wrapper"></block>
+        </referenceContainer>
+
+
+    </body>
+</page>

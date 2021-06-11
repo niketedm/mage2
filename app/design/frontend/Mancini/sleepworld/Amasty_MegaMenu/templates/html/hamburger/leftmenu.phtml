@@ -1,0 +1,105 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_MegaMenu
+ */
+?>
+<?php
+/** @var \Amasty\MegaMenu\Block\Html\Topmenu $block */
+/** @var \Magento\Framework\Escaper $escaper */
+?>
+
+<?php if ($block->isHamburgerEnabled()): ?>
+    <span class="ammenu-menu-close-btn" data-ammenu-js="menu-toggle"></span>
+    <p class="ammenu-menu-welcome" data-bind="scope: 'customer'">
+        <!-- ko if: customer().fullname -->
+        <span class="ammenu-message -welcome"><?= $escaper->escapeHtml(__('Welcome')) ?></span>
+        <span class="ammenu-name" data-bind="text: customer().fullname"></span>
+        <!-- /ko -->
+        <!-- ko ifnot: customer().fullname  -->
+            <span class="ammenu-message" data-bind='html:"<?= $escaper->escapeHtml(__('Please login')) ?>"'></span>
+        <!-- /ko -->
+    </p>
+    <section class="ammenu-menu-wrapper -hamburger -icons-<?= $escaper->escapeHtmlAttr($block->getIconStatus()) ?>"
+             data-mage-init='{"amastyMegaMenu":{}}'>
+        <p class="ammenu-menu-header -category">
+            <?= $escaper->escapeHtml(__('Shop by Category')) ?>
+        </p>
+        <nav class="ammenu-main-container" data-action="navigation" data-ammenu-js="tab-content">
+            <ul class="ammenu-items" data-ammenu-js="menu-items">
+                <?php foreach ($block->getHamburgerMainNodes() as $mainNode): ?>
+                    <?php
+                    if (!$block->isNeedDisplay($mainNode->getId(), $mainNode->getStatus(), $block::MOBILE_VIEW)) {
+                        continue;
+                    }
+                    $url = $mainNode->getUrl() ?: '#';
+                    $widthValue = $block->getWidthValue($mainNode);
+                    $categoriesHtml = $block->getCategoriesHtml($mainNode);
+                    $mainNodeContent = $block->getContent($mainNode);
+                    $itemType = $mainNode['is_category'] ? $escaper->escapeHtml(__('-category')) : '-custom';
+                    $parentStatus = $mainNodeContent ? '-parent' : '';
+                    ?>
+                    <li class="ammenu-item -main
+                              <?= $escaper->escapeHtml($parentStatus); ?>
+                              <?= $escaper->escapeHtml($itemType); ?>
+                              <?= $escaper->escapeHtml($mainNode->getPositionClass()); ?>"
+                        data-ammenu-js="item">
+                        <?php if (/* @noEscape */ $mainNode->hasChildren()): ?>
+                            <div class="ammenu-submenu-container ammenu-submenu"
+                                 data-ammenu-js="collapse-content" aria-selected="true"
+                                 style="<?= /* @noEscape */ ($widthValue) ? 'width: ' . $widthValue . 'px;' : '' ?>">
+
+                                <?= $block->getChildBlock('submenu')->setData('mainNode', $mainNode)->toHtml() ?>
+
+                                <section class="ammenu-submenu-content -mobile">
+                                    <?= /* @noEscape */ $categoriesHtml ?>
+                                </section>
+                            </div>
+                            <div class="ammenu-toggle" data-ammenu-js="collapse-trigger">
+                                <span class="ammenu-icon" data-ammenu-js="collapse-indicator"></span>
+                            </div>
+                        <?php endif; ?>
+                        <a class="ammenu-link -main <?= $escaper->escapeHtml($parentStatus) ?> <?= /* @noEscape */ $block->getHighLightClass($mainNode) ?>"
+                           href="<?= $escaper->escapeUrl($url) ?>"
+                           title="<?= $escaper->escapeHtmlAttr($mainNode->getName()) ?>">
+                            <?php if ($block->isChildHasIcons($block->getMenuTree())): ?>
+                                <figure class="ammenu-icon-block <?= /* @noEscape */ $block->getIcon($mainNode) ? '' : '-empty' ?>"
+                                        style="
+                                                -webkit-mask-image: url(<?= $escaper->escapeUrl($block->getIcon($mainNode)) ?>);
+                                                mask-image: url(<?= $escaper->escapeUrl($block->getIcon($mainNode)) ?>);
+                                                background-image: url(<?= $escaper->escapeUrl($block->getIcon($mainNode)) ?>)">
+                                </figure>
+                            <?php endif; ?>
+                            <span class="ammenu-name">
+                                <?= $escaper->escapeHtml($mainNode->getName()) ?></span>
+                            <?php if ($label = $mainNode->getLabel()): ?>
+                                <?php $color = $mainNode->getLabelTextColor() ?: '#000'; ?>
+                                <?php $bg = $mainNode->getLabelBackgroundColor() ?: '#fff'; ?>
+                                <span class="ammenu-label"
+                                      style="color: <?= $escaper->escapeHtml($color) ?> !important;
+                                          background-color: <?= $escaper->escapeHtml($bg) ?> !important;">
+                                    <?= $escaper->escapeHtml($label) ?>
+                                </span>
+                            <?php endif; ?>
+                        </a>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </nav>
+    </section>
+    <p class="ammenu-menu-header -settings"><?= $escaper->escapeHtml(__('Help & Settings')) ?></p>
+    <script type="text/x-magento-init">
+        {
+            "*": {
+                "Magento_Ui/js/core/app": {
+                    "components": {
+                        "customer": {
+                            "component": "Magento_Customer/js/view/customer"
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+<?php endif; ?>

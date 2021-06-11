@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author      WebPanda
+ * @package     WebPanda_PeopleWatching
+ * @copyright   Copyright (c) WebPanda (https://webpanda-solutions.com/)
+ * @license     https://webpanda-solutions.com/license-agreement
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="product.info.main">
+            <block class="WebPanda\PeopleWatching\Block\PeopleWatching" name="product_people_watching" after="product.info.price" template="WebPanda_PeopleWatching::people_watching.phtml" />
+        </referenceContainer>
+    </body>
+</page>

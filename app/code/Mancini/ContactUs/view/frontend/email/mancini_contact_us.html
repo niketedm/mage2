@@ -1,0 +1,23 @@
+<!--@subject {{trans "Contact Form"}} @-->
+{{template config_path="design/email/header_template"}}
+<table class="message-details">
+    <tr>
+        <td><strong>{{trans "Name"}}</strong></td>
+        <td>{{var data.name}}</td>
+    </tr>
+    <tr>
+        <td><strong>{{trans "Telephone"}}</strong></td>
+        <td>{{var data.telephone}}</td>
+    </tr>
+    <tr>
+        <td><strong>{{trans "Email"}}</strong></td>
+        <td>{{var data.email}}</td>
+    </tr>
+    <tr>
+        <td><strong>{{trans "Invoice"}}</strong></td>
+        <td>{{var data.invoice}}</td>
+    </tr>
+</table>
+<p><strong>{{trans "Comment"}}</strong></p>
+<p>{{var data.comment}}</p>
+{{template config_path="design/email/footer_template"}}

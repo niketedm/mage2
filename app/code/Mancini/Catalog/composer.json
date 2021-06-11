@@ -1,0 +1,21 @@
+{
+    "name": "mancini/module-catalog",
+    "description": "",
+    "type": "magento2-module",
+    "license": "OSL-3.0",
+    "authors": [
+        {
+            "name": "Mancini"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Mancini\\Catalog\\": ""
+        },
+        "files": [
+            "registration.php"
+        ]
+    }
+}

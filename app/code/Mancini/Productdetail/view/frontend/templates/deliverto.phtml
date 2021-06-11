@@ -1,0 +1,156 @@
+<?php
+
+/**
+ * @var $block \Mancini\Productdetail\Block\Deliverto
+ */
+
+?>
+
+<div class="deliverto-container">
+    <div class="deliverto-row">
+        <div class="deliverto-start">
+            <div class="deliverto-start-col deliverto-col">
+                <img class='deliverto-img' src='<?php echo $block->getViewFileUrl('images/location-pin.png'); ?>' alt="deliverto">
+                <?php echo __("Deliver to:"); ?>
+            </div>
+
+            <?php $customerAddress = $block->getCustomerAddress() ?>
+            <div class="deliverto-col" id="addressupdate">
+                <?php if (isset($customerAddress['zipcode'])) : ?>
+                    <?php echo __($customerAddress['zipcode']); ?>
+                <?php else : ?>
+                    <?php echo __("NA"); ?>
+                <?php endif; ?>
+            </div>
+        </div>
+
+        <div class="deliverto-col deliver-links">
+            <img class='deliverto-img' src='<?php echo $block->getViewFileUrl('images/exchange.png'); ?>' alt="">
+            <button type="button" class="changeButton" id="changeButton" onclick="this.form.reset();">Change </button>
+        </div>
+    </div>
+
+    <div id="checkform" class="checkform" style="display:none;">
+        <input type="text" name="zipcode" placeholder=" " class="form-control input-md" id="submit_on_enter" autocomplete="off">
+        <label class="sample-label" for="submit_on_enter"><?php echo __("Enter zip code here") ?></label>
+        <button type="button" class="checkbtn" id="checkbtn">Check</button>
+    </div>
+
+    <div id="availabilityupdate" class="availabilityupdate" aria-live="assertive" >
+        <img class='warning' src='<?php echo $block->getViewFileUrl('images/warning-deliver.png'); ?>' alt=" ">
+        <?php echo __($customerAddress['error']); ?>
+        <?php if (isset($customerAddress['contact'])) : ?>
+            <span class="no-delivery-phone">
+                <a tabindex="0" href="tel:+1<?php echo __($customerAddress['contact']); ?> ">
+                    <?php echo __("+1 " . $customerAddress['contact']); ?>
+                </a>
+            </span>
+        <?php endif; ?>
+        <?php if (isset($customerAddress['next_error'])) : ?>
+            <?php echo __($customerAddress['next_error']); ?>
+        <?php endif; ?>
+    </div>
+    <!-- Delivery Date -->
+    <div class="deliver" id="deliverydate">
+        <br>
+        <div class="deliver-row">
+            <div class="deliver-col deliver-col-first">
+                <img class='deliver-img' src='<?php echo $block->getViewFileUrl('images/truck.png'); ?>' alt="">
+                <?php echo __("Delivery:"); ?>
+            </div>
+            <div class="deliver-col">
+                <?php $deliverydates =   $block->getDeliveryDates(); ?>
+                <?php echo $deliverydates; ?>
+            </div>
+        </div>
+    </div>
+
+    <!-- USPs on pdp -->
+    <div class="usps-pdp">
+        <?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')
+            ->setBlockId('mattress-usps-pdp')
+            ->toHtml(); ?>
+    </div>
+
+</div>
+
+<script>
+    require(['jquery', "jquery/ui"], function($) {
+        $(document).ready(function() {
+            var m1;
+            var errormsg = "<?php echo $customerAddress['error']; ?>";
+
+            if (errormsg == "1") {
+                $("#availabilityupdate").hide();
+                $(".deliver-alert").hide();
+                $('#deliverydate').show();
+            } else {
+                $(".deliver-alert").show();
+                $("#availabilityupdate").show();
+                $('#deliverydate').hide();;
+            }
+
+            $("#submit_on_enter").keypress(function(event) {
+                if (event.keyCode === 13) {
+                    $("#checkbtn").click();
+                    return false;
+                }
+            });
+
+
+            $("#checkbtn").click(function() {
+                checkButtonDeliver();
+            });
+
+            function checkButtonDeliver() {
+                var delivertoresult = '';
+                var zipCode = $("input[name='zipcode']").val();
+                var url = "<?php echo $block->getBaseUrl() . 'foundation/checkdeliver'; ?>";
+                var imgurl = "<?php echo $block->getViewFileUrl('images/warning-deliver.png'); ?>";
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: {
+                        zipcode: zipCode
+                    },
+                    showLoader: true,
+                    cache: false,
+                    success: function(response) {
+                        delivertoresult = '<img src=' + imgurl + ' alt=""/>' + response.updateavailability + " " + '<span class= "no-delivery-phone"><a tabindex="0" href="tel:+1 ' + response.contact + '">+1 ' + response.contact + '</a> <span>' + " " + response.nextzipresult;
+
+
+                        $("#checkform").hide();
+                        $("#addressupdate").html(response.updateaddress);
+
+                        if (response.updateavailability != 1) {
+                            $("#availabilityupdate").html(delivertoresult);
+                            $("#availabilityupdate").show();
+                            $("#deliverydate").hide();
+                        } else {
+                            //$("#availabilityupdate").html(response.updateavailability);
+                            $("#availabilityupdate").html('');
+                            $("#availabilityupdate").hide();
+                            $("#deliverydate").show();
+                        }
+
+                    }
+
+
+                });
+
+            }
+
+            $("#changeButton").click(function() {
+                console.log($("#availabilityupdate").html().length);
+                var divlength = $("#availabilityupdate").html().length;
+                if (divlength == 0 || divlength == 226) {
+                    $("#availabilityupdate").hide();
+                    $("#checkform").toggle('slow');
+                } else {
+                    $("#availabilityupdate").toggle();
+                    $("#checkform").toggle('slow');
+                }
+            });
+        });
+    });
+</script>

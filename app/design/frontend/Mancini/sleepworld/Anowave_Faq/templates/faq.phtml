@@ -1,0 +1,34 @@
+<?php if ($this->getFaqs()) : ?>
+	<div class="product-faq-container" id="product-faq">
+		<div class="product-faq-title">
+			<h2><?php echo __("Frequently Asked Question") ?></h2>
+		</div>
+		<?php foreach ($this->getFaqs() as $faq) : ?>
+
+			<div id="faq-accordion" class="faq-accordion" data-mage-init='{
+        		"accordion":{
+            	"active": [1, 2],
+            	"collapsible": true,
+            	"openedState": "active",
+            	"multipleCollapsible": true
+        		}}'>
+
+				<div class="faq-accordion-parent">
+					<div class="faq-accordion-title" data-role="collapsible">
+						<h3 class="faq-product-title" data-role="trigger">
+							<?php echo $faq->getFaq() ?>
+						</h3>
+					</div>
+
+					<div data-role="content" class="faq-accordion-content">
+						<p>
+							<?php echo $block->getFilterProvider()->getBlockFilter()->filter($faq->getFaqContent()) ?>
+						</p>
+					</div>
+				</div>
+			</div>
+		<?php endforeach ?>
+	</div>
+<?php else : ?>
+	No FAQs yet.
+<?php endif ?>

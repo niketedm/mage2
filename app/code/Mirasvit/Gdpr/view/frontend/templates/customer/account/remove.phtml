@@ -1,0 +1,53 @@
+<?php
+/** @var \Mirasvit\Gdpr\Block\Customer\Account\Remove $block */
+?>
+<div class="block">
+    <div class="block-title">
+        <strong><?= __('Delete account') ?></strong>
+    </div>
+
+    <div class="block-content">
+
+
+        <form method="post" action="<?= $block->getUrl('gdpr/customer/remove') ?>" data-mage-init='{"validation":{}}'>
+            <input name="form_key" type="hidden" value="<?= $block->getFormKey() ?>"/>
+
+            <fieldset class="fieldset" hidden="hidden" id="remove-form">
+                <div class="field">
+                    <p><strong><?= __('Please keep in mind that we are deleting your account. After the deletion of your account, you will not be able to access your account anymore.') ?></strong></p>
+                </div>
+
+                <div class="field required">
+                    <label class="label" for="current-password">
+                        <span><?= __('Current Password') ?></span>
+                    </label>
+                    <div class="control">
+                        <input type="password" class="input-text" name="password" autocomplete="off" aria-required="true" data-validate="{required:true}">
+                    </div>
+                </div>
+
+                <div class="field choice required">
+                    <input type="checkbox" id="remove_accept" data-validate="{required:true}" name="accept" value="1" class="checkbox">
+                    <label for="remove_accept" class="label"><span><?= __('I understand and want remove my personal data') ?></span></label>
+                </div>
+
+                <div class="actions-toolbar">
+                    <button type="submit" class="action primary">
+                        <span><?= __('Send request') ?></span>
+                    </button>
+                </div>
+            </fieldset>
+        </form>
+
+        <div id="remove-intro">
+            <p><?= __('You can request the deletion of your data that we have stored by clicking the button below:') ?></p>
+            <div class="actions-toolbar">
+                <button type="button" class="action" data-show="remove-form" data-hide="remove-intro">
+                    <span><?= __('Delete my account') ?></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/x-magento-init"><?= \Mirasvit\Core\Service\SerializeService::encode(['*' => ['Mirasvit_Gdpr/js/customer/account/requestForm' => []]]) ?></script>

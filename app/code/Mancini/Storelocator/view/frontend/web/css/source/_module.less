@@ -1,0 +1,397 @@
+.location-image {
+    margin-left: 4%;
+    align-self: center;
+
+    img {
+        vertical-align: unset;
+        max-width: unset;
+    }
+}
+
+#store-locator-popup {
+    // z-index: 1000;
+    z-index: 1;
+
+    .amlocator-main-container {
+        .amlocator-map-container {
+            // height: 30px !important;
+            min-height: 30px !important;
+            width: auto;
+            height: unset;
+
+            .amlocator-block.-storelist.amlocator-store-list {
+                width: unset;
+            }
+        }
+    }
+
+    .minicart-wrapper {
+        float: left;
+        position: unset;
+
+        .block-minicart {
+            left: 5px;
+            width: 27%;
+            min-width: unset;
+            top: 77%;
+            box-shadow: 0px 2px 6px #00000066;
+        }
+
+        .block-minicart::before {
+            left: 23px;
+        }
+
+        .block-minicart::after {
+            left: 22px;
+        }
+    }
+
+    .header-location-adjustment {
+        float: left;
+    }
+}
+
+@media screen and (max-width: 425px) {}
+
+#storeloc-content-wrapper {
+    padding: .5rem !important;
+
+    .popupmenu-body {
+        .location-label {
+            font-family: 'laca-Book';
+            line-height: 19px;
+            font-size: 16px;
+            color: #545454;
+        }
+
+        .location-name {
+            font-family: 'laca-bold';
+            font-size: 16px;
+            letter-spacing: 0px;
+            color: #545454;
+        }
+    }
+
+    #changeloc {
+        .location-label {
+            font-family: 'laca-Book';
+            line-height: 19px;
+            font-size: 14px;
+            color: #545454;
+        }
+
+        .location-change {
+            font-family: 'laca-Book';
+            font-size: 14px;
+            line-height: 17px;
+            letter-spacing: 0px;
+            color: #545454;
+            color: #D93E0E;
+            cursor: pointer;
+        }
+    }
+
+    #changediv {
+        margin-bottom: 1rem;
+        margin-top: 10px !important;
+
+        input {
+            width: 240px;
+            height: 50px;
+            background: #FFFFFF;
+            border: 1px solid #D9D9D9;
+            opacity: 1;
+            float: left;
+        }
+
+        .btn-update {
+            display: inline-block;
+            padding: 0px 18px;
+            background-color: #fff !important;
+            border: 1px solid #D93E0E;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+            cursor: pointer;
+            height: 50px;
+            width: 100px;
+            margin-left: 20px;
+            color: #D93E0E !important;
+        }
+    }
+
+    #storelist-outer {
+        margin-top: 1rem !important;
+
+        .nearest-store-title {
+            text-align: left;
+            font-family: 'laca-bold';
+            font-size: 20px;
+            line-height: 23px;
+            letter-spacing: 0px;
+            color: #545454;
+        }
+
+        #storelistresponse {
+            margin-top: 1rem !important;
+
+            .location-name {
+                text-align: left;
+                font-family: 'laca-bold';
+                font-size: 16px;
+                line-height: 19px;
+                letter-spacing: 0px;
+                color: #545454;
+                cursor: pointer;
+            }
+
+            .location-address {
+                text-align: left;
+                font-family: 'laca-Book';
+                font-size: 14px;
+                line-height: 17px;
+                letter-spacing: 0px;
+                color: #545454;
+            }
+
+            .location-distance {
+                text-align: left;
+                font-family: 'laca-Book';
+                font-size: 12px;
+                line-height: 14px;
+                letter-spacing: 0px;
+                color: #545454;
+
+                // .miles{
+                //     text-align: left;
+                //     font: normal normal normal 12px Laca;
+                //     letter-spacing: 0px;
+                //     color: #545454;
+                //     opacity: 1;
+                // }
+            }
+
+            .location-btn {
+                text-align: left;
+                font-family: 'laca-Medium';
+                font-size: 16px;
+                line-height: 15px;
+                letter-spacing: 0px;
+                color: #D93E0E;
+                opacity: 1;
+
+                a {
+                    color: #D93E0E !important;
+                }
+            }
+
+            .location-phone {
+                text-align: left;
+                font-family: 'laca-Medium';
+                font-size: 14px;
+                line-height: 17px;
+                letter-spacing: 0px;
+                color: #D93E0E;
+                opacity: 1;
+                display: flex;
+                align-items: center;
+
+                a {
+                    color: #D93E0E !important;
+                }
+
+                img {
+                    width: 22%;
+                }
+            }
+
+            .nostores {
+                .location-label {
+                    display: flex;
+                    align-items: center;
+                    font-family: 'laca-Book';
+                    font-size: 14px;
+                    line-height: 17px;
+
+                    img {
+                        width: 10%;
+                    }
+                }
+            }
+        }
+    }
+
+    .btn-view-all-store {
+        width: 100%;
+        font-family: 'laca-Semibold';
+        font-size: 18px;
+        line-height: 22px;
+
+        a {
+            color: white !important;
+        }
+
+        a:visited {
+            color: white !important;
+        }
+
+        a:active {
+            color: white !important;
+        }
+
+        a:hover {
+            color: white !important;
+            text-decoration: none;
+        }
+    }
+
+    .direction-location {
+        .col {
+            display: flex;
+            align-items: center;
+
+            img {
+                vertical-align: top;
+            }
+        }
+
+        .col:first-child {
+            padding: 0;
+            padding-left: 14%;
+        }
+    }
+}
+
+@media screen and (max-width:425px) {
+    #store-locator-popup {
+        .minicart-wrapper {
+
+            .block-minicart {
+                width: 97%;
+            }
+        }
+    }
+}
+
+@media screen and (min-width:426px) and (max-width:768px) {
+    #store-locator-popup {
+        .minicart-wrapper {
+
+            .block-minicart {
+                width: 49%;
+            }
+        }
+    }
+}
+
+
+//Storelocator common block
+.SL-container {
+    width: 100% !important;
+    margin-bottom: 30px;
+
+    .SL-tbb {
+        // display: flex;
+        // justify-content: space-between;
+    }
+
+    .addr-dir {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .SL-tbb.no-loc{
+        display: block;
+        font-size: 18px;
+        color: #DB0000;
+        font-family: 'laca-Book' !important;
+        margin-bottom: 7.2rem;
+
+        .no-delivery-phone{
+            color: #D93E0E;
+            font-family: 'laca-Medium' !important;
+        }
+    }
+
+    .SL-name {
+        font-size: 20px;
+        margin-bottom: 20px;
+        font-family: 'laca-Semibold' !important;
+        color: #545454;
+    }
+
+    .SL-name::before {
+        content: ' ';
+        background-image: url('../images/pin.svg');
+        background-repeat: no-repeat;
+        background-position: center;
+        padding-right: 10px;
+        padding-left: 13px;
+    }
+
+    .SL-name {
+        font-size: 20px;
+        margin-bottom: 15px;
+        line-height: 24px;
+    }
+    .addr-name {
+        // .SL-name {
+        //     font-size: 20px;
+        //     margin-bottom: 15px;
+        //     line-height: 24px;
+        // }
+
+        .SL-address {
+            font-size: 18px;
+            color: #545454;
+            margin-left: 25px;
+        }
+    }
+
+    .dist-dir {
+        // margin-top: 6rem;
+        justify-content: space-between;
+    }
+
+    .SL-distance {
+        font-size: 16px;
+        color: #545454;
+    }
+
+    .direc {
+        font-size: 18px;
+    }
+
+    .direc::before {
+        content: ' ';
+        background-image: url('../images/direction.svg');
+        background-repeat: no-repeat;
+        background-position: center;
+        padding-right: 10px;
+        padding-left: 15px;
+    }
+}
+
+@media only screen and (max-width: 425px) {
+    .SL-container {
+        .SL-tbb {
+            flex-wrap: wrap;
+        }
+
+        .SL-name {
+            font-size: 18px !important;
+        }
+
+        .dist-dir {
+            margin-top: 2rem;
+            display: flex;
+            margin-left: 25px;
+        }
+
+        .direc {
+            margin-left: 21px;
+        }
+    }
+}
+
+// Storelocator common block end

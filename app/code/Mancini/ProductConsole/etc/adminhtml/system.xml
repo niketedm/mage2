@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="product_console" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Product Syncup</label>
+            <tab>mancini</tab>
+            <resource>Mancini_ProductConsole::config_product_console</resource>
+            <!-- <group id="ftp_settings" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>FTP Settings</label>
+                <field id="ftp_host" translate="label" type="text" sortOrder="0"  showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>FTP HOST</label>
+                </field>
+                <field id="ftp_user_name" translate="label" type="text" sortOrder="0"  showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>FTP User Name</label>
+                </field>
+                <field id="ftp_user_pass" translate="label" type="text" sortOrder="0"  showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>FTP User Password</label>
+                </field>
+                <field id="use_ssl" translate="label comment" type="select" sortOrder="0"  showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Use SSL</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="remote_file" translate="label" type="text" sortOrder="0"  showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Remote File</label>
+                </field>
+            </group>
+            <group id="email_settings" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Log Email</label>
+                <field id="email_to" translate="label comment" type="text" sortOrder="0"  showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email To</label>
+                    <comment>Use commas to split multiple emails</comment>
+                </field>
+            </group> -->
+             <group id="sync_settings" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Product Syncup Settings</label>
+                <field id="cron_expression" translate="label" type="text" sortOrder="1"  showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Cron Expression</label>
+                    <comment><![CDATA[<a href="https://crontab.guru/">Reference link for CRON settings</a>]]></comment>
+                </field>
+                <field id="product_sync" translate="label comment" type="text" sortOrder="1"  showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Syncup</label>
+                    <frontend_model>Mancini\ProductConsole\Block\Adminhtml\System\Config\Button</frontend_model>
+                    <comment>Click to syncup products from FROG to Mancini</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

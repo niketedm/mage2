@@ -1,0 +1,35 @@
+<?php
+/* @var $viewModel \Synchrony\DigitalBuy\ViewModel\Catalog\Product\TermRateInfo */
+$viewModel = $block->getData('viewModel');
+$productId = $viewModel->getProduct()->getId();
+?>
+<?php if ($viewModel->canDisplay()): ?>
+    <?php if ($viewModel->getMarketingHelper()->isDisplayModeStatic()): ?>
+        <?=  /* @noEscape */ $viewModel->getMarketingHelper()->getStaticBlockHtml() ?>
+    <?php else: ?>
+        <div data-bind="scope: 'synchrony-marketing-block-pdp'">
+            <!-- ko template: getTemplate() --><!-- /ko -->
+        </div>
+
+        <script type="text/x-magento-init">
+        {
+            "*":{
+                "Magento_Ui/js/core/app":{
+                    "components":{
+                        "synchrony-marketing-block-pdp":{
+                             "component":"Synchrony_DigitalBuy/js/view/catalog/marketing",
+                             "paymentMethodTitle": "<?= /* @noEscape */ $viewModel->getPaymentMethodTitle() ?>",
+                             "blockConfig": <?= /* @noEscape */ $viewModel->serializedBlockConfig() ?>,
+                             "productId":<?= /* @noEscape */ $productId ?>,
+                             "productPrice": "<?= /* @noEscape */ $viewModel->getProductPrice() ?>",
+                             "template": "<?= /* @noEscape */ $viewModel->getMarketingHelper()->getPromotionalTemplate() ?>"
+                        }
+                    }
+                }
+            }
+        }
+        </script>
+    <?php endif; ?>
+<?php endif; ?>
+
+

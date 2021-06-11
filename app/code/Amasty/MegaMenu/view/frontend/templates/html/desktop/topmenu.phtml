@@ -1,0 +1,60 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_MegaMenu
+ */
+?>
+<?php
+/** @var \Amasty\MegaMenu\Block\Html\Topmenu $block */
+/** @var \Magento\Framework\Escaper $escaper */
+?>
+
+<section class="ammenu-menu-wrapper -desktop -icons-<?= $escaper->escapeHtmlAttr($block->getIconStatus()) ?>"
+         data-ammenu-js="desktop-menu"
+         data-mage-init='{
+                "amastyMegaMenu":{
+                    "stickyStatus": <?= $escaper->escapeHtml($block->getStickyState()); ?>,
+                    "desktopStatus": 1
+                }
+            }'>
+    <nav class="ammenu-main-container" data-action="navigation">
+        <ul class="ammenu-items">
+            <?php
+            foreach ($block->getMainNodes() as $mainNode):
+                if (!$block->isNeedDisplay($mainNode->getId(), $mainNode->getStatus(), $block::DESKTOP_VIEW)) {
+                    continue;
+                }
+
+                $url = $mainNode->getUrl() ?: '#';
+                $widthMode = $escaper->escapeHtml($block->getWidth($mainNode));
+                $mainNodeHtml = $block->getChildBlock('submenu')->setData('mainNode', $mainNode)->toHtml();
+                ?>
+                <li class="ammenu-item category-item -main -<?= $escaper->escapeHtml($widthMode); ?>
+                    <?= $escaper->escapeHtml($block->getHighLightClass($mainNode)); ?>
+                    <?= $escaper->escapeHtml($mainNode->getPositionClass()); ?>">
+                    <a class="ammenu-link -main<?= ($mainNodeHtml) ? ' -parent' : '' ?>"
+                       href="<?= $escaper->escapeUrl($url) ?>"
+                       title="<?= $escaper->escapeHtml($mainNode->getName()); ?>">
+                        <?php if ($block->getIcon($mainNode)): ?>
+                            <figure class="ammenu-icon-block"
+                                    style="
+                                            -webkit-mask-image: url(<?= $escaper->escapeUrl($block->getIcon($mainNode)) ?>);
+                                            mask-image: url(<?= $escaper->escapeUrl($block->getIcon($mainNode)) ?>);
+                                            background-image: url(<?= $escaper->escapeUrl($block->getIcon($mainNode)) ?>)">
+                            </figure>
+                        <?php endif;?>
+                        <?= $escaper->escapeHtml($mainNode->getName()); ?>
+                        <?php if ($label = $mainNode->getLabel()): ?>
+                            <span class="ammenu-label"
+                                  style="color: <?= $escaper->escapeHtml($mainNode->getLabelTextColor() ?: '#000') ?> !important;background-color: <?= $escaper->escapeHtml($mainNode->getLabelBackgroundColor() ?: '#fff') ?> !important;">
+                                <?= $escaper->escapeHtml($label); ?>
+                            </span>
+                        <?php endif; ?>
+                    </a>
+                    <?= /* @noEscape */ $mainNodeHtml ?>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </nav>
+</section>

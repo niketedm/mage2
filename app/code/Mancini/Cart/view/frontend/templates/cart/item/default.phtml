@@ -1,0 +1,260 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate
+// phpcs:disable Magento2.Files.LineLength.MaxExceeded
+
+/** @var $block \Magento\Checkout\Block\Cart\Item\Renderer */
+
+$_item = $block->getItem();
+$product = $_item->getProduct();
+//print_r($_item->debug());
+$isVisibleProduct = $product->isVisibleInSiteVisibility();
+/** @var \Magento\Msrp\Helper\Data $helper */
+$helper = $this->helper(Magento\Msrp\Helper\Data::class);
+$canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinimalPriceLessMsrp($product);
+?>
+<?php 
+    //Check whether the current product is mattress and configurable
+    $mattressProduct =   0;
+    $cartHelper      =   $this->helper('Mancini\Cart\Helper\Data');
+    $mattressClass   =   '';
+    $protectionPlanDetails  =   '';
+    $protectionId       =   '';
+    $hasProtection      =   '';
+    $mattressPlan       =   '';
+    if($product->getTypeId() == 'configurable' && $product->getAttributeSetId() == 10) {
+        $quoteId                =   $_item->getQuoteId();
+        $simplePrdSku           =   $product->getSku();
+        $protectionPlanId       =   $_item->getProtectionPlan();
+        if($_item->getProtectionPlan()) {
+            $protectionPlanDetails  =   $cartHelper->getProductDetails($protectionPlanId);
+        }
+        $protectionPlanArr      =   $cartHelper->getProtectionProducts($simplePrdSku);
+        if(isset($protectionPlanArr))  {
+            $mattressProduct    =   1;
+            $mattressPlan       =   'protect-'.$_item->getProtectionPlan();
+            $hasProtection      =   'protector';
+        }
+    }
+    if($product->getTypeId() == 'simple' && $product->getEntityId() == $_item->getProtectionPlan()){
+        $mattressClass      =   'style="display:none;"';
+        $protectionId       =   'protect-'.$product->getEntityId();
+    }
+?>
+
+<?php $productSku       = $_item->getProduct()->getSku(); ?>
+<?php $itemDetails      = $cartHelper->getItemDetails($productSku); ?>
+
+<div class="cart item outer" <?php echo $mattressClass;?>>
+    <div class="item-info">
+        <div class="left">
+            <!-- image-->
+            <?php if ($block->hasProductUrl()) :?>
+                <a href="<?= $block->escapeUrl($block->getProductUrl()) ?>"
+                   title="<?= $block->escapeHtml($block->getProductName()) ?>"
+                   tabindex="-1"
+                   class="product-item-photo">
+            <?php else :?>
+                <span class="product-item-photo">
+            <?php endif;?>
+            <?= $block->getImage($block->getProductForThumbnail(), 'cart_page_product_thumbnail')->toHtml() ?>
+            <?php if ($block->hasProductUrl()) :?>
+                </a>
+            <?php else :?>
+                </span>
+            <?php endif; ?>
+        </div>
+        <div class="right">
+            <div class="right-above-details">
+                <div class="item-info-details">
+                    <div class="product-item-details">
+                        <div class="product-brand-name">
+                                <?php if (isset($itemDetails['brand'])) : ?>
+                                    <?php echo __($itemDetails['brand']); ?>
+                                <?php endif; ?>
+                                <?php if (isset($itemDetails['furniture_brand'])) : ?>
+                                    <?php echo __($itemDetails['furniture_brand']); ?>
+                                <?php endif; ?>
+                        </div>
+
+                        <strong class="product-item-name">
+                            <?php if ($block->hasProductUrl()) :?>
+                                <a href="<?= $block->escapeUrl($block->getProductUrl()) ?>"><?= $block->escapeHtml($block->getProductName()) ?></a>
+                            <?php else :?>
+                                <?= $block->escapeHtml($block->getProductName()) ?>
+                            <?php endif; ?>
+                        </strong>
+
+                        <?php if ($_options = $block->getOptionList()) :?>
+                            <dl class="item-options">
+                                <?php foreach ($_options as $_option) :?>
+                                    <?php $_formatedOptionValue = $block->getFormatedOptionValue($_option) ?>
+                                    <dt><?= $block->escapeHtml($_option['label']) ?></dt>
+                                    <dd>
+                                        <?php if (isset($_formatedOptionValue['full_view'])) : ?>
+                                            <?= $block->escapeHtml($_formatedOptionValue['full_view']) ?>
+                                        <?php else : ?>
+                                            <?php if ($_option['label'] == "Size") : ?>
+                                                <?= $block->escapeHtml($_formatedOptionValue['value'], ['span', 'a']) ?>
+                                                    <?php if((isset($itemDetails['length'])) && (isset($itemDetails['width']))): ?>
+                                                        <?php echo __($itemDetails['length'] . '"' . "x" . $itemDetails['width']) . '"'; ?>
+                                                    <?php endif; ?>
+                                            <?php else : ?>
+                                                <?= $block->escapeHtml($_formatedOptionValue['value'], ['span', 'a']) ?>
+                                            <?php endif; ?>
+                                        <?php endif; ?>
+                                    </dd>
+                                <?php endforeach; ?>
+                            </dl>
+                        <?php endif;?>
+
+                        <?php if ($messages = $block->getMessages()) :?>
+                            <?php foreach ($messages as $message) :?>
+                                <div class= "cart item message <?= $block->escapeHtmlAttr($message['type']) ?>">
+                                    <div><?= $block->escapeHtml($message['text']) ?></div>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+
+                        <?php $addInfoBlock = $block->getProductAdditionalInformationBlock(); ?>
+                        <?php if ($addInfoBlock) :?>
+                            <?= $addInfoBlock->setItem($_item)->toHtml() ?>
+                        <?php endif;?>
+
+                    </div>
+                </div>
+                <div class="right-subtotal">
+                    <?php if (isset($itemDetails['special_price'])) : ?>
+                        <div class="product-subtotal">
+                            <?php if ($canApplyMsrp) : ?>
+                                <span class="cart msrp subtotal">--</span>
+                            <?php else : ?>
+                                <?= $block->getRowTotalHtml($_item) ?>
+                            <?php endif; ?>
+                        </div>
+                        <div class="discount-value">
+                                <?php $priceArray=$cartHelper->calculateDiscoutPrice($productSku, $_item->getQty() , $_item->getBaseRowTotal()); ?>
+                            <?php echo __("( Upto " . $priceArray['discount'] . " % off )"); ?>
+                        </div>
+                        <div class="main-base-price">
+                            <?php echo __($priceArray['price']); ?> 
+                        </div>
+                    <?php else : ?>
+                        <div class="product-subtotal">
+                            <?php if ($canApplyMsrp) : ?>
+                                <span class="cart msrp subtotal">--</span>
+                            <?php else : ?>
+                                <?= $block->getRowTotalHtml($_item) ?>
+                            <?php endif; ?>
+                        </div>
+                    <?php endif; ?>
+                    <div class="product-qty">
+                        <div class="field-qty">
+                            <div class="control-qty <?php echo $mattressPlan;?>" id="<?php echo $protectionId ;?>">
+                               
+                                <label for="cart-<?= $block->escapeHtmlAttr($_item->getId()) ?>-qty" class="quantity-flex">
+                                    <span class="label"><?= $block->escapeHtml(__('Quantity')) ?></span>
+                                    <span class="minus">
+                                        <button type="button" class="qty-button ajax-cart-qty-minus" title="Reduce the quantity" id="minus-<?= $block->escapeHtmlAttr($_item->getId());?>">
+                                            <img class="minus-addto" src='<?php echo $block->getViewFileUrl('images/minus.svg'); ?>' alt="minus">
+                                        </button>
+                                    </span> 
+                                    <input type="hidden" name="cart[<?= $block->escapeHtmlAttr($_item->getId()) ?>][qtyplusminus]" id="cart-<?= $block->escapeHtmlAttr($_item->getId()) ?>qtyplusminus" value=""/>
+                                    <input id="cart-<?= $block->escapeHtmlAttr($_item->getId()) ?>-qty"
+                                        name="cart[<?= $block->escapeHtmlAttr($_item->getId()) ?>][qty]"
+                                        data-cart-item-id="<?= $block->escapeHtmlAttr($_item->getSku()) ?>"
+                                        value="<?= $block->escapeHtmlAttr($block->getQty()) ?>"
+                                        type="number"
+                                        size="4"
+                                        step="any"
+                                        title="<?= $block->escapeHtmlAttr(__('Qty')) ?>"
+                                        class="input-text qty <?php echo $hasProtection;?>"
+                                        data-validate="{required:true,'validate-greater-than-zero':true}"
+                                        data-role="cart-item-qty"/>
+                                    <span class="plus">
+                                        <button type="button" class="qty-button ajax-cart-qty-plus" title="Increase the quantity" id="plus-<?= $block->escapeHtmlAttr($_item->getId());?>">
+                                            <img class="plus-addto" src='<?php echo $block->getViewFileUrl('images/plus.svg'); ?>' alt="plus">
+                                        </button>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- show this div only for mattress products having protection plan -->
+            <?php if($mattressProduct ==1): ?>
+                <div class="right-below-details">
+                    <!-- protectionplan-->
+                    <div class="protectionplan-left">
+                        <?php 
+                            $option ='';
+                            if($_item->getProtectionPlan()) {
+                                $option = 'selected="selected"';
+                            }
+                        ?>
+                        <div class="protect-label"> 
+                            <span class="select-label"><?php echo __('Protection Plan:'); ?></span>
+                            <?php if(!$_item->getProtectionPlan()) : ?>
+                                <span class="select-protect"><?php echo __('We recommend to add protector'); ?></span>
+                            <?php endif; ?>
+                        </div>
+                        <select name="protection" id="protection-<?php echo $product->getEntityId();?>" class="protection">
+                            <option value=""><?php echo __("Select Plan");?></option>
+                            <?php foreach($protectionPlanArr as $key => $name): ?>
+                                <option value="<?= $key; ?>" <?php echo $option;?>>
+                                    <?php echo $name;?>
+                                </option>
+                            <?php endforeach;?>
+                        </select>
+                        <span id="selectprotect"> 
+                            <?php if($_item->getProtectionPlan()): ?>
+                                <a href="#" class="removeprotect" id="removeprotect-<?php echo $protectionPlanId ?>" aria-label="<?= $block->escapeHtmlAttr(__('Remove Protector')) ?>" name="protected-<?php echo $quoteId;?>-<?php echo $_item->getId();?>">
+                                    <?php echo __('Remove Protector'); ?>
+                               </a>
+                            <?php else: ?>
+                                <a href="#" id="addprotect-<?php echo $product->getEntityId();?>" name="protected-<?php echo $quoteId;?>" class="addprotect">
+                                    <?php echo __("Add Protector");?>
+                                </a>
+                            <?php endif;?>
+                        </span>    
+                    </div>
+                    <div class="protectionplan-price">
+                        <?php if($_item->getProtectionPlan() && $protectionPlanDetails): ?>
+                            <?php $protectPrice     =   $protectionPlanDetails->getFinalPrice() * $block->getQty();?>
+                            <?php echo $cartHelper->getPriceFormat($protectPrice); ?>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+            <!-- End of code for matress protection plan products-->
+        </div>
+    </div>
+    <div class="item-actions">
+        <div class="left-deliverby">
+                <?php if (isset($itemDetails['delivery_date'])) : ?>
+                    <img class="delivery" src='<?php echo $block->getViewFileUrl('images/truck.png'); ?>' alt="deliver-by">
+                    <?php echo __("Delivery By " . $itemDetails['delivery_date']); ?>
+                <?php endif; ?>
+            </div>
+        <div class="product-actions">
+                <div class="actions-toolbar">
+                    <?= /* @noEscape */ $block->getActions($_item) ?>
+                    <a href="javascript:void(0);" class="action custom-wishlist" id="custom-wishlist-<?php echo $_item->getProduct()->getId(); ?>" title="<?= $block->escapeHtmlAttr(__('Add to Wish List')) ?>" aria-label="<?= $block->escapeHtmlAttr(__('Add to Wish List')) ?>" role="button" data-productid="<?php echo $_item->getProduct()->getId(); ?>">
+                        <?php echo __('Move To Wishlist') ?>
+                    </a>
+                </div>
+        </div>
+    </div>
+</div>
+
+<div>
+  	
+<?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('cart_shopping_assistance')->toHtml();?>
+
+</div>
+

@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+	<default>
+		<frog>
+			<general>
+				<api_url>https://web.sleepworld.com/cgi-bin/oecgi3.exe/</api_url>
+				<api_key>7C278402CE7143B5BC06251C3C45CEB9</api_key>
+			</general>
+		</frog>
+	</default>
+</config>

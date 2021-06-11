@@ -1,0 +1,62 @@
+<?php
+
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+
+
+/** @var \Magento\Customer\Block\Account\Dashboard\Address $block */
+?>
+<div class="block block-dashboard-addresses">
+    <div class="block-title">
+        <strong><?= $block->escapeHtml(__('Address Book')) ?></strong>
+    </div>
+    <div class="block-content">
+        <div class="box box-billing-address">
+            <strong class="box-title">
+                <span><?= $block->escapeHtml(__('Default Billing Address')) ?></span>
+            </strong>
+            <div class="box-content">
+                <address>
+                    <?php $billing_address = $block->getPrimaryBillingAddressHtml(); ?>
+                    <?php print_r(implode($billing_address->getStreet())); ?><br>
+                    <?php echo $billing_address->getCity(); ?><br>
+                    <?php
+                    $region = $billing_address->getRegion();
+                    echo $regionCode = $region->getRegionCode();
+                    ?><br>
+                    <?php echo $billing_address->getPostcode(); ?><br>
+                </address>
+            </div>
+            <div class="box-actions">
+                <a class="action edit" href="<?= $block->escapeUrl($block->getPrimaryBillingAddressEditUrl()) ?>" data-ui-id="default-billing-edit-link"><span><?= $block->escapeHtml(__('Edit')) ?></span></a>
+            </div>
+        </div>
+        <div class="box box-shipping-address">
+            <strong class="box-title">
+                <span><?= $block->escapeHtml(__('Default Shipping Address')) ?></span>
+            </strong>
+            <div class="box-content">
+                <address>
+                    <?php $shipping_address = $block->getPrimaryShippingAddressHtml(); ?>
+                    <?php print_r(implode($shipping_address->getStreet())); ?><br>
+                    <?php echo $shipping_address->getCity(); ?><br>
+                    <?php
+                    $region = $billing_address->getRegion();
+                    echo $regionCode = $region->getRegionCode();
+                    ?><br>
+                    <?php echo $shipping_address->getPostcode(); ?><br>
+                </address>
+            </div>
+            <div class="box-actions">
+                <a class="action edit" href="<?= $block->escapeUrl($block->getPrimaryShippingAddressEditUrl()) ?>" data-ui-id="default-shipping-edit-link"><span><?= $block->escapeHtml(__('Edit')) ?></span></a>
+            </div>
+        </div>
+    </div>
+    <div class="address-button">
+        <a class="btn btn-primary address-manage add" href="<?= $block->escapeUrl($block->getUrl('customer/address/new')) ?>"><span><?= $block->escapeHtml(__('Add New Address')) ?></span></a>
+        <a class="btn btn-primary address-manage view" href="<?= $block->escapeUrl($block->getAddressBookUrl()) ?>"><span><?= $block->escapeHtml(__('View All Addresses')) ?></span></a>
+    </div>
+</div>

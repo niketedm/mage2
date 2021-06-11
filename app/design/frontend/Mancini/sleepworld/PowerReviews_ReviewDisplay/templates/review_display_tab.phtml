@@ -1,0 +1,397 @@
+<?php
+$helper = $this->helper('Mancini\PowerReviews\Helper\Data');
+$allReviews = $helper->getProductReviews();
+$getMedia = $helper->getMediaForProduct($allReviews);
+$prdSku     =   $helper->getCurrentSKU();
+?>
+<?php if (!empty($allReviews)) : ?>
+    <?php
+    //Average reviews 
+    $averageRating  = isset($allReviews['results'][0]['rollup']) ? $allReviews['results'][0]['rollup'] : '';
+    ?>
+    <div class="pr-review-outer" id="reviews">
+        <div class="popup" id="media-popup">
+            <iframe width="560" height="315" src="" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="popup" id="img-popup">
+        </div>
+        <h2 class="review-listing-heading"><?php echo  __('Reviews') ?></h2>
+        <div class="review-listing-head">
+            <div class="review-listing-star">
+                <div class="upper">
+                    <div class="totalrating">
+                        <div class="rat">
+                            <?php
+                            if ($averageRating != '') {
+                                $averageRatingReviews = $averageRating['average_rating'];
+                                echo $averageRating['average_rating'];
+                            } else {
+                                $averageRatingReviews = 0;
+                                echo '0.0';
+                            }
+                            ?>
+                        </div>
+                        <div class="stars-outer">
+                            <div class="stars-inner"></div>
+                        </div>
+                        <p>
+                            <?php
+                            if (!empty($averageRating)) {
+                                $averageRatingReviewCount = $averageRating['review_count'];
+                                echo $averageRating['review_count'];
+                            } else {
+                                $averageRatingReviewCount = 0;
+                                echo '0';
+                            }
+                            ?>
+                            <?php echo __('Reviews') ?>
+                        </p>
+                    </div>
+                    <div class="star-count">
+                        <?php $count = 5; ?>
+                        <?php
+                        $ratingHistogram = array("stars5" => "0", "stars4" => "0", "stars3" => "0", "stars2" => "0", "stars1" => "0");
+                        if (!empty($averageRating)) :
+                            for ($i = count($averageRating['rating_histogram']) - 1; $i >= 0; $i--) {
+                        ?>
+                                <div class="star-count-span stars<?php echo $count ?>">
+                                    <?php echo $count . " Stars"; ?>
+                                    <?php $ratingHistogram['stars' . $count]  = $averageRating['rating_histogram'][$i]; ?>
+                                    <div class="stars-outer">
+                                        <div class="stars-inner"></div>
+                                    </div>
+                                    <?php echo $averageRating['rating_histogram'][$i]; ?>
+                                </div>
+                            <?php $count--;
+                            } ?>
+                        <?php else : ?>
+                            <?php $ratingHistogram = array("stars5" => "0", "stars4" => "0", "stars3" => "0", "stars2" => "0", "stars1" => "0"); ?>
+                            <?php for ($i = 5; $i > 0; $i--) { ?>
+                                <div class="star-count-span stars<?php echo $i ?>">
+                                    <?php echo $i . " Stars"; ?>
+                                    <div class="stars-outer">
+                                        <div class="stars-inner"></div>
+                                    </div>
+                                    <?php echo '0.0'; ?>
+                                </div>
+                            <?php } ?>
+                        <?php endif; ?>
+                    </div>
+                    <input type="hidden" id="avg-review" value='<?php echo json_encode($ratingHistogram, JSON_FORCE_OBJECT); ?>' />
+                    <input type="hidden" id="total-avg-review" value="<?php echo $averageRatingReviewCount; ?>" />
+                    <input type="hidden" id="avg-rating" value="<?php echo $averageRatingReviews; ?>" />
+                    <div class="review-popup">
+                        <?= $block->getChildHtml('powerreviews_reviewdisplay.reviewdisplay'); ?>
+                    </div>
+                </div>
+
+                <div class="all-media-content">
+                    <div class="customer-images">
+                        <?php echo __('Customer images or videos') ?>
+                    </div>
+                    <?php if (count($getMedia) > 0) : ?>
+                        <div class="media-desk-only">
+                            <div class="owl-carousel owl-theme owlPR">
+                                <?php
+                                $mediaCount = 0;
+                                $mediaTotal = 0;
+                                foreach ($getMedia as $media) :
+                                ?>
+                                    <?php if ($mediaCount == 0) : ?>
+                                        <div class="item">
+                                        <?php endif; ?>
+                                        <?php if (trim($media['type']) == "image") { ?>
+                                            <div>
+                                                <p>
+                                                    <a href="#img-popup" data-media="<?php echo $media['uri'] ?>">
+                                                        <img class="carousel-review-image" src="<?php echo 'https:' . $media['uri'] ?>" width="100"></img>
+                                                    </a>
+                                                </p>
+                                            </div>
+                                        <?php } elseif (trim($media['type']) == "video") { ?>
+                                            <div class="videosec">
+                                                <p>
+                                                    <a href="#media-popup" data-media="<?php echo $media['uri'] ?>">
+                                                        <img class="image-popup" data-vote="helpful" src="<?php echo $block->getViewFileUrl('PowerReviews_ReviewDisplay::images/play-arrow.png'); ?>" />
+                                                    </a>
+                                                </p>
+                                            </div>
+                                        <?php } ?>
+                                        <?php
+                                        $mediaCount++;
+                                        $mediaTotal++;
+                                        if (($mediaCount % 2) == 0) :
+                                            $mediaCount = 0;
+                                        ?>
+                                        </div>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                                <?php if (($mediaTotal % 2) != 0) :  ?>
+                            </div>
+                        <?php endif; ?>
+                        </div>
+
+                </div>
+
+                <div class="media-mob-only">
+                    <div class="owl-carousel owl-theme carousel-1">
+                        <?php foreach ($getMedia as $media) : ?>
+                            <div class="item">
+                                <?php if (trim($media['type']) == "image") { ?>
+                                    <img class="carousel-review-image" src="<?php echo 'https:' . $media['uri'] ?>" width="100"></img>
+                                <?php } elseif (trim($media['type']) == "video") { ?>
+                                    <div class="videosec">
+                                        <p>
+                                            <a href="#media-popup" data-media="<?php echo $media['uri'] ?>">
+                                                <img class="image-popup" data-vote="helpful" src="<?php echo $block->getViewFileUrl('PowerReviews_ReviewDisplay::images/play-arrow.png'); ?>" />
+                                            </a>
+                                        </p>
+                                    </div>
+                                <?php } ?>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+
+            <?php endif; ?>
+
+            </div>
+            <!-- end of media block -->
+        </div>
+    </div>
+    <!-- block to display the media of the reviews -->
+    <div class="review-listing-media">
+        <?php $totalReviews = $allReviews['paging']['total_results'] ?>
+        <?php if ($allReviews['paging']['total_results'] != 0) : ?>
+            <?php $count = $totalReviews; ?>
+            <div id="reviewlisting">
+                <div class="review-count-row">
+                    <div class="listing-content-heading">
+                        <?php echo __('Viewing %1 Reviews', count($allReviews['results'][0]['reviews'])) ?>
+                    </div>
+                    <div onclick="onViewAllClick()" class="view-all-label">
+                        <?php echo __('View All') ?>
+                    </div>
+                </div>
+
+                <div class="review-listing-content">
+                    <?php foreach ($allReviews['results'][0]['reviews'] as $review) : ?>
+                        <div class="review-row row">
+                            <div class="col-md-6 col-sm-12 review-left">
+                                <?php $ratingDisplay = "PowerReviews_ReviewDisplay::images/" . $review['metrics']['rating'] . "star.png"; ?>
+                                <div class="review-lists review<?php echo $count; ?>">
+                                    <div class="stars-outer">
+                                        <div class="stars-inner"></div>
+                                    </div>
+                                    <div class="review-rating">
+                                        (<?php echo $review['metrics']['rating'] ?>/5)
+                                    </div>
+                                </div>
+                                <script type="text/javascript">
+                                    // Logic for calculating Average rating percentage
+                                    avgRating1 = '<?php echo $review['metrics']['rating'] ?>';
+                                    starPercentage1 = (avgRating1 / 5) * 100;
+                                    starPercentageRounded1 = `${(Math.round(starPercentage1 / 10) * 10)}%`;
+                                    document.querySelector(`.review<?php echo $count; ?> .stars-inner`).style.width =
+                                        starPercentageRounded1;
+                                </script>
+                                <p class="main-review"><?php echo $review['details']['headline'] ?></p>
+                                <div class="review-desc-container">
+                                    <p id="main-review-desc-<?php echo $count; ?>" class="main-review-desc">
+                                        <?php echo $review['details']['comments'] ?>
+                                    </p>
+                                    <?php if (strlen($review['details']['comments']) > 50) { ?>
+                                        <div onclick="onReadMoreClick(<?php echo $count; ?>)" id="read-more-review-<?php echo $count; ?>" class="read-more-review">
+                                            <?php echo __('Read More'); ?>
+                                        </div>
+                                    <?php } ?>
+                                </div>
+                                <!-- Image container to be shown in mobile in the first column itself and disable from 2nd column Start-->
+                                <?php
+                                $mediaShown = 1;
+                                $mediaCount = count($review['media']);
+                                ?>
+                                <?php if ($mediaCount > 0) : ?>
+                                    <div class="review-image-container mob-only">
+                                        <div class="owl-carousel owl-theme custimagemob<?php echo $count; ?> carousel-1">
+                                            <?php
+                                            foreach ($review['media'] as $media) :
+                                                if ($media['type'] == "image") { ?>
+                                                    <img class="review-image" src="<?php echo 'https:' . $media['uri'] ?>" width="100"></img>
+                                                <?php  } elseif ($media['type'] == 'video') { ?>
+                                                    <div class="videosec">
+                                                        <p>
+                                                            <a href="#media-popup" data-media="<?php echo $media['uri'] ?>">
+                                                                <img class="image-popup" data-vote="helpful" src="<?php echo $block->getViewFileUrl('PowerReviews_ReviewDisplay::images/play-arrow.png'); ?>" />
+                                                            </a>
+                                                        </p>
+                                                    </div>
+                                                <?php  }  ?>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    </div>
+                                <?php endif; ?>
+                                <!--End Image Review Container -->
+
+                                <div class="review-row-bottom">
+                                    <div class="reviewer-name"><?php echo $review['details']['nickname'] ?></div>
+                                    <?php if ($review['badges']['is_verified_buyer']) { ?>
+                                        <img src="<?php echo $block->getViewFileUrl('PowerReviews_ReviewDisplay::images/verified-icon.png'); ?>" />
+                                        <div class="verified">
+                                            <?php echo ($review['badges']['is_verified_buyer']) ? __('Verified Buyer') : ''; ?>
+                                        </div>
+                                    <?php } ?>
+                                    <div class="reviewed-time">
+                                        <?php echo $helper->getTimeDiff($review['details']['updated_date']) ?>
+                                    </div>
+                                    <div class="thumbs-up" id="up-<?php echo $review['ugc_id']; ?>">
+                                        <img class="voteugc" data-vote="helpful" data-ugc_id="<?php echo $review['ugc_id'] ?>" src="<?php echo $block->getViewFileUrl('PowerReviews_ReviewDisplay::images/up.png'); ?>" />
+                                        <div class="up-votes"><?php echo $review['metrics']['helpful_votes'] ?></div>
+                                    </div>
+                                    <div class="thumbs-down" id="down-<?php echo $review['ugc_id']; ?>">
+                                        <img class="voteugc" data-vote="unhelpful" data-ugc_id="<?php echo $review['ugc_id'] ?>" src="<?php echo $block->getViewFileUrl('PowerReviews_ReviewDisplay::images/down.png'); ?>" />
+                                        <div class="down-votes"><?php echo $review['metrics']['not_helpful_votes'] ?></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12 review-right">
+                                <div class="review-image-container desk-only">
+                                    <?php
+                                    $mediaCount = count($review['media']);
+                                    if ($mediaCount > 0) : ?>
+                                        <div class="owl-carousel owl-theme custimage<?php echo $count; ?> carousel-1">
+                                            <?php
+                                            foreach ($review['media'] as $media) :
+                                                if ($media['type'] == "image") { ?>
+
+                                                    <img class="review-image" src="<?php echo 'https:' . $media['uri'] ?>" width="100"></img>
+                                                <?php  } elseif ($media['type'] == 'video') { ?>
+                                                    <div class="videosec">
+                                                        <p>
+                                                            <a href="#media-popup" data-media="<?php echo $media['uri'] ?>">
+                                                                <img class="image-popup" data-vote="helpful" src="<?php echo $block->getViewFileUrl('PowerReviews_ReviewDisplay::images/play-arrow.png'); ?>" />
+                                                            </a>
+                                                        </p>
+                                                    </div>
+                                                <?php  } ?>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                    <?php $count--;
+                    endforeach; ?>
+                </div>
+            </div>
+
+            <!-- pagination -->
+            <?php
+            $total_pages =  $allReviews['paging']['pages_total'];
+            $pageSize = 5;
+            $nextPage = 0;
+            $class = "";
+            ?>
+            <?php if ($total_pages > 1) : ?>
+                <div class="pagination">
+                    <img class="left" data-prd="<?php echo $prdSku; ?>" style="display:none;" src="<?php echo $block->getViewFileUrl('PowerReviews_ReviewDisplay::images/right.png'); ?>" id="left-0" />
+                    <?php for ($i = 1; $i <= $total_pages; $i++) { ?>
+                        <?php
+                        if ($i == 1) {
+                            $class = "active";
+                        }
+                        if ($i > 1) {
+                            $nextPage = $pageSize * ($i - 1);
+                            $class = "";
+                        }
+                        ?>
+                        <a class="reviewpaging <?php echo $class; ?>" id="page-<?php echo $nextPage; ?>" href="#" data-prd="<?php echo $prdSku; ?>">
+                            <?php echo $i ?>
+                        </a>
+                    <?php } ?>
+                    <img class="right" data-prd="<?php echo $prdSku; ?>" id="right-<?php echo $pageSize; ?>" src="<?php echo $block->getViewFileUrl('PowerReviews_ReviewDisplay::images/right.png'); ?>" />
+                </div>
+            <?php endif; //condition end if pages are more than 1 to show the pagination  
+            ?>
+            <script type="text/x-magento-init">
+                {
+                    "*": {
+                        "PowerReviews_ReviewDisplay/js/carousel": {}
+                    }
+                }
+            </script>
+        <?php else : echo __("There are no reviews for this product");
+        endif; ?>
+    </div>
+    </div>
+<?php
+else :
+    echo __("There has been an error to fetch data for product reviews, please try again later.");
+endif;
+?>
+
+
+<script type="text/javascript">
+    function onReadMoreClick(n) {
+        console.log("onReadMoreClick called: ", 'read-more-review-' + n);
+        var element = document.getElementById('main-review-desc-' + n);
+        console.log("Height including padding and border: " + element.offsetHeight + "px<br>");
+        element.classList.toggle("show-more");
+        var x = document.getElementById('read-more-review-' + n);
+        // alert(x.innerHTML == "Read More");
+        console.log("0: ", x.innerHTML);
+        if (x.innerHTML == "Read More") {
+            console.log("1: ", x.innerHTML, x.innerHTML == "Read More");
+            x.innerHTML = "Read Less";
+        } else if (x.innerHTML == "Read Less") {
+            console.log("2: ", x.innerHTML);
+            x.innerHTML = "Read More";
+        }
+    }
+
+    function countLines(content) {
+        console.log("Count Lines Called: ", content);
+        // Get element with 'content' as id                            
+        var el =
+            document.getElementById(content);
+
+        // Get total height of the content    
+        var divHeight = el.offsetHeight
+
+        // object.style.lineHeight, returns 
+        // the lineHeight property
+        // height of one line 
+        var lineHeight =
+            parseInt(el.style.lineHeight);
+
+        var lines = divHeight / lineHeight;
+    }
+
+
+    function onViewAllClick() {
+        var allReviews = document.querySelectorAll('.review-listing-content > .review-row');
+        var pagination = document.querySelector('.review-listing-media > .pagination');
+
+        var x = document.querySelector('.view-all-label');
+        if (x.innerText == "View All") {
+            x.innerText = "View Less";
+            for (i = 0; i < allReviews.length; i++) {
+                allReviews[i].className.includes('review-row') ?
+                    allReviews[i].style.display = 'block' : '';
+            }
+            pagination.style.display = 'flex'
+        } else if (x.innerText == "View Less") {
+            x.innerText = "View All";
+            for (i = 0; i < allReviews.length; i++) {
+                if (i === 0) {
+                    allReviews[i].className.includes('review-row') ?
+                        allReviews[i].style.display = 'block' : '';
+                } else {
+                    allReviews[i].className.includes('review-row') ?
+                        allReviews[i].style.display = 'none' : '';
+                }
+            }
+            pagination.style.display = 'none'
+        }
+    }
+</script>

@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="mfblog_category_relatedproducts_block_load_collection_before">
+        <observer name="mfblog_category_relatedproducts_block_load_collection_before" instance="Magefan\RelatedProducts\Observer\Category\RelatedProductsBlockLoadCollectionBefore" />
+    </event>
+</config>

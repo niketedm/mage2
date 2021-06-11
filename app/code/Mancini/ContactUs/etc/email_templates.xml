@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="Mancini_contact_us_form_id" label="Mancini ContactUs FORM" file="mancini_contact_us.html" type="html" module="Mancini_ContactUs" area="frontend"/>
+    <template id="contact_email_response_email_template" label="Mancini ContactUs FORM Response" file="mancini_contact_us_response.html" type="html" module="Mancini_ContactUs" area="frontend"/>
+</config>

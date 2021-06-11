@@ -1,0 +1,10 @@
+<!-- ko if: $parents[$parents.length - 2] ? $parents[$parents.length - 2].updateContent() : $data.updateContent() --><!-- /ko-->
+<section class="ammenu-content-block"
+    if="content.trim().length > 7"
+    data-bind="event: {
+                    mouseenter: $parents[$parents.length - 2] ? $parents[$parents.length - 2].clearHoverTimeout() : $data.clearHoverTimeout()
+               },
+               visible: isContentActive,
+               html: content,
+               css: { '-active': isActive }">
+</section>

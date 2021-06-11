@@ -1,0 +1,7 @@
+<!-- ko if: getUrl($row()) -->
+<a attr="href: getUrl($row())" text="getLabel($row())"/>
+<!-- /ko -->
+
+<!-- ko ifnot: getUrl($row()) -->
+<div text="getLabel($row())"/>
+<!-- /ko -->

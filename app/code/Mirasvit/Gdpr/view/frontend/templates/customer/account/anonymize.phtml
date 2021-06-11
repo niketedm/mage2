@@ -1,0 +1,55 @@
+<?php
+/** @var \Mirasvit\Gdpr\Block\Customer\Account\Anonymize $block */
+?>
+<div class="block">
+    <div class="block-title">
+        <strong><?= __('Anonymize personal data') ?></strong>
+    </div>
+
+    <div class="block-content">
+
+
+        <form method="post" action="<?= $block->getUrl('gdpr/customer/anonymize') ?>" data-mage-init='{"validation":{}}'>
+            <input name="form_key" type="hidden" value="<?= $block->getFormKey() ?>"/>
+
+            <fieldset class="fieldset" hidden="hidden" id="anonymize-form">
+                <div class="field">
+                    <p><strong><?= __('To anonymize your account as well as your data from our website, please submit the form.') ?></strong></p>
+                    <p><?= __('Please be aware that we will delete your addresses and will update your name to Anonymous.') ?></p>
+                    <p><?= __('We will also update your name in the orders. Kindly ensure that you do not have any pending orders.') ?></p>
+                </div>
+
+                <div class="field required">
+                    <label class="label" for="current-password">
+                        <span><?= __('Current Password') ?></span>
+                    </label>
+                    <div class="control">
+                        <input type="password" class="input-text" name="password" autocomplete="off" aria-required="true" data-validate="{required:true}">
+                    </div>
+                </div>
+
+                <div class="field choice required">
+                    <input type="checkbox" id="anonymize_accept" data-validate="{required:true}" name="accept" value="1" class="checkbox">
+                    <label for="anonymize_accept" class="label"><span><?= __('I understand and want anonymize my personal data') ?></span></label>
+                </div>
+
+                <div class="actions-toolbar">
+                    <button type="submit" class="action primary">
+                        <span><?= __('Process') ?></span>
+                    </button>
+                </div>
+            </fieldset>
+        </form>
+
+        <div id="anonymize-intro">
+            <p><?= __('You can request the anonymization of your personal data that we have stored by clicking the button below:') ?></p>
+            <div class="actions-toolbar">
+                <button type="button" class="action" data-show="anonymize-form" data-hide="anonymize-intro">
+                    <span><?= __('Anonymize my account') ?></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/x-magento-init"><?= \Mirasvit\Core\Service\SerializeService::encode(['*' => ['Mirasvit_Gdpr/js/customer/account/requestForm' => []]]) ?></script>

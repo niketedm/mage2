@@ -1,0 +1,55 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_MegaMenu
+ */
+?>
+<?php
+/** @var \Amasty\MegaMenu\Block\Html\Topmenu $block */
+/** @var \Magento\Framework\Escaper $escaper */
+?>
+
+<?php if (!$block->isHamburgerEnabled()): ?>
+<section class="ammenu-menu-wrapper -mobile -icons-<?= /* @noEscape */ $block->getIconStatus() ?>"
+         data-ammenu-js="mobile-menu">
+    <nav class="ammenu-main-container" data-ammenu-js="tab-content">
+        <ul class="ammenu-items" data-ammenu-js="menu-items">
+            <?php
+            foreach ($block->getMainNodes() as $mainNode):
+                if (!$block->isNeedDisplay($mainNode->getId(), $mainNode->getStatus(), $block::MOBILE_VIEW)) {
+                    continue;
+                }
+                $url = $mainNode->getUrl() ?: '#';
+                $mainNodeContent = $block->getCategoriesHtml($mainNode);
+                ?>
+                <li class="ammenu-item category-item -main <?= $escaper->escapeHtml($mainNode->getPositionClass()); ?>" data-ammenu-js="item">
+                    <a href="<?= $escaper->escapeUrl($url); ?>"
+                       class="ammenu-link -main<?= ($mainNodeContent) ? ' -parent' : '' ?>
+                        <?= /* @noEscape */ $block->getHighLightClass($mainNode); ?>">
+                        <?php if ($block->isChildHasIcons($block->getMenuTree())): ?>
+                            <figure class="ammenu-icon-block <?= /* @noEscape */ $block->getIcon($mainNode) ? '' : '-empty' ?>"
+                                    style="
+                                            -webkit-mask-image: url(<?= $escaper->escapeUrl($block->getIcon($mainNode)) ?>);
+                                            mask-image: url(<?= $escaper->escapeUrl($block->getIcon($mainNode)) ?>);
+                                            background-image: url(<?= $escaper->escapeUrl($block->getIcon($mainNode)) ?>)">
+                            </figure>
+                        <?php endif; ?>
+                        <span class="ammenu-wrapper">
+                            <?= $escaper->escapeHtml($mainNode->getName()); ?>
+                        </span>
+                    </a>
+                    <?php if ($mainNodeContent): ?>
+                        <div class="ammenu-submenu-container ammenu-submenu" data-ammenu-js="collapse-content">
+                            <?= /* @noEscape */ $mainNodeContent; ?>
+                        </div>
+                        <div class="ammenu-toggle" data-ammenu-js="collapse-trigger">
+                            <span class="ammenu-icon" data-ammenu-js="collapse-indicator"></span>
+                        </div>
+                    <?php endif; ?>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </nav>
+</section>
+<?php endif; ?>

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Michal Walkowiak
+ * @copyright Copyright (c) 2017 PowerReviews (http://www.powerreviews.com)
+ * @package PowerReviews_ReviewDisplay
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../lib/internal/Magento/Framework/App/etc/routes.xsd">
+    <router id="admin">
+        <route id="powerreviews_reviewdisplay" frontName="powerreviews_reviewdisplay">
+            <module name="PowerReviews_ReviewDisplay" />
+        </route>
+    </router>
+</config>

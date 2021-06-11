@@ -1,0 +1,21 @@
+{
+    "name": "mancini/module-storelocator",
+    "description": "storelocator",
+    "type": "magento2-module",
+    "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "Mancini"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Mancini\\Storelocator\\": ""
+        }
+    }
+}

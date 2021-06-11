@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">faq_listing.faq_listing_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>faq_columns</spinner>
+        <deps>
+            <dep>faq_listing.faq_listing_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="faq_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <storageConfig>
+                <param name="cacheRequests" xsi:type="boolean">false</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render">
+            	<param name="_current">true</param>
+            </updateUrl>
+            <filterUrlParams>
+	            <param name="id">*</param>
+	        </filterUrlParams>
+        </settings>
+        <aclResource>Anowave_Faq::anowave</aclResource>
+        <dataProvider class="Anowave\Faq\Ui\DataProvider\Product\FaqDataProvider" name="faq_listing_data_source">
+            <settings>
+                <requestFieldName>faq_id</requestFieldName>
+                <primaryFieldName>faq_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <filters name="listing_filters">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="params" xsi:type="array">
+                        <item name="filters_modifier" xsi:type="array"/>
+                    </item>
+                </item>
+            </argument>
+            <settings>
+                <statefull>
+                    <property name="applied" xsi:type="boolean">false</property>
+                </statefull>
+            </settings>
+        </filters>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+    <columns name="faq_columns">
+        <settings>
+            <editorConfig>
+                <param name="clientConfig" xsi:type="array">
+                    <item name="saveUrl" xsi:type="url" path="faq/index/inlineEdit"/>
+                    <item name="validateBeforeSave" xsi:type="boolean">false</item>
+                </param>
+                <param name="indexField" xsi:type="string">faq_id</param>
+                <param name="enabled" xsi:type="boolean">true</param>
+                <param name="selectProvider" xsi:type="string">faq_listing.faq_listing.faq_columns.ids</param>
+            </editorConfig>
+            <childDefaults>
+                <param name="fieldAction" xsi:type="array">
+                    <item name="provider" xsi:type="string">faq_listing.faq_listing.faq_columns_editor</item>
+                    <item name="target" xsi:type="string">startEdit</item>
+                    <item name="params" xsi:type="array">
+                        <item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
+                        <item name="1" xsi:type="boolean">true</item>
+                    </item>
+                </param>
+            </childDefaults>
+        </settings>
+        <selectionsColumn name="ids">
+            <settings>
+                <indexField>faq_id</indexField>
+            </settings>
+        </selectionsColumn>
+        <column name="faq" sortOrder="30">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Question</label>
+                <editor>
+                    <editorType>text</editorType>
+                </editor>
+                <resizeEnabled>false</resizeEnabled>
+                <resizeDefaultWidth>300</resizeDefaultWidth>
+            </settings>
+        </column>
+        <column name="faq_content" sortOrder="40">
+        	<argument name="data" xsi:type="array">
+	            <item name="config" xsi:type="array">
+	                <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+	                <item name="label" xsi:type="string" translate="true">Answer</item>
+	            </item>
+	        </argument>
+            <settings>
+                <label translate="true">Answer</label>
+                <editor>
+                    <editorType>wysiwyg</editorType>
+                </editor>
+                <resizeEnabled>false</resizeEnabled>
+                <resizeDefaultWidth>300</resizeDefaultWidth>
+            </settings>
+        </column>
+        <column name="faq_position">
+		  	<settings>
+                <filter>text</filter>
+                <label translate="true">Position</label>
+                <editor>
+                    <editorType>text</editorType>
+                </editor>
+                <visible>true</visible>
+                <sorting>asc</sorting>
+            </settings>
+		</column>
+		<column name="faq_enable" sortOrder="60">
+        	<argument name="data" xsi:type="array">
+	            <item name="config" xsi:type="array">
+	                <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+	                <item name="label" xsi:type="string" translate="true">Status</item>
+	            </item>
+	        </argument>
+        </column>
+        <actionsColumn name="actions" class="Anowave\Faq\Ui\Component\Listing\Columns\FaqActions" sortOrder="100">
+            <settings>
+                <indexField>id</indexField>
+            </settings>
+        </actionsColumn>
+    </columns>
+</listing>

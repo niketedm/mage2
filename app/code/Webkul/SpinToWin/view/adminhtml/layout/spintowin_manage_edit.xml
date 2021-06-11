@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_SpinToWin
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="editor"/>
+    <head>
+        <css src="Webkul_SpinToWin::css/main.css"/>
+        <css src="Webkul_SpinToWin::css/colorpicker.css"/>
+        <css src="Webkul_SpinToWin::css/style.css"/>
+    </head>
+    <body>
+        <referenceContainer name="left">
+            <block class="Webkul\SpinToWin\Block\Adminhtml\Spin\Edit\Tabs"
+            name="spin_edit_tabs"/>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Webkul\SpinToWin\Block\Adminhtml\Spin\Edit" name="spin_edit"/>
+        </referenceContainer>
+    </body>
+</page>

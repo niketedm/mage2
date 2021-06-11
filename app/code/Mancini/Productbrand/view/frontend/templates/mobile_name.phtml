@@ -1,0 +1,26 @@
+<div class="mobile-title">
+    <?php $_product = $block->getCurrentProduct(); ?>
+    <div class="mobile-brandname">
+        <!-- Product Brand -->
+        <?php if ($block->getAttributeSetName() == "Mattress") : ?>
+            <?php $_attributeValue = $_product->getResource()->getAttribute('brand')->getFrontend()->getValue($_product); ?>
+            <?php if ($_attributeValue) : ?>
+                <h2 class="mobile-title-brand"> <?php echo __($_attributeValue); ?> </h2>
+            <?php endif; ?>
+        <?php endif; ?>
+
+        <?php if ($block->getAttributeSetName() == "Furniture") : ?>
+            <?php $_attributeValue = $_product->getResource()->getAttribute('furniture_brand')->getFrontend()->getValue($_product); ?>
+            <?php if ($_attributeValue) : ?>
+                <h2 class="mobile-title-brand"> <?php echo __($_attributeValue); ?> </h2>
+            <?php endif; ?>
+        <?php endif; ?>
+
+    </div>
+
+    <div class="mobile-product-title">
+        <!-- Product Title -->
+        <?php $productName = $_product->getName(); ?>
+        <h1 class="mobile-product-name"> <?php echo __($productName); ?> </h1>
+    </div>
+</div>

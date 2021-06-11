@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="import_command" xsi:type="object">Mancini\ProductConsole\Console\Command\ImportCommand</item>
+                <item name="custom_command" xsi:type="object">Mancini\ProductConsole\Console\Command\CustomCommand</item>
+                <item name="auto_update_command" xsi:type="object">Mancini\ProductConsole\Console\Command\AutoUpdateCommand</item>
+                <item name="clear_data_command" xsi:type="object">Mancini\ProductConsole\Console\Command\ClearDataCommand</item>
+                <item name="download_command" xsi:type="object">Mancini\ProductConsole\Console\Command\DownloadCommand</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Mancini\ProductConsole\Model\Logger\Handler\Corn">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="Mancini\ProductConsole\Model\Logger\Handler\Import">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="Mancini\ProductConsole\Model\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">customLogger</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">Mancini\ProductConsole\Model\Logger\Handler\Cron</item>
+                <item name="debug" xsi:type="object">Mancini\ProductConsole\Model\Logger\Handler\Import</item>
+            </argument>
+        </arguments>
+    </type>
+    <preference for="Magento\Framework\Cache\InvalidateLogger" type="Mancini\ProductConsole\Magento\Framework\Cache\InvalidateLogger" />
+</config>

@@ -1,0 +1,16 @@
+<?php
+/** @var \Mirasvit\Gdpr\Block\CookieBar $block */
+?>
+<div class="mst-gdpr__cookie-bar-wrapper" id="gdprCookieBar">
+    <div class="mst-gdpr__cookie-bar">
+        <div class="consent-text">
+            <?= $block->getPolicyText() ?>
+        </div>
+
+        <div class="consent-button">
+            <button class="action primary"><?= __('OK') ?></button>
+        </div>
+    </div>
+</div>
+<div class="mst-gdpr__cookie-bar-overlay" id="gdprCookieBarOverlay"></div>
+<script type="text/x-magento-init"><?= \Mirasvit\Core\Service\SerializeService::encode($block->getJsonConfig()) ?></script>

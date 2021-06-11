@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_MegaMenu
+ */
+-->
+
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="page.top">
+            <referenceBlock name="navigation.sections">
+                <referenceBlock name="store.menu">
+                    <referenceBlock name="catalog.topnav" template="Amasty_MegaMenu::html/topmenu.phtml">
+                        <block class="Amasty\MegaMenu\Block\Html\Topmenu" name="catalog.topnav.desktop" template="Amasty_MegaMenu::html/desktop/topmenu.phtml">
+                            <arguments>
+                                <argument name="block_type" xsi:type="string">desktop</argument>
+                            </arguments>
+                            <block class="Amasty\MegaMenu\Block\Html\Topmenu"
+                                   name="catalog.topnav.desktop.content"
+                                   as="submenu"
+                                   template="Amasty_MegaMenu::html/desktop/submenu.phtml">
+                                <arguments>
+                                    <argument name="jsLayout" xsi:type="array">
+                                        <item name="components" xsi:type="array">
+                                            <item name="submenu" xsi:type="array">
+                                                <item name="component" xsi:type="string">Amasty_MegaMenu/js/components/submenu</item>
+                                                <item name="config" xsi:type="array">
+                                                    <item name="template" xsi:type="string">Amasty_MegaMenu/components/submenu/root_wrapper</item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                    </argument>
+                                </arguments>
+                            </block>
+                        </block>
+                    </referenceBlock>
+                </referenceBlock>
+                <referenceBlock name="am.store.settings">
+                    <block class="Magento\Directory\Block\Currency" name="store.settings.currency" template="Magento_Directory::currency.phtml">
+                        <arguments>
+                            <argument name="block_type" xsi:type="string">desktop</argument>
+                        </arguments>
+                    </block>
+                </referenceBlock>
+            </referenceBlock>
+        </referenceContainer>
+    </body>
+</layout>

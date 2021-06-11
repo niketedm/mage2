@@ -1,0 +1,464 @@
+<?php
+
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+use Magento\Framework\App\Action\Action;
+
+?>
+<?php
+/**
+ * Product list template
+ *
+ * @var $block \Magento\Catalog\Block\Product\ListProduct
+ * @var \Magento\Framework\Escaper $escaper
+ * @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer
+ */
+?>
+<?php
+$_productCollection = $block->getLoadedProductCollection();
+/** @var \Magento\Catalog\Helper\Output $_helper */
+$_helper = $block->getData('outputHelper');
+$shipping_zone = $block->getShippingZone();
+
+?>
+<?php if (!$_productCollection->count()) : ?>
+    <div class="message info empty catalogs-error">
+        <div><?= $escaper->escapeHtml(__('We can\'t find products matching the selection.')) ?></div>
+    </div>
+<?php else : ?>
+    <?= $block->getToolbarHtml() ?>
+    <?= $block->getAdditionalHtml() ?>
+    <?php
+    if ($block->getMode() == 'grid') {
+        $viewMode = 'grid';
+        $imageDisplayArea = 'category_page_grid';
+        $showDescription = false;
+        $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+    } else {
+        $viewMode = 'list';
+        $imageDisplayArea = 'category_page_list';
+        $showDescription = true;
+        $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::FULL_VIEW;
+    }
+    /**
+     * Position for actions regarding image size changing in vde if needed
+     */
+    $pos = $block->getPositioned();
+    ?>
+    <div class="products wrapper catalogs-products <?= /* @noEscape */ $viewMode ?> products-<?= /* @noEscape */ $viewMode ?>">
+        <ol class="products list items product-items">
+            <?php /** @var $_product \Magento\Catalog\Model\Product */ ?>
+            <?php foreach ($_productCollection as $_product) : ?>
+                <li class="item product product-item">
+                    <div class="product-item-info" id="product-item-info_<?= /* @noEscape */ $_product->getId() ?>" data-container="product-<?= /* @noEscape */ $viewMode ?>">
+                        <?php
+                        $productImage = $block->getImage($_product, $imageDisplayArea);
+                        if ($pos != null) {
+                            $position = 'left:' . $productImage->getWidth() . 'px;'
+                                . 'top:' . $productImage->getHeight() . 'px;';
+                        }
+                        ?>
+                        <?php // Product Image 
+                        ?>
+                        <div onclick="window.location.href='<?= $escaper->escapeUrl($_product->getProductUrl()) ?>'" class="product photo product-item-photo" tabindex="-1">
+                            <?= $productImage->toHtml() ?>
+                        </div>
+
+
+                        <div class="product details product-item-details">
+                            <a class="click-grid" href="<?= $escaper->escapeUrl($_product->getProductUrl()) ?>">
+                                <div class="product-clickcard">
+
+                                    <?php
+                                    $_productNameStripped = $block->stripTags($_product->getName(), null, true);
+                                    ?>
+                                    <div class="product-name">
+                                        <div class="brand-name">
+                                            <?php if ($_product->getResource()->getAttribute('brand')->getFrontend()->getValue($_product)) : ?>
+                                                <div class="product-brand" href="<?= $escaper->escapeUrl($_product->getProductUrl()) ?>"><?php echo $_product->getResource()->getAttribute('brand')->getFrontend()->getValue($_product) ?></div>
+                                            <?php endif; ?>
+                                            <?php if ($_product->getResource()->getAttribute('furniture_brand')->getFrontend()->getValue($_product)) : ?>
+                                                <div class="product-brand" href="<?= $escaper->escapeUrl($_product->getProductUrl()) ?>"><?php echo $_product->getResource()->getAttribute('furniture_brand')->getFrontend()->getValue($_product) ?></div>
+                                            <?php endif; ?>
+                                        </div>
+
+                                        <?php $product_name = $_helper->productAttribute($_product, $_product->getName(), 'name'); ?>
+                                        <?php $product_brand = ""
+                                        ?>
+                                        <?php if ($_product->getResource()->getAttribute('brand')->getFrontend()->getValue($_product)) : ?>
+                                            <?php $product_brand = $_product->getResource()->getAttribute('brand')->getFrontend()->getValue($_product);
+                                            ?>
+                                        <?php endif; ?>
+                                        <?php if ($_product->getResource()->getAttribute('furniture_brand')->getFrontend()->getValue($_product)) : ?>
+                                            <?php $product_brand = $_product->getResource()->getAttribute('furniture_brand')->getFrontend()->getValue($_product);
+                                            ?>
+                                        <?php endif; ?>
+
+                                        <h4 class="product name product-item-name">
+                                            <div class="product-item-link" href="<?= $escaper->escapeUrl($_product->getProductUrl()) ?>">
+
+
+                                                <?php if (str_contains($product_name, $product_brand)) {
+                                                    $product_name = str_replace($product_brand, '', $product_name);
+                                                    echo $product_name;
+                                                } else {
+                                                    echo $product_name;
+                                                } ?>
+                                            </div>
+                                        </h4>
+                                        </strong>
+                                    </div>
+                                    <div class="product-rating">
+                                        <?php $productRating = $block->getProductRating($_product); ?>
+
+                                        <?php if ($productRating == "0") : ?>
+                                            <?php for ($x = 0; $x < 5; $x++) : ?>
+                                                <img class="rating-icon" src='<?php echo $this->getViewFileUrl('images/star.svg') ?>' alt="">
+                                            <?php endfor; ?>
+                                        <?php endif; ?>
+                                        <?php if ($productRating > 0) : ?>
+                                            <?php for ($x = 0; $x < $productRating; $x++) : ?>
+                                                <img class="rating-icon" src='<?php echo $this->getViewFileUrl('images/star-1.svg') ?>' alt="">
+                                            <?php endfor; ?>
+                                        <?php endif; ?>
+
+                                        <span>(<?php echo $productRating ?>/5)</span>
+                                    </div>
+                                    <?= $block->getReviewsSummaryHtml($_product, $templateType) ?>
+                                    <?= /* @noEscape */ $block->getProductPrice($_product) ?>
+                                    <?php if ($_product->isAvailable()) : ?>
+                                        <?= $block->getProductDetailsHtml($_product) ?>
+                                    <?php endif; ?>
+                                    <hr class="line-1" />
+                                </div>
+                            </a>
+
+                            <div class="product-item-inner">
+                                <div class="shipping-text">
+                                    <div class="row">
+                                        <?php
+                                        $deliverByDate = $block->getArrivalDate($_product);
+                                        if ($shipping_zone != null && $deliverByDate != null) {
+                                        ?>
+
+                                            <img class="Shipping-image" src='<?php echo $this->getViewFileUrl('images/truck.png'); ?>' alt="" height="12px" width="15px">
+                                        <?php } else { ?>
+
+                                            <img class="Shipping-image-call" src='<?php echo $this->getViewFileUrl('images/callforshipping.svg'); ?>' alt="" height="12px" width="15px">
+                                        <?php } ?>
+                                        <div class="arrivaldate">
+                                            <?php
+                                            $deliverByDate = $block->getArrivalDate($_product);
+                                            if ($shipping_zone != null && $deliverByDate != null) {
+                                            ?>
+                                                <span class="ddate label"><?php echo __("Delivery by: "); ?></span>
+                                                <span class="dddate value"><?php echo __($deliverByDate); ?> </span>
+                                            <?php } else { ?>
+                                                <a class="ddate labels" href="tel:+66554432" aria-label="<?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?>"><?php echo __("Call for shipping options"); ?></a>
+                                            <?php } ?>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <?php $delivery_label = $block->getFreeDeliveryLabel($_product); ?>
+                                <?php if (!empty($delivery_label)) : ?>
+                                    <div class="free-delivery">
+                                        <span><?php echo __($delivery_label); ?> </span>
+                                    </div>
+                                <?php endif; ?>
+                                <?php $sale_label = $block->getOnSaleLabel($_product); ?>
+
+                                <?php if ($sale_label) : ?>
+                                    <div class="On-sale">
+                                        <span><?php echo __($sale_label); ?> </span>
+                                    </div>
+                                <?php endif; ?>
+                                <hr class="line-2" />
+
+                                <?php if ($_product->getResource()->getAttribute('comfort')->getFrontend()->getValue($_product)) : ?>
+
+                                    <?php if (trim(($_product->getResource()->getAttribute('comfort')->getFrontend()->getValue($_product))) == "Firm") : ?>
+                                        <img class="Comfort-icon" src='<?php echo $this->getViewFileUrl('images/FIRM.svg') ?>' alt="">
+
+                                    <?php endif; ?>
+                                    <?php if (trim(($_product->getResource()->getAttribute('comfort')->getFrontend()->getValue($_product))) == "Very Firm") : ?>
+                                        <img class="Comfort-icon" src='<?php echo $this->getViewFileUrl('images/VERY_FIRM.svg') ?>' alt="">
+                                    <?php endif; ?>
+                                    <?php if (trim(($_product->getResource()->getAttribute('comfort')->getFrontend()->getValue($_product))) == "Soft") : ?>
+                                        <img class="Comfort-icon" src='<?php echo $this->getViewFileUrl('images/SOFT.svg') ?>' alt="">
+                                    <?php endif; ?>
+                                    <?php if (trim(($_product->getResource()->getAttribute('comfort')->getFrontend()->getValue($_product))) == "Very Soft") : ?>
+                                        <img class="Comfort-icon" src='<?php echo $this->getViewFileUrl('images/VERY_SOFT.svg') ?>' alt="">
+                                    <?php endif; ?>
+                                    <?php if (trim(($_product->getResource()->getAttribute('comfort')->getFrontend()->getValue($_product))) == "Medium") : ?>
+                                        <img class="Comfort-icon" src='<?php echo $this->getViewFileUrl('images/MEDIUM.svg') ?>' alt="">
+                                    <?php endif; ?>
+
+
+                                    <?php if (trim(($_product->getResource()->getAttribute('comfort')->getFrontend()->getValue($_product))) == "Firm") : ?>
+                                        <img class="Comfort-icon-mobile" src='<?php echo $this->getViewFileUrl('images/fm.svg') ?>' alt="">
+
+                                    <?php endif; ?>
+
+                                    <?php if (trim(($_product->getResource()->getAttribute('comfort')->getFrontend()->getValue($_product))) == "Very Firm") : ?>
+                                        <img class="Comfort-icon-mobile" src='<?php echo $this->getViewFileUrl('images/vfm.svg') ?>' alt="">
+                                    <?php endif; ?>
+                                    <?php if (trim(($_product->getResource()->getAttribute('comfort')->getFrontend()->getValue($_product))) == "Soft") : ?>
+                                        <img class="Comfort-icon-mobile" src='<?php echo $this->getViewFileUrl('images/sm.svg') ?>' alt="">
+                                    <?php endif; ?>
+                                    <?php if (trim(($_product->getResource()->getAttribute('comfort')->getFrontend()->getValue($_product))) == "Very Soft") : ?>
+                                        <img class="Comfort-icon-mobile" src='<?php echo $this->getViewFileUrl('images/vsm.svg') ?>' alt="">
+                                    <?php endif; ?>
+                                    <?php if (trim(($_product->getResource()->getAttribute('comfort')->getFrontend()->getValue($_product))) == "Medium") : ?>
+                                        <img class="Comfort-icon-mobile" src='<?php echo $this->getViewFileUrl('images/mdm.svg') ?>' alt="">
+                                    <?php endif; ?>
+                                <?php endif; ?>
+
+                                <div class="product actions product-item-actions">
+                                    <div class="actions-primary">
+                                        <?php if ($_product->isSaleable()) : ?>
+                                            <?php $postParams = $block->getAddToCartPostParams($_product); ?>
+                                            <!-- <form data-role="tocart-form" data-product-sku="<?= $escaper->escapeHtml($_product->getSku()) ?>" action="<?= $escaper->escapeUrl($postParams['action']) ?>" method="post">
+                                                <input type="hidden" name="product" value="<?= /* @noEscape */ $postParams['data']['product'] ?>">
+                                                <input type="hidden" name="<?= /* @noEscape */ Action::PARAM_NAME_URL_ENCODED ?>" value="<?=
+                                                                                                                                            /* @noEscape */ $postParams['data'][Action::PARAM_NAME_URL_ENCODED]
+                                                                                                                                            ?>">
+                                                <?= $block->getBlockHtml('formkey') ?>
+                                                <button type="submit" title="<?= $escaper->escapeHtmlAttr(__('Add to Cart')) ?>" class="action tocart primary">
+                                                    <span><?= $escaper->escapeHtml(__('Add to Cart')) ?></span>
+                                                </button>
+                                            </form> -->
+                                        <?php else : ?>
+                                            <?php if ($_product->isAvailable()) : ?>
+                                                <div class="stock available">
+                                                    <span><?= $escaper->escapeHtml(__('In stock')) ?></span>
+                                                </div>
+                                            <?php else : ?>
+                                                <div class="stock unavailable">
+                                                    <span><?= $escaper->escapeHtml(__('Out of stock')) ?></span>
+                                                </div>
+                                            <?php endif; ?>
+                                        <?php endif; ?>
+                                    </div>
+                                    <?= strpos($pos, $viewMode . '-primary') ?
+                                        /* @noEscape */ $secureRenderer->renderStyleAsTag(
+                                            $position,
+                                            'product-item-info_' . $_product->getId() . ' div.actions-primary'
+                                        ) : '' ?>
+                                    <div data-role="add-to-links" class="actions-secondary">
+                                        <?php if ($addToBlock = $block->getChildBlock('addto')) : ?>
+                                            <?= $addToBlock->setProduct($_product)->getChildHtml() ?>
+                                        <?php endif; ?>
+                                    </div>
+                                    <?= strpos($pos, $viewMode . '-secondary') ?
+                                        /* @noEscape */ $secureRenderer->renderStyleAsTag(
+                                            $position,
+                                            'product-item-info_' . $_product->getId() . ' div.actions-secondary'
+                                        ) : '' ?>
+                                </div>
+                                <?php if ($showDescription) : ?>
+                                    <div class="product description product-item-description">
+                                        <?= /* @noEscape */ $_helper->productAttribute(
+                                            $_product,
+                                            $_product->getShortDescription(),
+                                            'short_description'
+                                        ) ?>
+                                        <div href="<?= $escaper->escapeUrl($_product->getProductUrl()) ?>" title="<?= /* @noEscape */ $_productNameStripped ?>" class="action more"><?= $escaper->escapeHtml(__('Learn More')) ?></div>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+
+                        <?= strpos($pos, $viewMode . '-actions') ?
+                            /* @noEscape */ $secureRenderer->renderStyleAsTag(
+                                $position,
+                                'product-item-info_' . $_product->getId() . ' div.product-item-actions'
+                            ) : '' ?>
+                    </div>
+                </li>
+            <?php endforeach; ?>
+        </ol>
+    </div>
+    <?= $block->getToolbarHtml() ?>
+    <?php if (!$block->isRedirectToCartEnabled()) : ?>
+        <script type="text/x-magento-init">
+            {
+            "[data-role=tocart-form], .form.map.checkout": {
+                "catalogAddToCart": {
+                    "product_sku": "<?= $escaper->escapeJs($_product->getSku()) ?>"
+                }
+            }
+        }
+        </script>
+    <?php endif; ?>
+<?php endif; ?>
+
+<script>
+    require(['jquery', 'Magento_Customer/js/customer-data'], function($, customerData) {
+
+        $(document).ready(function() {
+
+            var mansle = 'allproducts';
+
+            jQuery.ajax({
+                showLoader: true,
+                url: '<?php echo $this->getUrl('customwishlist/index/wishlist') ?>',
+                method: 'get',
+                dataType: 'json',
+                data: {
+                    method: mansle
+
+                },
+                success: function(data) {
+
+                    $.each(data.productid, function(index, value) {
+
+                        var productId = value;
+                        $(".product-id-" + productId).hide();
+                        $(".show-img-" + productId).show();
+
+                        var sections = ['wishlist'];
+                        customerData.invalidate(sections);
+                        customerData.reload(sections, true);
+                    });
+
+                }
+            });
+
+        });
+        $(".custom-wishlist").click(function() {
+
+            var productId = $(this).attr('data-productid');
+            jQuery.ajax({
+                showLoader: true,
+                url: '<?php echo $this->getUrl('customwishlist/index/wishlist') ?>',
+                method: 'get',
+                dataType: 'json',
+                data: {
+                    productId: productId,
+                    method: 'singleproduct'
+                },
+                success: function(data) {
+
+                    if (data.productid == 'false') {
+                        window.location.replace(BASE_URL + "customer/account/login");
+
+                    } else {
+
+                        if (data.delete == 1) {
+                            $(".product-id-" + productId).show();
+                            $(".show-img-" + productId).hide();
+
+                            var sections = ['wishlist'];
+                            customerData.invalidate(sections);
+                            customerData.reload(sections, true);
+
+                        }
+                        if (data.add == 1) {
+                            $(".product-id-" + productId).hide();
+                            $(".show-img-" + productId).show();
+
+                            var sections = ['wishlist'];
+                            customerData.invalidate(sections);
+                            customerData.reload(sections, true);
+                        }
+                        $.each(data.productid, function(index, value) {
+
+                            var productId = value;
+
+                            var sections = ['wishlist'];
+                            customerData.invalidate(sections);
+                            customerData.reload(sections, true);
+                        });
+                    }
+
+                }
+            });
+        });
+    });
+</script>
+
+
+<script>
+    require([
+        'jquery',
+    ], function($) {
+
+        $(document).ready(function() {
+            $("#read-more2").click(function() {
+                console.log("list");
+
+                var divs = document.querySelectorAll('.mores');
+                var btnText = document.getElementById("read-more2");
+                var dots = document.getElementById("dots");
+
+                if (dots.style.display == "none") {
+
+                    dots.style.display = "inline";
+
+                    for (var i = 0; i < divs.length; i++) {
+                        divs[i].classList.add('newclass');
+                    }
+                    btnText.innerHTML = "Read more";
+
+                } else {
+
+                    dots.style.display = "none";
+
+                    for (var i = 0; i < divs.length; i++) {
+                        divs[i].classList.remove('newclass');
+                    }
+                    btnText.innerHTML = "Read less";
+
+                }
+            });
+        });
+
+    });
+</script>
+
+<script type="text/javascript">
+    require(['jquery'], function($) {
+        $(document).ready(function() {
+            function isInViewport(el) {
+                const rect = el.getBoundingClientRect();
+
+                return (
+                    rect.top >= 0 &&
+                    rect.left >= 0 &&
+                    // rect.bottom >= 50 &&
+                    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+                );
+            }
+
+
+            const box = document.querySelector('.toolbar-amount');
+            //var x = document.querySelector('.filter-button');
+            var mybutton = document.getElementById("myBtn");
+
+
+            document.addEventListener('scroll', function() {
+
+                const messageText = isInViewport(box) ?
+                    mybutton.style.display = "none" :
+                    mybutton.style.display = "block";
+            }, {
+                passive: true
+            });
+
+
+
+        });
+    });
+
+    function topFunction() {
+        var elmnt = document.getElementById("layered-filter-block");
+        //elmnt.scrollIntoView();
+        elmnt.scrollIntoView({
+            block: "center"
+        });
+    }
+</script>

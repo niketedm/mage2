@@ -1,0 +1,250 @@
+<?php
+$spinWheelForm = $block->getWheel();
+$helper = $this->helper('Webkul\SpinToWin\Helper\Data');
+?>
+<div class="spin-content-wheelform admin__scope-old">
+    <fieldset class="fieldset admin__fieldset">
+        <legend class="legend">
+            <span><?php /* @escapeNotVerified */echo __('Spin Wheel Form') ?></span>
+        </legend>
+        <div class="spin-content-wheelform-container">
+            <div class="spin-content-wheelform-edit">
+                <form data-mage-init='{"validation":{}}' class= "spin-form" action="<?php /* @escapeNotVerified */echo $block->getUrl('spintowin/manage/savewheel') ?>" enctype="multipart/form-data" method="post" id="spinwheelformedit">
+                    <input type="hidden" value="<?= $spinWheelForm->getId()?>" name="entity_id" />
+                    <?php /* @escapeNotVerified */echo $block->getBlockHtml('formkey')?>    
+                    <fieldset class="fieldset admin__fieldset">
+                        <legend class="legend">
+                            <span><?php /* @escapeNotVerified */echo __('Edit Spin Wheel') ?></span>
+                        </legend>
+                        <div class="field admin__field  field-attribute_label  required _required">
+                            <label class="label" for="wheel_background_color">
+                                <span><?php /* @escapeNotVerified */echo __('Background Color')?></span>
+                            </label>
+                            <div class="control">
+                                <span class="color-pick spin-color-box" data-role="color-pick" data-mage-init='{"colorPickerFunction":{"spanBackgroundColor" : "<?php echo $spinWheelForm->getBackgroundColor()?>", "getActiveColorPickerStatus" : "1", "backgroundWidthSelector" : "#wheel_background_color"}}'></span>
+                                <input type="text" id="wheel_background_color" name="background_color" value="<?php echo $spinWheelForm->getBackgroundColor()?>" class="input-text spin-color-input spin-bind-style-temp required-entry" data-spin-bind="spin-content-wheelform-preview-data" data-spin-bind-prop='background-color' />
+                            </div>
+                        </div>
+                        <div class="field admin__field  field-attribute_label">
+                            <label class="label" for="wheel_background_image">
+                                <span><?php /* @escapeNotVerified */echo __('Background Image')?></span>
+                            </label>
+                            <div class="control">
+                                <input type="file" id="wheel_background_image" name="background_image" value="" class="input-text spin-files" data-spin-bind-image="wheel_background_image_preview"  data-upload-id="wheel_background_image_hidden" data-upload-url="<?= $block->getUploadUrl(); ?>" />
+                                <input type="hidden" id="wheel_background_image_hidden" name="background_image" value="<?php echo $spinWheelForm->getBackgroundImage()?>"/>
+                                <button type="button" class="spin-button spin-upload-button spin-files-button" data-triggerid="wheel_background_image">Browse Files...</button>
+                                <div class="spin-image-preview-container">
+                                    <img src="<?php echo ($spinWheelForm->getBackgroundImage() ? $block->getMediaUrl($spinWheelForm->getBackgroundImage()):'') ?>" id="banner-img" class="spin-image spin-image-preview">
+                                    <span class="spin-image-delete" data-delete="wheel_background_image"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field admin__field field-attribute_label required _required">
+                            <label class="label" for="wheel_background_image_repeat">
+                                <span><?php /* @escapeNotVerified */echo __('Background Image Repeat property')?></span>
+                            </label>
+                            <div class="control">
+                                <select id="wheel_background_image_repeat" name="background_image_repeat" type="text" class="input-text required-entry">
+                                    <?php
+                                    $backgroundRepeatProperties = $helper->getBackgroundRepeatProperties();
+                                    foreach ($backgroundRepeatProperties as $backgroundRepeatPropertyKey => $backgroundRepeatPropertyValue) { ?>
+                                        <option <?php echo $backgroundRepeatPropertyKey==$spinWheelForm->getBackgroundImageRepeat()? 'selected':''; ?> value="<?php echo $backgroundRepeatPropertyKey ?>"><?php /* @escapeNotVerified */echo __($backgroundRepeatPropertyValue)?></option>
+                                    <?php }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="field admin__field field-attribute_label required _required">
+                            <label class="label" for="wheel_inner_wheel">
+                                <span><?php /* @escapeNotVerified */echo __('Show Inner Wheel')?></span>
+                            </label>
+                            <div class="control">
+                                <select id="wheel_inner_wheel" name="inner_wheel" type="text" class="input-text required-entry">
+                                    <option <?php echo $spinWheelForm->getInnerWheel()? 'selected':''; ?> value="1"><?php /* @escapeNotVerified */echo __('Yes')?></option>
+                                    <option <?php echo $spinWheelForm->getId() && !$spinWheelForm->getInnerWheel()? 'selected':''; ?> value="0"><?php /* @escapeNotVerified */echo __('No')?></option>                        
+                                </select>
+                            </div>
+                        </div>
+                        <div class="field admin__field  field-attribute_label  required _required">
+                            <label class="label" for="wheel_inner_radius">
+                                <span><?php /* @escapeNotVerified */echo __('Inner Radius')?></span>
+                            </label>
+                            <div class="control">
+                                <input type="text" id="wheel_inner_radius" name="inner_radius" value="<?php echo $spinWheelForm->getInnerRadius()?>" class="input-text required-entry validate-number validate-greater-than-zero"/>
+                            </div>
+                        </div>
+                        <div class="field admin__field  field-attribute_label  required _required">
+                            <label class="label" for="wheel_center_color">
+                                <span><?php /* @escapeNotVerified */echo __('Center Color')?></span>
+                            </label>
+                            <div class="control">
+                                <span class="color-pick spin-color-box" data-role="color-pick" data-mage-init='{"colorPickerFunction":{"spanBackgroundColor" : "<?php echo $spinWheelForm->getCenterColor()?>", "getActiveColorPickerStatus" : "1", "backgroundWidthSelector" : "#wheel_center_color"}}'></span>
+                                <input type="text" id="wheel_center_color" name="center_color" value="<?php echo $spinWheelForm->getCenterColor()?>" class="input-text spin-color-input spin-bind-style-temp required-entry" data-spin-bind="spin-content-wheelform-preview-data" data-spin-bind-prop='color' />
+                            </div>
+                        </div>
+                        <div class="field admin__field  field-attribute_label">
+                            <label class="label" for="wheel_center_image">
+                                <span><?php /* @escapeNotVerified */echo __('Center Logo')?></span>
+                            </label>
+                            <div class="control">
+                                <input type="file" id="wheel_center_image" name="center_image" value="" class="input-text spin-files" data-spin-bind-image="wheel_center_image_preview"  data-upload-id="wheel_center_image_hidden" data-upload-url="<?= $block->getUploadUrl(); ?>" />
+                                <input type="hidden" id="wheel_center_image_hidden" name="center_image" value="<?php echo $spinWheelForm->getCenterImage()?>"/>
+                                <button type="button" class="spin-button spin-upload-button spin-files-button" data-triggerid="wheel_center_image">Browse Files...</button>
+                                <div class="spin-image-preview-container">
+                                    <img src="<?php echo ($spinWheelForm->getCenterImage() ? $block->getMediaUrl($spinWheelForm->getCenterImage()):'') ?>" id="banner-img" class="spin-image spin-image-preview">
+                                    <span class="spin-image-delete" data-delete="wheel_center_image"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field admin__field  field-attribute_label required _required">
+                            <label class="label" for="wheel_pin_image">
+                                <span><?php /* @escapeNotVerified */echo __('Pin image')?></span>
+                            </label>
+                            <div class="control">
+                                <input type="file" id="wheel_pin_image" name="pin_image" value="" class="input-text spin-files" data-spin-bind-image="wheel_pin_image_preview"  data-upload-id="wheel_pin_image_hidden" data-upload-url="<?= $block->getUploadUrl(); ?>" />
+                                <input type="hidden" id="wheel_pin_image_hidden" name="pin_image" value="<?php echo $spinWheelForm->getPinImage()?>" class="required-entry"/>
+                                <div class="spin-image-preview-container">
+                                    <img src="<?php echo ($spinWheelForm->getPinImage() ? $block->getMediaUrl($spinWheelForm->getPinImage()):'') ?>" class="spin-image spin-image-preview">
+                                    <span class="spin-image-delete" data-delete="wheel_pin_image"></span>
+                                </div>
+                                <div class="spin-wheel-pin-images">
+                                <?php
+                                $spintowinPinImage = $helper->getSpintowinPinImage();
+                                foreach ($spintowinPinImage as $spintowinPinImageKey => $spintowinPinImageValue) { ?>
+                                    <img src="<?php echo $block->getMediaUrl($spintowinPinImageValue) ?>" class="spin-image spin-wheel-pin-image" data-spin-src="<?php echo $spintowinPinImageValue?>"/>
+                                <?php }?>
+                                </div>
+                                <button type="button" class="spin-button spin-upload-button spin-files-button" data-triggerid="wheel_pin_image">Browse Files...</button>
+                                <div class="note admin__field-note" id="wheel_pin_image-note">Please use 62px X 43px images.</div>                
+                            </div>
+                        </div>
+                        <div class="field admin__field  field-attribute_label  required _required">
+                            <label class="label" for="wheel_stroke_color">
+                                <span><?php /* @escapeNotVerified */echo __('Stroke Color')?></span>
+                            </label>
+                            <div class="control">
+                                <span class="color-pick spin-color-box" data-role="color-pick" data-mage-init='{"colorPickerFunction":{"spanBackgroundColor" : "<?php echo $spinWheelForm->getStrokeColor()?>", "getActiveColorPickerStatus" : "1", "backgroundWidthSelector" : "#wheel_stroke_color"}}'></span>
+                                <input type="text" id="wheel_stroke_color" name="stroke_color" value="<?php echo $spinWheelForm->getStrokeColor()?>" class="input-text spin-color-input spin-bind-style-temp required-entry" data-spin-bind-prop="background-color"  />
+                            </div>
+                        </div>
+                        <div class="field admin__field  field-attribute_label  required _required">
+                            <label class="label" for="wheel_font_size">
+                                <span><?php /* @escapeNotVerified */echo __('Segment Font Size')?></span>
+                            </label>
+                            <div class="control">
+                                <input type="text" id="wheel_font_size" name="font_size" value="<?php echo $spinWheelForm->getFontSize()?>" class="input-text spin-bind-style-temp required-entry validate-number validate-greater-than-zero"/>
+                            </div>
+                        </div>
+                        <div class="field admin__field field-attribute_label required _required">
+                            <label class="label" for="wheel_text_direction">
+                                <span><?php /* @escapeNotVerified */echo __('Text Direction')?></span>
+                            </label>
+                            <div class="control">
+                                <select id="wheel_text_direction" name="text_direction" type="text" class="input-text required-entry">
+                                    <option <?php echo $spinWheelForm->getTextDirection()=='normal'? 'selected':''; ?> value="normal"><?php /* @escapeNotVerified */echo __('Normal')?></option>
+                                    <option <?php echo $spinWheelForm->getTextDirection()=='reversed'? 'selected':''; ?> value="reversed"><?php /* @escapeNotVerified */echo __('Reversed')?></option>                        
+                                </select>
+                            </div>
+                        </div>
+                        <div class="field admin__field  field-attribute_label  required _required">
+                            <label class="label" for="wheel_result_background_color">
+                                <span><?php /* @escapeNotVerified */echo __('Result Segment Background Color')?></span>
+                            </label>
+                            <div class="control">
+                                <span class="color-pick spin-color-box" data-role="color-pick" data-mage-init='{"colorPickerFunction":{"spanBackgroundColor" : "<?php echo $spinWheelForm->getResultBackgroundColor()?>", "getActiveColorPickerStatus" : "1", "backgroundWidthSelector" : "#wheel_result_background_color"}}'></span>
+                                <input type="text" id="wheel_result_background_color" name="result_background_color" value="<?php echo $spinWheelForm->getResultBackgroundColor()?>" class="input-text spin-color-input required-entry"/>
+                            </div>
+                        </div>
+                        <div class="field admin__field  field-attribute_label  required _required">
+                            <label class="label" for="wheel_result_text_color">
+                                <span><?php /* @escapeNotVerified */echo __('Result Segment Text Color')?></span>
+                            </label>
+                            <div class="control">
+                                <span class="color-pick spin-color-box" data-role="color-pick" data-mage-init='{"colorPickerFunction":{"spanBackgroundColor" : "<?php echo $spinWheelForm->getResultTextColor()?>", "getActiveColorPickerStatus" : "1", "backgroundWidthSelector" : "#wheel_result_text_color"}}'></span>
+                                <input type="text" id="wheel_result_text_color" name="result_text_color" value="<?php echo $spinWheelForm->getResultTextColor()?>" class="input-text spin-color-input required-entry"/>
+                            </div>
+                        </div>
+                        
+                        <div class="spin-segments-container">
+                            <div class="spin-segments-title">
+                                <?php echo __('Segments')?>
+                                <input type="hidden" name="segments" id="wheel_segments" value='<?php echo $spinWheelForm->getSegments()?>'/>
+                            </div>
+                            <div class="spin-segments-content">
+                                <div id="spinwheelform-addsegment-data"></div>
+                                <button  type="button" id="spinwheelform-addsegment" class="action-default save">
+                                    <span><?php /* @escapeNotVerified */echo __('Add Segment Style') ?></span>
+                                </button>
+                            </div>
+                        </div>
+                        <button title="<?php /* @escapeNotVerified */echo __('Update Spin Wheel') ?>" type="button" id="update-spinwheelform" class="action-default save spin-save spin-save-ajax" data-spin-bind-form="spinwheelformedit">
+                            <span><?php /* @escapeNotVerified */echo __('Update Spin Wheel') ?></span>
+                            <span class="admin__page-nav-item-messages">
+                                <span class="admin__page-nav-item-message _changed">
+                                    <span class="admin__page-nav-item-message-icon"></span>
+                                    <span class="admin__page-nav-item-message-tooltip" data-bind="i18n: 'Changes have been made to this section that have not been saved.'"></span>
+                                </span>
+                            </span>
+                        </button>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="spin-content-wheelform-preview">
+                <fieldset class="fieldset admin__fieldset">
+                    <legend class="legend">
+                        <span><?php /* @escapeNotVerified */echo __('Preview Form') ?></span>
+                    </legend>
+                </fieldset>
+                <div class='spin-content-wheelform-preview-data'>
+                    <div class="admin__field field field-heading  required _required with-note" data-ui-id="adminhtml-segment-edit-0-fieldset-element-form-field-heading">
+                        <button id="spinwheel-preview-button" type="button"><?= __('Click here to Preview')?></button>
+                        <div class="note admin__field-note"><?php echo __('You must save the data before previewing to see the changes.') ?></div>            
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</div>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "spinwheeledit": {
+                "spinId": "<?php echo $spinWheelForm->getSpinId(); ?>",
+                "get": "<?php echo $block->getUrl('spintowin/segment/get'); ?>"
+            }
+        }
+    }
+</script>
+<script id="spin-segment-template" type="text/x-magento-template">
+<div class="spin-segment-container">
+    <span class="spin-segment-delete">x</span>
+    <div class="spin-segment-background-container field admin__field  field-attribute_label  required _required">
+        <label class="label" for="<%- data.backgroundid %>">
+            <span><?php /* @escapeNotVerified */echo __('Background Color')?></span>
+        </label>
+        <div class="control" style="font-size: 0;">
+            <span class="color-pick spin-color-box spin-color-picker" data-role="color-pick" data-spin-color-picker='{"colorPickerFunction":{"spanBackgroundColor" : "<%- data.backgroundvalue %>", "getActiveColorPickerStatus" : "1", "backgroundWidthSelector" : "#<%- data.backgroundid %>"}}'></span>
+            <input type="text" id="<%- data.backgroundid %>" value="<%- data.backgroundvalue %>" class="input-text spin-color-input required-entry background_color" />
+        </div>
+    </div>
+    <div class="spin-segment-text-container field admin__field  field-attribute_label  required _required">
+        <label class="label" for="<%- data.textid %>">
+            <span><?php /* @escapeNotVerified */echo __('Text Color')?></span>
+        </label>
+        <div class="control" style="font-size: 0;">
+            <span class="color-pick spin-color-box spin-color-picker" data-role="color-pick" data-spin-color-picker='{"colorPickerFunction":{"spanBackgroundColor" : "<%- data.textvalue %>", "getActiveColorPickerStatus" : "1", "backgroundWidthSelector" : "#<%- data.textid %>"}}'></span>
+            <input type="text" id="<%- data.textid %>" value="<%- data.textvalue %>" class="input-text spin-color-input required-entry text_color"/>
+        </div>
+    </div>
+</div>
+</script>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "editsegment": {
+                "edit":"<?php echo $block->getUrl('spintowin/segment/edit', ['spin_id'=>$spinWheelForm->getSpinId()]); ?>",
+                "get":"<?php echo $block->getUrl('spintowin/segment/index', ['spin_id'=>$spinWheelForm->getSpinId()]); ?>",
+                "save":"<?php echo $block->getUrl('spintowin/segment/save', ['spin_id'=>$spinWheelForm->getSpinId()]); ?>"
+                }
+        }
+    }
+</script>

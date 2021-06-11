@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<head>
+		<css src="Mancini_ComparePdp::css/source/custom_compare.css"/>
+	</head>
+	<body>
+		<referenceContainer name="content.aside">
+			<!-- <block class="Mancini\ComparePdp\Block\CompareProduct" name="compare" as="compare" template="Mancini_ComparePdp::compareproduct.phtml"/> -->
+
+			<block class="Mancini\ComparePdp\Block\CompareProduct" name="compareproduct" as="compareproduct" template="Mancini_ComparePdp::index.phtml" after="similarprod"/>
+		</referenceContainer>
+	</body>
+</page>

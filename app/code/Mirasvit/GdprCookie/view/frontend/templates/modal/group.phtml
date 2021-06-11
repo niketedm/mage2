@@ -1,0 +1,44 @@
+<?php
+/** @var Mirasvit\GdprCookie\Block\CookieGroupBlock $block */
+?>
+<?php
+$group   = $block->getCookieGroup();
+$groupId = $group->getId();
+
+$disabled = $group->isRequired() ? 'disabled' : '';
+?>
+<div class="cookie-group-container cookie-group-container-<?= $groupId; ?>">
+    <div class="title-container">
+        <h4 class="title">
+            <?= $block->escapeHtml(__($group->getName())); ?>
+        </h4>
+
+        <input class="checkbox" type="checkbox" value="1" <?= $disabled; ?> checked data-group-id="<?= $groupId; ?>" name="allowed-group-<?= $groupId; ?>">
+
+        <div class="content">
+            <div>
+                <?= $block->escapeHtml(__($group->getDescription())); ?>
+            </div>
+            <div class="cookie-list">
+                <strong><?= __('Cookie list:') ?></strong>
+                <?php foreach ($block->getCookies() as $cookie): ?>
+                    <?= $cookie->getName(); ?>
+                <?php endforeach ?>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+    require([
+        'jquery',
+        'collapsible'
+    ], function ($) {
+        var elSelector = ".cookie-group-container-<?= $groupId; ?>";
+        $(elSelector).collapsible(
+            {header: $(elSelector + " .title"), content: $(elSelector + " .content")}
+        );
+    });
+</script>

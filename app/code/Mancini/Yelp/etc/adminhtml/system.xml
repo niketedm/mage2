@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+      <tab id="mancini" sortOrder="200" translate="label">
+        <label>Mancini</label>
+      </tab>
+      <section id="yelp" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Yelp</label>
+            <tab>mancini</tab>
+            <resource>Mancini_Yelp::config_yelp</resource>
+            <group id="general" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="api_key" translate="label" type="text" sortOrder="0"  showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Yelp API KEY</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

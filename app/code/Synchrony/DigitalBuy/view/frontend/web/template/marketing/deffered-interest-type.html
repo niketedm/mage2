@@ -1,0 +1,125 @@
+<div data-bind="visible: canShowSection()" data-block="dropdown-synchrony-promo-info" class="synchrony-promotion-content-wrapper">
+    <p>
+        <strong>
+            <!-- ko text: getMonthlyAmount() --><!-- /ko -->
+            <!-- ko i18n: '/ month' --><!-- /ko -->
+        </strong>
+            <!-- ko i18n: 'suggested payments with' --><!-- /ko -->
+            <!-- ko text:blockConfig.term --><!-- /ko -->
+            <!-- ko i18n: 'month special financing'--><!-- /ko -->
+            <!-- ko i18n: 'on your' --><!-- /ko -->
+            <!-- ko text: paymentMethodTitle --><!-- /ko --><!-- ko if: !blockConfig.promotionalPeriod -->.<!-- /ko -->
+            <!-- ko if: blockConfig.promotionalPeriod -->
+            <!-- ko i18n: 'if purchased'--><!-- /ko -->
+            <!-- ko text:blockConfig.promotionalPeriod --><!-- /ko -->.
+            <!-- /ko -->
+        <a href="#" data-trigger="trigger-promo-info-dropdown">
+            <span data-bind="i18n: 'Learn how.'"></span>
+        </a>
+    </p>
+    <div class="block block-synchrony-promo-info" data-bind="afterRender: setDialog, mageInit: {
+        'mage/dropdown': {
+            'appendTo': '[data-block=dropdown-synchrony-promo-info]',
+            'triggerTarget':'[data-trigger=trigger-promo-info-dropdown]',
+            'closeOnMouseLeave': false,
+            'autoOpen': false,
+            'triggerClass': 'active',
+            'parentClass': 'active',
+            'buttons': []
+        }
+    }">
+        <div class="promotion-info">
+            <button type="button" class="close-dialog" data-action="close" data-bind="attr: { title: $t('Close') }, click: closePromotionContentDialog" title="Close">
+                <span data-bind="i18n: 'Close'"></span>
+            </button>
+             <table>
+                <thead>
+                    <tr>
+                        <th data-bind="i18n: 'Promotional Purchase Amount'"></th>
+                        <th data-bind="i18n: 'Suggested Equal Monthly Payment'"></th>
+                        <th data-bind="i18n: 'Promotional Period'"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-bind="text:getTotalAmount()"></td>
+                        <td data-bind="text:getMonthlyAmount()"></td>
+                        <td data-bind="text:blockConfig.term"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p>
+            <strong>
+                <!-- ko i18n: 'The Suggested Equal Monthly Payment shown above may be greater than the required minimum monthly payment that will be on your billing statement when you use the' --><!-- /ko -->
+                <!-- ko text: blockConfig.term --><!-- /ko -->
+                <!-- ko i18n:'month promotional financing offer.' --><!-- /ko -->
+                <!-- ko i18n:'This estimated payment:' --><!-- /ko -->
+            </strong>
+        </p>
+        <ul>
+            <li>
+                <!-- ko i18n: 'Equals the promotional purchase amount divided by' --><!-- /ko -->
+                <!-- ko text: blockConfig.term --><!-- /ko -->
+                <!-- ko text: getPriceIsExcludedFrom() --><!-- /ko -->
+                <!-- ko i18n: 'rounded to the next highest whole dollar.' --><!-- /ko -->
+            </li>
+            <li>
+                <!-- ko i18n: 'Would pay off the promotional purchase amount within' --><!-- /ko -->
+                <!-- ko text: blockConfig.term --><!-- /ko -->
+                <!-- ko i18n: 'months, but only if there are no other balances on your account at any time during the' --><!-- /ko -->
+                <!-- ko text: blockConfig.term --><!-- /ko -->
+                <!-- ko i18n: 'month promotional period and you make your payments on time.' --><!-- /ko -->
+                <!-- ko i18n: 'Your total payments will equal the amount of the promotional purchase amount.' --><!-- /ko -->
+            </li>
+        </ul>
+        <p>
+            <strong>
+                <!-- ko i18n: 'If the promotional purchase amount is not paid in full within' --><!-- /ko -->
+                <!-- ko text: blockConfig.term --><!-- /ko -->
+                <!-- ko i18n: 'months, interest will be' --><!-- /ko -->
+                <!-- ko i18n: 'charged to your account from the purchase date and your total payments will be greater than the amount of the promotional purchase amount.' --><!-- /ko -->
+            </strong>
+        </p>
+        <p>
+            <strong>
+                <!-- ko i18n: 'IMPORTANT: The information about the Suggested Equal Monthly Payment shown assumes the following promotional financing offer is applied to the purchase:' --><!-- /ko -->
+            </strong>
+        </p>
+        <p>
+            <strong>
+                <!-- ko i18n: 'No Interest if Paid in Full Within' --><!-- /ko -->
+                <!-- ko text: blockConfig.term --><!-- /ko -->
+                <!-- ko i18n: 'Months*'  --><!-- /ko -->
+            </strong><br/>
+                <!-- ko i18n: 'On purchases' --><!-- /ko -->
+                <!-- ko if: blockConfig.minAmount > 0 -->
+                <!-- ko i18n: 'of' --><!-- /ko -->
+                <!-- ko text: getMinAmount() --><!-- /ko -->
+                <!-- ko i18n:'or more' --><!-- /ko -->
+                <!-- /ko -->
+                <!-- ko i18n:'with your' --><!-- /ko -->
+                <!-- ko text: paymentMethodTitle --><!-- /ko --><!-- ko if: !blockConfig.promotionalPeriod -->.<!-- /ko -->
+                <!-- ko if: blockConfig.promotionalPeriod -->
+                <!-- ko i18n: 'made'--><!-- /ko -->
+                <!-- ko text:blockConfig.promotionalPeriod --><!-- /ko -->.
+                <!-- /ko -->
+                <!-- ko i18n: 'Interest will be charged to your account from the purchase date if the promotional purchase is not paid in full within' --><!-- /ko -->
+                <!-- ko text: blockConfig.term --><!-- /ko -->
+                <!-- ko i18n: 'months.' --><!-- /ko -->
+                <!-- ko i18n: 'Minimum monthly payments required.' --><!-- /ko -->
+        </p>
+        <div class="promotion-links">
+            <!-- ko if: getApplyNowLink() -->
+                <a href="#" class="synchrony-apply-link" target="_blank" data-bind="attr: {href:getApplyNowLink(), title: $t('Click for details')}"><span data-bind="i18n: 'APPLY NOW'"></span></a>
+            <!-- /ko -->
+        </div>
+        <p>
+            <!-- ko i18n: '*No interest will be charged on the promo balance if you pay it off, in full, within the promo period. If you do not, interest will be charged on the promo balance from the purchase date. The required minimum monthly payments may or may not pay off the promo balance before the end of the promo period, depending on purchase amount, promo length and payment allocation. Regular account terms apply to non-promo purchases and, after promo period ends, to the promo balance. For new accounts: Purchase APR is' --><!-- /ko -->
+            <!-- ko text: blockConfig.apr --><!-- /ko -->%.
+            <!-- ko i18n: 'Minimum interest charge is' --><!-- /ko -->
+            <!-- ko text: getFormattedPrice(blockConfig.minInterestCharge) --><!-- /ko -->.
+            <!-- ko i18n: 'Existing cardholders: See your credit card agreement terms. Subject to credit approval.' --><!-- /ko -->
+        </p>
+    </div>
+</div>

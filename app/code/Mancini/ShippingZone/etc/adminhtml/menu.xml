@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Mancini_ShippingZone::manage_shipping_zone"
+             title="Manage Shipping Zone"
+             translate="title"
+             module="Mancini_ShippingZone"
+             sortOrder="60"
+             parent="Magento_Backend::other_settings"
+             action="shippingzone/index"
+             resource="Mancini_ShippingZone::manage_shipping_zone"
+        />
+    </menu>
+</config>

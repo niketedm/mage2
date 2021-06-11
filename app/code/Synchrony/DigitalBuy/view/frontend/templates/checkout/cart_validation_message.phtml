@@ -1,0 +1,36 @@
+<?php
+/** @var Magento\Backend\Block\Template $block */
+/** @var Synchrony\DigitalBuy\ViewModel\Checkout\CartValidationMessage $viewModel */
+$viewModel = $block->getData('viewModel');
+if ($viewModel->canRenderBlock()): ?>
+<?php $cartValidationMessages = $viewModel->getCartValidationMessages();?>
+    <script>
+        require([
+            'jquery',
+            'Synchrony_DigitalBuy/js/model/messages',
+            'Synchrony_DigitalBuy/js/model/storage'
+        ], function ($, messageList, storage) {
+            var isCartValid = <?= !count($cartValidationMessages) ? 'true' : 'false'?>;
+            var validationMessages = <?= $this->helper('Magento\Framework\Json\Helper\Data')->jsonEncode($cartValidationMessages); ?>;
+
+            $(function () {
+                $('.synchrony-digitalbuy-link > a').click(function () {
+                    if (!isCartValid) {
+                        storage.set('intent-to-use', true);
+                    }
+                    return true;
+                });
+
+                if (isCartValid) {
+                    storage.set('intent-to-use', false);
+                } else {
+                    if (storage.get('intent-to-use')) {
+                        $.each(validationMessages, function (key, message) {
+                            messageList.addNoticeMessage(message);
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+<?php endif ?>

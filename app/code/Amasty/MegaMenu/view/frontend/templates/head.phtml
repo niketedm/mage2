@@ -1,0 +1,233 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_MegaMenu
+ */
+?>
+<?php
+/** @var \Amasty\MegaMenu\Block\Head $block */
+/** @var \Magento\Framework\Escaper $escaper */
+?>
+
+<style>
+    .ammenu-nav-sections.-hamburger,
+    .ammenu-menu-wrapper.-desktop,
+    .ammenu-menu-wrapper.-hamburger-top,
+    .ammenu-nav-sections .ammenu-title,
+    .ammenu-main-container .ambrands-popup-filter {
+        background: <?= $escaper->escapeHtml($block->getColorStyle('menu_background'))?> !important;
+    }
+
+    .ammenu-nav-sections .ammenu-title.active {
+        background: <?= $escaper->escapeHtml($block->getColorStyle('submenu_background'))?> !important;
+    }
+
+    .ammenu-menu-wrapper.-desktop .ammenu-submenu-container .ammenu-link,
+    .ammenu-menu-wrapper.-desktop .ammenu-submenu-container,
+    .ammenu-menu-wrapper.-desktop .ammenu-product-list .product-item-info *:not(.-nocolor):not(.swatch-option),
+    .ammenu-menu-wrapper.-hamburger-top .ammenu-submenu-container,
+    .ammenu-nav-sections.-hamburger .switcher,
+    .ammenu-nav-sections.-hamburger .ammenu-submenu-container,
+    .ammenu-menu-wrapper.-mobile .ammenu-link,
+    .ammenu-nav-sections .ammenu-tabs-container > .ammenu-content {
+        color: <?= $escaper->escapeHtml($block->getColorStyle('submenu_text'))?> !important;
+    }
+
+    .ammenu-main-container:not(.swatch-option, .ammenu-menu-header) {
+        color: <?= $escaper->escapeHtml($block->getColorStyle('submenu_text'))?> !important;
+    }
+
+    .ammenu-nav-sections.-accordion .ammenu-icon:focus:before,
+    .ammenu-nav-sections.-accordion .ammenu-icon:focus:after,
+    .ammenu-menu-wrapper.-mobile .ammenu-icon:focus:before,
+    .ammenu-menu-wrapper.-mobile .ammenu-icom:focus:after {
+        background-color: <?= $escaper->escapeHtml($block->getColorStyle('category_hover_color'))?> !important;
+    }
+
+    .nav-sections:not(.-drill) .ammenu-submenu[aria-selected="true"] ~ .ammenu-toggle .ammenu-icon:after,
+    .nav-sections:not(.-drill) .ammenu-submenu[aria-selected="true"] ~ .ammenu-toggle .ammenu-icon:before {
+        background-color: <?= $escaper->escapeHtml($block->getColorStyle('category_hover_color'))?> !important;
+    }
+
+    .nav-sections:not(.-drill) .ammenu-submenu[aria-selected='true'] ~ .ammenu-link {
+        color: <?= $escaper->escapeHtml($block->getColorStyle('category_hover_color'))?> !important;
+    }
+
+    .nav-sections:not(.-drill) .ammenu-submenu[aria-selected='true'] ~ .ammenu-link > .ammenu-icon-block:not(.-empty) {
+        background: <?= $escaper->escapeHtml($block->getColorStyle('category_hover_color'))?> !important;
+    }
+
+    .ammenu-items .current,
+    .ammenu-nav-sections .ammenu-items .ammenu-link.current,
+    .ammenu-menu-wrapper .ammenu-items .ammenu-item.current:not(:hover):not(.-active) > .ammenu-link:not(:hover),
+    .ammenu-items .current > .ammenu-wrapper {
+        color: <?= $escaper->escapeHtml($block->getColorStyle('menu_highlight'))?> !important;
+    }
+
+    /* Dynamic Items Icons */
+    body:not(.-ie) .ammenu-icon-block:not(.-empty) {
+        background: <?= $escaper->escapeHtml($block->getColorStyle('submenu_text'))?> !important;
+    }
+
+    body:not(.-ie) .ammenu-item.-main > .ammenu-icon-block:not(.-empty),
+    body:not(.-ie) .ammenu-link.-main > .ammenu-icon-block:not(.-empty) {
+        background: <?= $escaper->escapeHtml($block->getColorStyle('menu_text'))?> !important;
+    }
+
+    body:not(.-ie) .ammenu-menu-wrapper .ammenu-item.-active > .ammenu-link > .ammenu-icon-block:not(.-empty) {
+        background: <?= $escaper->escapeHtml($block->getColorStyle('category_hover_color'))?> !important;
+    }
+
+    body:not(.-ie) .ammenu-menu-wrapper .current:not(.-active):not(:hover) > .ammenu-link:not(:hover):not(.-hovered) > .ammenu-icon-block:not(.-empty),
+    body:not(.-ie) .ammenu-menu-wrapper .ammenu-link.current:not(:hover):not(.-hovered):not(.-active) > .ammenu-icon-block:not(.-empty) {
+        background: <?= $escaper->escapeHtml($block->getColorStyle('menu_highlight'))?> !important;
+    }
+
+    /* END Dynamic Items Icons */
+
+    .ammenu-menu-wrapper.-desktop .ammenu-submenu-container,
+    .ammenu-menu-wrapper.-desktop .ammenu-link:not(.-level1) + .ammenu-item.-child,
+    .ammenu-menu-wrapper.-hamburger-top .ammenu-submenu-container,
+    .ammenu-nav-sections .ammenu-content,
+    .ammenu-menu-wrapper.-mobile .ammenu-submenu,
+    .ammenu-menu-wrapper.-mobile .ammenu-link.-main,
+    .ammenu-main-container .brand-images .brands-letter .letter .title,
+    .ammenu-nav-sections:not(.-hamburger) .ammenu-item.-drill-opened {
+        background-color: <?= $escaper->escapeHtml($block->getColorStyle('submenu_background'))?> !important;
+    }
+
+    .ammenu-nav-sections.-hamburger:not(.-drill) .ammenu-submenu-container {
+        background: <?= $escaper->escapeHtml($block->getColorStyle('menu_background'))?> !important;
+    }
+
+    .-drill-opened .ammenu-toggle .ammenu-icon:not(.-small),
+    .-drill-opened .ammenu-toggle .ammenu-icon:before,
+    .-drill-opened .ammenu-toggle .ammenu-icon:after,
+    .-drill-opened > .ammenu-arrow {
+        background: <?= $escaper->escapeHtml($block->getColorStyle('submenu_text'))?> !important;
+    }
+
+    .ammenu-nav-sections .ammenu-link.-main,
+    .ammenu-nav-sections .ammenu-menu-header,
+    .ammenu-menu-wrapper.-desktop .ammenu-item.-main:not(.current):not(:hover) > .ammenu-link,
+    .ammenu-menu-wrapper.-hamburger-top .ammenu-item.-main > .ammenu-link,
+    .ammenu-nav-sections .ammenu-title > .ammenu-link,
+    .ammenu-nav-sections .header.links li > a {
+        color: <?= $escaper->escapeHtml($block->getColorStyle('menu_text'))?> !important;
+    }
+
+    .ammenu-menu-wrapper .ammenu-icon:after,
+    .ammenu-menu-wrapper .ammenu-icon:before,
+    .ammenu-menu-wrapper .ammenu-submenu.-collapsed + .ammenu-toggle .ammenu-icon:before {
+        background: <?= $escaper->escapeHtml($block->getColorStyle('menu_text'))?> !important;
+    }
+
+    .ammenu-menu-wrapper .ammenu-arrow:before,
+    .ammenu-menu-wrapper .ammenu-arrow:after {
+        background: <?= $escaper->escapeHtml($block->getColorStyle('submenu_text'))?> !important;
+    }
+
+    .ammenu-submenu-container .ammenu-link {
+        color: <?= $escaper->escapeHtml($block->getColorStyle('submenu_text'))?> !important;
+    }
+
+    <?php $backgroundImage = $block->getSubmenuBackgroundImage();?>
+    <?php if ($backgroundImage): ?>
+    .ammenu-menu-wrapper.-desktop .ammenu-submenu-container,
+    .ammenu-menu-wrapper.-hamburger-top .ammenu-submenu-container {
+        background-image: url(<?= $escaper->escapeHtml($backgroundImage); ?> ) !important;
+    }
+
+    <?php endif;?>
+
+    .ammenu-main-container .ambrands-list-popup {
+    <?php $color = $block->colourBrightness($block->getColorStyle('submenu_background'), .9); ?> background: <?= $escaper->escapeHtml($color) ?> !important;
+    }
+
+    .ammenu-main-container .ambrands-popup-filter .ambrands-letter.-disabled {
+    <?php $color = $block->colourBrightness($block->getColorStyle('submenu_background'), .8); ?> background: <?= $escaper->escapeHtml($color) ?> !important;
+    }
+
+    .ammenu-menu-wrapper .ammenu-items-list > .ammenu-item.-active > .ammenu-link,
+    .ammenu-menu-wrapper .ammenu-items > .ammenu-item.-active > .ammenu-link {
+        color: <?= $escaper->escapeHtml($block->getColorStyle('category_hover_color'))?> !important;
+    }
+
+    .ammenu-menu-welcome,
+    .ammenu-menu-wrapper.-desktop .ammenu-categories-container .ammenu-arrow,
+    .ammenu-menu-wrapper.-desktop .ammenu-categories-container .ammenu-arrow:before,
+    .ammenu-menu-wrapper.-desktop .ammenu-categories-container .ammenu-arrow:after {
+        background: <?= $escaper->escapeHtml($block->getColorStyle('category_hover_color'))?> !important;
+        border-color: <?= $escaper->escapeHtml($block->getColorStyle('category_hover_color'))?> !important;
+    }
+
+    .ammenu-menu-toggle .ammenu-icon {
+        border-color: <?= $escaper->escapeHtml($block->getColorStyle('toggle_icon_color'))?> !important;
+    }
+
+    .ammenu-menu-close-btn {
+        color: <?= $escaper->escapeHtml($block->getColorStyle('toggle_icon_color'))?> !important;
+    }
+
+    .ammenu-nav-sections.-hamburger .ammenu-menu-welcome .message {
+        color: <?= $escaper->escapeHtml($block->getColorStyle('menu_background'))?> !important;
+    }
+
+    .ammenu-submenu-block.-left > .ammenu-items-list + .ammenu-submenu-sidebar > .ammenu-submenu-block:not(.-empty):before,
+    .ammenu-submenu-block.-top .ammenu-submenu-block.-top > .ammenu-items-list:before {
+        border-color: <?= $escaper->escapeHtml($block->getColorStyle('submenu_background'))?> !important;
+    }
+
+    body.-ie .ammenu-submenu-block.-left > .ammenu-items-list + .ammenu-submenu-sidebar > .ammenu-submenu-block:before,
+    body.-ie .ammenu-submenu-block.-top .ammenu-submenu-block.-top > .ammenu-items-list:before {
+        border-color: <?= $escaper->escapeHtml($block->getColorStyle('submenu_text'))?> !important;
+    }
+
+    @media (min-width: 1024px) {
+        /* Dynamic Items Icons */
+        body:not(.-ie) .ammenu-link:hover > .ammenu-icon-block:not(.-empty),
+        body:not(.-ie) .ammenu-item:hover > .ammenu-link.ammenu-icon-block:not(.-empty),
+        body:not(.-ie) .ammenu-link.-hovered > .ammenu-icon-block:not(.-empty),
+        body:not(.-ie) .ammenu-menu-wrapper .ammenu-items > .ammenu-item:hover > .ammenu-link > .ammenu-icon-block:not(.-empty),
+        body:not(.-ie) .ammenu-menu-wrapper .ammenu-item:hover > .ammenu-link > .ammenu-icon-block:not(.-empty) {
+            background: <?= $escaper->escapeHtml($block->getColorStyle('category_hover_color'))?> !important;
+        }
+
+        /* END Dynamic Items Icons */
+        .ammenu-menu-wrapper.-desktop.ammenu-item.-main:hover {
+            background-color: <?= $escaper->escapeHtml($block->getColorStyle('submenu_background'))?> !important;
+        }
+
+        .ammenu-menu-wrapper.-desktop .ammenu-link:hover {
+            color: <?= $escaper->escapeHtml($block->getColorStyle('category_hover_color'))?> !important;
+        }
+
+        .ammenu-menu-wrapper.-hamburger .ammenu-wrapper a:hover {
+            border-color: <?= $escaper->escapeHtml($block->getColorStyle('category_hover_color'))?> !important;
+        }
+
+        .ammenu-menu-wrapper.-desktop .ammenu-main-container .ammenu-link.-level1:hover:before {
+            background: <?= $escaper->escapeHtml($block->getColorStyle('category_hover_color'))?> !important;
+            border-color: <?= $escaper->escapeHtml($block->getColorStyle('category_hover_color'))?> !important;
+        }
+
+        .ammenu-menu-wrapper .ammenu-items-list > .ammenu-item:hover > .ammenu-link,
+        .ammenu-menu-wrapper .ammenu-items > .ammenu-item:hover > .ammenu-link,
+        .ammenu-menu-wrapper.-desktop .ammenu-link:hover > .ammenu-wrapper,
+        .ammenu-menu-wrapper.-desktop .ammenu-link.-hovered > .ammenu-wrapper,
+        .ammenu-menu-wrapper.-mobile .ammenu-link.-level2:hover,
+        .ammenu-menu-wrapper.-hamburger-top .ammenu-item:hover .ammenu-link,
+        .ammenu-nav-sections.-accordion .ammenu-item:hover > .ammenu-link,
+        .ammenu-nav-sections.-hamburger .ammenu-link:hover .ammenu-wrapper {
+            color: <?= $escaper->escapeHtml($block->getColorStyle('category_hover_color'))?> !important;
+        }
+    }
+
+    <?php if ($block->isModuleEnabled()): ?>
+        .header.content [class*='nav-toggle'],
+        .header.content [class*='toggle-nav'] {
+            display: none !important;
+        }
+    <?php endif; ?>
+</style>

@@ -1,0 +1,75 @@
+<?php
+
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/**
+ * Wrapper for product sections to include title
+ *
+ * @var \Magento\Framework\View\Element\Template $block
+ */
+$childHtml = $block->getChildHtml();
+?>
+
+<!-- calling feature highlights -->
+<?php
+$block_fh = $block->getLayout()->createBlock('Mancini\Featurehighlights\Block\Featurehighlights');
+?>
+
+<?php
+$_product           =   $block_fh->getCurrentProduct();
+$attributeSetName   =   $block_fh->getAttributeSetName();
+$attribute_set_id   =   $block_fh->getAttributeSetId();
+$attribute_grp_id   =   $block_fh->getAttributeGroupId($attribute_set_id);
+$productAttributes  =   $_product->getAttributes();
+?>
+
+<?php if (trim($childHtml) !== "") : ?>
+    <div id="details-accordion" class="prod-detail-accordion" data-mage-init='{
+        "accordion":{
+            "active": [1, 2],
+            "collapsible": true,
+            "openedState": "active",
+            "multipleCollapsible": true,
+            "animate":{"duration":"400"}
+        }}'>
+
+        <div class="accordion-parent">
+            <div class="product-full-width-section details-accordion-title" data-role="collapsible">
+                <h2 class="product-section-title" data-role="trigger">
+                    <?php echo __("Other specifications") ?>
+                </h2>
+            </div>
+
+            <div data-role="content" class="accordion-content">
+                <h3 class="other-spec">Features</h3>
+                <?= $block->getChildHtml(); ?>
+
+            <?php if ($attributeSetName   == "Mattress" ) :?>
+                <h3 class="other-spec">Specifications</h3>
+                <table>
+                    <tbody>
+                        <?php foreach ($productAttributes as $attribute) : ?>
+                            <?php if ($attribute->isInGroup($attribute_set_id, $attribute_grp_id)) : ?>
+                                <tr>
+                                    <th class="col label" scope="row">
+                                        <?php echo $attribute->getFrontendLabel(); ?>
+                                        <div class="spec-mobile-value">
+                                            <?php echo $attribute->getFrontend()->getValue($_product) ?>
+                                        </div>
+                                    </th>
+                                    <td class="col label spec-desk-value" scope="row">
+                                        <?php echo $attribute->getFrontend()->getValue($_product) ?>
+                                    </td>
+                                </tr>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            <?php endif; ?>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>

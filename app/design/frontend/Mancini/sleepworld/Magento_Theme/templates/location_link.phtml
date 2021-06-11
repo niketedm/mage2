@@ -1,0 +1,141 @@
+<!-- Updated Code -->
+<?php 
+    //To get the core session values for Zipcode
+    $helper  = $this->helper('Mancini\Storelocator\Helper\Data');
+    $zipcode = $helper->getCookie("custzipcode");
+?>
+<div class="header-row-2">
+
+    <div class="header-element-1">
+
+
+        <div class="location-image">
+            <img src="<?php echo $this->getViewFileUrl('images/noun_Map_2944975.png');?>" />
+        </div>
+
+        <!-- Code for showing the store locator popup-->
+        <div class="store-locator-popup" id="store-locator-popup">
+            <div data-block="dropdown1" class="store-locator-header minicart-wrapper">
+                <div class="action header-location-adjustment" data-trigger="trigger1">
+                    <div class="f-class">
+                        <div class="nearest-store-label"><?php echo __('Nearest Store');?></div>
+                        <?php echo $this->getLayout()->createBlock("Mancini\Storelocator\Block\Neareststore")->setTemplate("Mancini_Storelocator::storeloc-popup.phtml")->toHtml(); ?>
+                    </div>
+
+                </div>
+            </div>
+            <div class="block block-minicart" data-mage-init='{
+                                "dropdownDialog": {
+                                    "appendTo": "[data-block=dropdown1]",
+                                    "triggerTarget":"[data-trigger=trigger1]",
+                                    "timeout": 2000,
+                                    "closeOnMouseLeave": false,
+                                    "closeOnEscape": true,
+                                    "autoOpen": false,
+                                    "autoPosition": false,
+                                    "triggerClass": "active",
+                                    "parentClass": "active",
+                                    "buttons": []
+                                }
+                            }'>
+                <div id="storeloc-content-wrapper" style="display:none;">
+                    <div class="row m-0 popupmenu-body">
+                        <div class="location-label"><?php echo __('Your Location'); ?></div>
+                        <div class="location-name ml-3" id="currentloc">
+                            <?php echo $zipcode; ?>
+                        </div>
+                    </div>
+
+                    <div class="row m-0" id="changeloc">
+                        <label class="location-label"><?php echo __('Not Your Location'); ?></label>
+                        <u class="location-change ml-3" id="change"><?php echo __('Change'); ?></u>
+                    </div>
+
+                    <div class='row m-0 form-group row' id="changediv" style="display:none;">
+                        <input type="text" value="" class="form-control col-7" name="newzip" id="newzip"
+                            placeholder="<?= $block->escapeHtml(__('Enter ZIP Code')); ?>" autocomplete="off" />
+                        <button class="btn-update" id="update" title="<?= $block->escapeHtml(__('Update')); ?>">
+                            <?= $block->escapeHtml(__('Update')); ?>
+                        </button>
+                    </div>
+
+                    <div class="mt-3" style="display:none;" id="storelist-outer">
+                        <hr>
+                        <div class="nearest-store-title"><?= $block->escapeHtml(__('Your nearest stores'));?></div>
+                        <div id="storelistresponse"></div>
+                        <button class="btn-view-all-store mt-3"><a href="<?php echo $block->getUrl('amlocator'); ?>"><?php echo __('All Store');?></a></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Code end for store locator popup -->
+    </div>
+
+    <div class="header-element-2">
+
+        <div class="header-contact-number">
+            <a class="contact-number" href="tel:123-456-7890">800-647-5337</a>
+        </div>
+
+        <div id="header-wishlist-icon" class="header-wishlist-icon">
+            <div data-block="dropdown" class="minicart-wrapper header-row-2-add-to-wishlist">
+                <a href="#" class="action" data-trigger="trigger">
+                    <img class="wishlist-img" src='<?php echo $this->getViewFileUrl('images/wishlist.svg'); ?>'
+                        alt="Logo">
+                </a>
+            </div>
+
+            <div class="block block-minicart" data-mage-init='{
+                    "dropdownDialog": {
+                    "appendTo": "[data-block=dropdown]",
+                    "triggerTarget":"[data-trigger=trigger]",
+                    "timeout": 2000,
+                    "closeOnMouseLeave": false,
+                    "closeOnEscape": true,
+                    "autoOpen": false,
+                    "triggerClass": "active",
+                    "parentClass": "active",
+                    "buttons": []
+                    }
+                }'>
+                <div id="minicart-content-wrapper1" style="display:none">
+                    <?php echo $block->getChildHtml('wishlistc');?>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<script type='text/javascript'>
+require(['jquery'], function($) {
+    // $(document).ready(function() {
+    // $('#store-locator-popup').on('click', '#storeloc-content-wrapper', function() {
+    //     $('#storeloc-content-wrapper').css('display', 'block');
+    // });
+    // $('#header-wishlist-icon').on('click', '#minicart-content-wrapper1', function() {
+    //     $('#minicart-content-wrapper1').css('display', 'block');
+    // });
+
+    // setTimeout(function() {
+    //     $("#minicart-content-wrapper1").css("display", "block");
+    //     $('#storeloc-content-wrapper').css('display', 'block');
+    // }, 8000);
+    // });
+
+    $(window).load(function() {
+        // Run code
+        // alert("Window On Load called:");
+        console.log("Window On Load called:");
+
+        setTimeout(function() {
+            //wishlist
+            $("#minicart-content-wrapper1").css("display", "block");
+            // Store Locator
+            $('#storeloc-content-wrapper').css('display', 'block');
+        }, 5000);
+        // $('.store-locator-popup .block-minicart').css('display', 'block');
+    });
+});
+</script>

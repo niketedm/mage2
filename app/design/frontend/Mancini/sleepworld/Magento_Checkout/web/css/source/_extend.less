@@ -1,0 +1,268 @@
+.shopping-cart-wrapper {
+
+    .empty-title {
+        display: block;
+        font-size: 14px;
+        padding: 30px 0 0px;
+        text-align: center;
+        color: #545454;
+        font-size: 24px;
+        line-height: 29px;
+        font-family: 'laca-medium';
+        font-weight: normal;
+    }
+
+    .empty-title-desc {
+        color: #545454;
+        font-size: 18px;
+        line-height: 21px;
+        font-family: 'laca-Book';
+    }
+
+    // z-index: 1000;
+    .block-minicart {
+        padding: 0px;
+        margin: 0;
+        right: -2rem;
+        z-index: 102;
+        width: 36.11vw;
+
+        .minicart-items-wrapper {
+            padding: 0px;
+            margin: 0px;
+            border: 0px;
+            // overflow: hidden;
+            max-height: unset !important;
+        }
+    }
+
+    // .details-qty {
+    //     display: flex;
+    //     position: absolute;
+    //     bottom: 0px;
+    // }
+
+    .subtotal {
+        text-align: left;
+        display: flex;
+        justify-content: space-between;
+        padding: 20px;
+        margin: 0;
+        background-color: #F7F7F7;
+
+        .label {
+            color: #545454;
+            font-size: 24px;
+            line-height: 29px;
+            font-family: 'laca-Book';
+        }
+
+        .label::after {
+            content: '';
+        }
+
+        .amount.price-container {
+            color: #002B4B;
+        }
+    }
+
+    // .product-item {
+    //     .product-image-container {
+    //         width: unset !important;
+    //     }
+    // }
+
+    .details-qty {
+        // margin-top: 45px;
+        // margin-left: -71px;
+
+        // .action {
+        //     margin-right: 27px;
+        // }
+    }
+
+    .product-item {
+        padding: 0px 0px;
+
+        .product {
+            display: flex;
+            justify-content: flex-start;
+            width: 100%;
+            padding: 20px;
+            margin: 0px;
+
+            .custom-photo {
+                display: flex;
+                flex-direction: column;
+                width: 30%;
+                text-align: center;
+                justify-content: space-evenly;
+
+                .product-image-container {
+                    width: 100% !important;
+
+                    img {
+                        width: 100% !important;
+                        margin: auto;
+                    }
+                }
+
+                .remove-btn {
+                    // font-family: 'laca-medium';
+                    // font-size: 18px;
+                    // line-height: 21px;
+                }
+
+                .action.delete:before {
+                    content: 'Remove';
+                    font-family: 'laca-medium';
+                    font-size: 18px;
+                    line-height: 21px;
+                    color: #D93E0E
+                }
+
+                .remove-btn:hover {
+                    color: #D93E0E;
+                }
+            }
+
+            .product-item-details {
+                position: relative;
+                margin-left: 30px;
+                padding: 0px;
+                width: 100%;
+
+                .brand {
+                    color: #545454;
+                    font-family: 'laca-Book';
+                    font-size: 18px;
+                    line-height: 21px;
+                }
+
+                .product-item-name {
+                    font-family: 'laca-medium';
+                    font-size: 18px;
+                    line-height: 21px;
+
+                    a {
+                        color: #545454;
+                    }
+                }
+
+                .details-qty {
+                    display: flex;
+                    position: absolute;
+                    bottom: 0px;
+                    width: 100%;
+                    justify-content: space-between;
+
+                    .qty-btns {
+                        display: flex;
+                    }
+
+                    .price-container {
+                        color: #545454;
+                        size: 20px;
+                        font-family: 'laca-medium';
+                        line-height: 24px;
+                        display: inline-flex;
+                        width: 100%;
+                        justify-content: flex-end;
+
+                        .price-wrapper {
+                            order: 2;
+
+                            .price-excluding-tax {
+                                margin-left: 2rem;
+
+                                .minicart-price .price {
+                                    font-size: 20px;
+                                    font-weight: normal;
+                                    line-height: 24px;
+                                    font-family: 'laca-medium';
+                                }
+                            }
+                        }
+
+                        .price-strike {
+                            display: flex;
+                            align-self: center;
+                            text-decoration: line-through;
+                            font-size: 16px;
+                            line-height: 18px;
+                            font-family: 'laca-regular, sans-serif';
+                        }
+                    }
+                }
+
+                .update-cart-item {
+                    margin-left: 0px;
+                    color: #D93E0E !important;
+                    background-color: #FFFFFF !important;
+                    font-size: 20px;
+                    padding: 0px 10px 0px 10px;
+                }
+
+                .item-qty {
+                    width: 36px;
+                }
+            }
+        }
+    }
+
+    .items-total {
+        float: unset;
+        margin: unset;
+
+        .actions {
+            padding: 20px;
+
+            .primary {
+                display: flex;
+                justify-content: space-between;
+
+                .action.viewcart {
+                    border: 1px solid #D93E0E;
+                    padding: 3px 4px;
+                    color: #D93E0E;
+                    width: 47%;
+                    text-align: center;
+                    display: flex;
+                    justify-content: center;
+
+                    span {
+                        align-self: center;
+                    }
+                }
+
+                #top-cart-btn-checkout {
+                    width: 47%;
+                    justify-content: center;
+                    font-weight: 500;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .shopping-cart-wrapper {
+        .block-minicart {
+            width: 96.8vw;
+            min-width: 100%;
+        }
+
+        .update-cart-item {
+            float: unset;
+        }
+    }
+}
+
+@media screen and (min-width: 426px) and (max-width: 768px) {
+    .shopping-cart-wrapper {
+        .block-minicart {
+            width: 50vw;
+            // min-width: 100%;
+        }
+    }
+}

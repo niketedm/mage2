@@ -1,0 +1,240 @@
+//pdp page separator above similar product
+.pdp-separator {
+  margin-top: 50px;
+}
+
+.similar-desktop {
+  font-family: "laca-Medium" !important;
+
+  .heading-similar {
+    font-size: 3rem !important;
+    padding-bottom: 3rem;
+    padding-top: 5rem;
+  }
+
+  .col-similar {
+    text-align: center;
+    // margin-right: 2rem;
+  }
+
+  .similar-item {
+    margin-right: 1rem !important;
+  }
+
+  .similarparent {
+    // width: 300px;
+    // height    : 500px;
+    background: #f8f7f7;
+  }
+
+  .similarname {
+    a {
+      color: inherit;
+    }
+
+    padding-top: 3rem;
+    color: #545454;
+    text-decoration: none !important;
+    line-height: 30px;
+    width: 80%;
+    margin: auto;
+    margin-bottom: 20px;
+    font-size: 20px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .similarprice {
+    .discount-price {
+      font-size: 2.4rem;
+      color: #002b4b;
+      font-family: "laca-SemiBold" !important;
+    }
+
+    .cut-price {
+      font-size: 16px;
+      color: #707070;
+      text-decoration: line-through;
+      height: 24px;
+    }
+  }
+
+  // .similarimage .prod-img{
+  //     height: 264px;
+  //     width: 300px;
+  // }
+
+  .similarimage {
+    position: relative;
+
+    .item-left {
+      position: absolute;
+      top: 1rem;
+      left: 0rem;
+      width: 50%;
+      background: #002b4b;
+      color: white;
+      border-radius: 22px;
+    }
+
+    // .prod-img {
+    //   height: 26.4rem;
+    // }
+  }
+
+  .productviewcount {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    height: 82px;
+  }
+
+  .pv,
+  .pvc {
+    color: #002b4b;
+
+    img {
+      width: auto !important;
+      display: unset;
+      padding-bottom: 5px;
+      padding-right: 4px;
+    }
+  }
+}
+
+@media (min-width: 1025px) {
+  .similar-desktop {
+      .similarimage {
+          .prod-img {
+            height: 26.4rem;
+          }
+      }
+  }
+}
+
+.similar-mobile {
+  font-family: "laca-Medium" !important;
+
+  .heading-similar-mob {
+    font-size: 24px !important;
+    color: #404040 !important;
+    margin-bottom: 2rem !important;
+    margin-top: 3rem !important;
+  }
+
+  .col-similar-mob {
+    display: flex;
+    height: 155px;
+    margin-bottom: 2rem;
+  }
+
+  .prod-img-mob {
+    width: 143px !important;
+    height: 100% !important;
+  }
+
+  .similar-text-mob {
+    flex-grow: 1;
+    background: #f8f7f7;
+    width: 65%;
+    padding-left: 1rem;
+    padding-top: 2rem;
+    font-size: 16px;
+
+    .similarname-mob {
+      width: 81%;
+      color: #545454;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .similarprice-mob {
+      font-family: "laca-SemiBold" !important;
+      color: #002b4b;
+      margin-top: 1rem;
+    }
+  }
+
+  .similarimage-mob {
+    position: relative;
+
+    .item-left-mob {
+      position: absolute;
+      top: 1rem;
+      left: 5px;
+      background: #002b4b;
+      color: white;
+      border-radius: 22px;
+      font-size: 16px;
+      padding: 0 7px;
+    }
+  }
+
+  .similarprice-mob {
+    display: flex;
+  }
+
+  .cut-price-mob {
+    font-size: 14px;
+    color: #707070;
+    text-decoration: line-through;
+    margin-left: 10px;
+    margin-top: 1px;
+  }
+
+  .productviewcount {
+    margin-top: 2rem;
+  }
+
+  .pv,
+  .pvc {
+    color: #002b4b;
+
+    img {
+      width: auto !important;
+      display: unset;
+      padding-bottom: 5px;
+      padding-right: 4px;
+    }
+  }
+}
+
+@media (max-width: 426px) {
+  .similar-desktop {
+    display: none;
+  }
+}
+
+@media (min-width: 427px) {
+  .similar-mobile {
+    display: none !important;
+  }
+}
+
+//tablet
+@media only screen and (max-width: 768px) and (min-width: 427px) {
+  .similar-desktop {
+    .similarname {
+      padding-top: 2rem;
+      font-size: 17px;
+    }
+
+    .similarprice {
+      padding-top: 1rem;
+      font-size: 17px;
+    }
+
+    // .similarparent {
+    //   height: 351px;
+    // }
+
+    .productviewcount {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      height: 40px;
+  }
+  }
+}

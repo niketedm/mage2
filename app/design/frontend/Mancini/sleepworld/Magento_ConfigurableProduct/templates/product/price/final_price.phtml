@@ -1,0 +1,102 @@
+<?php
+
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\ConfigurableProduct\Pricing\Render\FinalPriceBox$block */
+/** @var \Magento\Framework\Pricing\Price\PriceInterface $priceModel */
+$priceModel = $block->getPriceType('regular_price');
+/** @var \Magento\Framework\Pricing\Price\PriceInterface $finalPriceModel */
+$saleableProduct = $block->getSaleableItem();
+
+$finalPriceModel = $block->getPriceType('final_price');
+$idSuffix = $block->getIdSuffix() ? $block->getIdSuffix() : '';
+$schema = ($block->getZone() == 'item_view') ? true : false;
+$_product = $block->getProduct();
+$minimumPrice = ($block->hasSpecialPrice()) ? $finalPriceModel->getAmount()->getValue() : $saleableProduct->getMinPrice();
+$maximumPrice = $saleableProduct->getMaxPrice();
+$minimumRPrice = $priceModel->getMinRegularAmount()->getValue();
+$maximumRPrice = $priceModel->getMaxRegularAmount()->getValue();
+?>
+
+<span class="normal-price">
+    <span class="sr-only">Discount Price</span>
+    <?php
+    $renderAmount = $block->renderAmount($finalPriceModel->getAmount(), [
+        'price_id'          => $block->getPriceId('product-price-' . $idSuffix),
+        'price_type'        => 'finalPrice',
+        'include_container' => true,
+        'schema'            => $schema,
+        'min_price'         => $minimumPrice,
+        'max_price'         => $maximumPrice,
+    ]);
+    echo $renderAmount
+    ?>
+
+</span>
+
+<span class="normal-price-home">
+    <span class="sr-only">Old Price</span>
+    <?= /* @noEscape */ $block->renderAmount($finalPriceModel->getAmount(), [
+        'display_label' => __('Starting At'),
+        'price_id' => $block->getPriceId('product-price-' . $idSuffix),
+        'price_type' => 'finalPrice',
+        'include_container' => true,
+        'schema' => $schema,
+    ]);
+    ?>
+</span>
+
+<!-- <br> -->
+
+
+<span class="old-price sly-old-price " style="font-size:14px;color:#545454;">
+    <span class="sr-only">Old Price</span>
+    <br>
+    <?= /* @noEscape */ $block->renderAmount($priceModel->getAmount(), [
+        //'display_label'     => __('Regular Price'),
+        'price_id'          => $block->getPriceId('old-price-' . $idSuffix),
+        'price_type'        => 'oldPrice',
+        'include_container' => true,
+        'min_price'         => $minimumRPrice,
+        'max_price'         => $maximumRPrice,
+    ]); ?>
+</span>
+<?php $discountVal = (100 - round(($finalPriceModel->getAmount()->getValue() * 100 / $priceModel->getAmount()->getValue()), 2)) ?>
+<?php if ($discountVal > 0) : ?>
+<span class="discount-percent"> (upto
+    <?php echo 100 - round(($finalPriceModel->getAmount()->getValue() * 100 / $priceModel->getAmount()->getValue()), 2); ?>%
+    off)</span>
+<?php endif; ?>
+
+<div class="regular-price-home">
+    <span class="old-price sly-old-price " style="font-size:14px;color:#545454;">
+        <?= /* @noEscape */ $block->renderAmount($priceModel->getAmount(), [
+            //'display_label'     => __('Regular Price'),
+            'price_id'          => $block->getPriceId('old-price-' . $idSuffix),
+            'price_type'        => 'oldPrice',
+            'include_container' => true,
+            'min_price'         => $minimumRPrice,
+            // 'max_price'         => $maximumRPrice,
+        ]); ?>
+    </span>
+    <?php if ($block->hasSpecialPrice()) : ?>
+    <span class="discount-price"> You Save
+        $<?php echo ($priceModel->getAmount()->getValue() - $finalPriceModel->getAmount()->getValue()); ?></span>
+    <?php endif; ?>
+</div>
+
+
+<?php if ($block->showMinimalPrice()) : ?>
+<?php if ($block->getUseLinkForAsLowAs()) : ?>
+<a href="<?= $block->escapeUrl($block->getSaleableItem()->getProductUrl()) ?>" class="minimal-price-link">
+    <?= /* @noEscape */ $block->renderAmountMinimal() ?>
+</a>
+<?php else : ?>
+<span class="minimal-price-link">
+    <?= /* @noEscape */ $block->renderAmountMinimal() ?>
+</span>
+<?php endif ?>
+<?php endif; ?>

@@ -1,0 +1,46 @@
+GDPR,GDPR
+"Customers' Requests","Customers' Requests"
+"This request no longer exists.","This request no longer exists."
+"The request was processed.","The request was processed."
+"The request was denied.","The request was denied."
+"We can't process the request right now because you have pending order(s): %1","We can't process the request right now because you have pending order(s): %1"
+"You already have a pending removal request.","You already have a pending removal request."
+"GDPR: One or more <a href=""%1"">customers' requests</a> are currently in pending status.","GDPR: One or more <a href=""%1"">customers' requests</a> are currently in pending status."
+Approve,Approve
+Deny,Deny
+Removed,Removed
+Pending,Pending
+Processing,Processing
+Completed,Completed
+"Partially completed","Partially completed"
+Rejected,Rejected
+"Provide User Data","Provide User Data"
+"Anonymize User Data","Anonymize User Data"
+"Remove User Data","Remove User Data"
+OK,OK
+"Anonymize personal data","Anonymize personal data"
+"To anonymize your account as well as your data from our website, please submit the form.","To anonymize your account as well as your data from our website, please submit the form."
+"Please be aware that we will delete your addresses and will update your name to Anonymous.","Please be aware that we will delete your addresses and will update your name to Anonymous."
+"We will also update your name in the orders. Kindly ensure that you do not have any pending orders.","We will also update your name in the orders. Kindly ensure that you do not have any pending orders."
+"Current Password","Current Password"
+"I understand and want anonymize my personal data","I understand and want anonymize my personal data"
+Process,Process
+"You can request the anonymization of your personal data that we have stored by clicking the button below:","You can request the anonymization of your personal data that we have stored by clicking the button below:"
+"Anonymize my account","Anonymize my account"
+"Download personal data","Download personal data"
+Download,Download
+"You can download all your data that we have stored by clicking the button below:","You can download all your data that we have stored by clicking the button below:"
+"Delete account","Delete account"
+"Please keep in mind that we are deleting your account. After the deletion of your account, you will not be able to access your account anymore.","Please keep in mind that we are deleting your account. After the deletion of your account, you will not be able to access your account anymore."
+"I understand and want remove my personal data","I understand and want remove my personal data"
+"Send request","Send request"
+"You can request the deletion of your data that we have stored by clicking the button below:","You can request the deletion of your data that we have stored by clicking the button below:"
+"Delete my account","Delete my account"
+Enabled,Enabled
+"Number of Days","Number of Days"
+"Document Type","Document Type"
+ID,ID
+Date,Date
+Customer,Customer
+"Request Type","Request Type"
+Status,Status

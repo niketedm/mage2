@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:DataObject/etc/fieldset.xsd">
+    <scope id="global">
+        <fieldset id="product_console_import">
+            <field name="SKU Number">
+                <aspect name="import" targetField="sku" />
+            </field>
+            <field name="Vendor">
+                <aspect name="import" targetField="brand" />
+            </field>
+            <field name="VendorCatalog">
+                <aspect name="import" targetField="vendor_catalog" />
+            </field>
+            <field name="Desc">
+                <aspect name="import" targetField="sw_desc" />
+            </field>
+            <field name="Status">
+                <aspect name="import" targetField="sw_status" />
+            </field>
+            <field name="Web Display">
+                <aspect name="import" targetField="status" />
+            </field>
+            <field name="Cost">
+                <aspect name="import" targetField="cost" />
+            </field>
+            <field name="Cost2">
+                <aspect name="import" targetField="sw_cost2" />
+            </field>
+            <field name="Retail">
+                <aspect name="import" targetField="price" />
+            </field>
+            <field name="Retail2">
+                <aspect name="import" targetField="special_price" />
+            </field>
+            <field name="Spiff">
+                <aspect name="import" targetField="sw_spiff" />
+            </field>
+            <field name="Spiff2">
+                <aspect name="import" targetField="sw_spiff2" />
+            </field>
+            <field name="Coop Percentage">
+                <aspect name="import" targetField="sw_coop_percentage" />
+            </field>
+            <field name="Load Percentage">
+                <aspect name="import" targetField="sw_load_percentage" />
+            </field>
+            <field name="Setup Time">
+                <aspect name="import" targetField="sw_setup_time" />
+            </field>
+            <field name="Cubes">
+                <aspect name="import" targetField="sw_cubes" />
+            </field>
+            <field name="Weight">
+                <aspect name="import" targetField="weight" />
+            </field>
+            <field name="Cartons">
+                <aspect name="import" targetField="sw_cartons" />
+            </field>
+            <field name="Short Description">
+                <aspect name="import" targetField="short_description" />
+            </field>
+            <field name="Height">
+                <aspect name="import" targetField="sw_height" />
+            </field>
+            <field name="Width">
+                <aspect name="import" targetField="sw_length" />
+            </field>
+            <field name="Depth/Length">
+                <aspect name="import" targetField="sw_depth" />
+            </field>
+            <field name="Is Parent">
+                <aspect name="import" targetField="is_parent" />
+            </field>
+            <field name="Parent Sku">
+                <aspect name="import" targetField="parent_sku" />
+            </field>
+            <field name="Matt Firmness">
+                <aspect name="import" targetField="matt_firmness" />
+            </field>
+            <field name="Matt Comfort">
+                <aspect name="import" targetField="comfort" />
+            </field>
+            <field name="Matt Size">
+                <aspect name="import" targetField="matt_size" />
+            </field>
+            <field name="Type of Wood or Metal">
+                <aspect name="import" targetField="material" />
+            </field>
+            <field name="Finish">
+                <aspect name="import" targetField="finish_color" />
+            </field>
+            <field name="Construction Features">
+                <aspect name="import" targetField="construction_details" />
+            </field>
+            <field name="Additional Information">
+                <aspect name="import" targetField="description" />
+            </field>
+            <field name="Collection">
+                <aspect name="import" targetField="brand_collection" />
+            </field>
+            <field name="Web Collections">
+                <aspect name="import" targetField="web_collections" />
+            </field>
+            <field name="Warranty">
+                <aspect name="import" targetField="warranty" />
+            </field>
+            <field name="Custom A">
+                <aspect name="import" targetField="custom_a" />
+            </field>
+            <field name="Also Avail. Stock">
+                <aspect name="import" targetField="related_products" />
+            </field>
+            <field name="SkuSerial">
+                <aspect name="import" targetField="sku_serial" />
+            </field>
+            <field name="Qty">
+                <aspect name="import" targetField="qty" />
+            </field>
+        </fieldset>
+    </scope>
+</config>

@@ -1,0 +1,91 @@
+//
+//  Amasty Mega Menu Desktop
+//  _________________________
+
+//
+//  imports
+//  ----------------------------------------------
+
+@import '../../_mixins';
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@ammenu-menu__max-width: @layout__max-width; // for the fixed width layout
+@ammenu-menu-indent__width: @layout-indent__width;
+
+//
+//  Common
+//  --------------------------
+
+& when (@media-common = true) {
+    .ammenu-menu-wrapper.-desktop {
+        & {
+            display: none;
+        }
+
+        .ammenu-submenu-container.-full {
+            left: 0;
+            width: 100%;
+        }
+    }
+}
+
+//
+//  Tablet +
+//  --------------------------
+
+@media (min-width: 1025px) {
+    .ammenu-menu-wrapper.-desktop {
+        & {
+            ._ammenu-menu-wrapper.-desktop;
+
+            display: block;
+        }
+
+        .ammenu-submenu-container {
+            &:not(:hover) {
+                display: none;
+            }
+
+            &:not(.-left) {
+                flex-wrap: wrap;
+            }
+
+            & > div {
+                flex-basis: 100%;
+                box-sizing: border-box;
+            }
+        }
+
+        .ammenu-main-container {
+            padding-right: @ammenu-menu-indent__width;
+            padding-left: @ammenu-menu-indent__width;
+        }
+
+        .ammenu-categories-container {
+            .am-flex();
+        }
+
+        .ammenu-categories-container .ammenu-link .ammenu-arrow {
+            & {
+                margin: @ammenu__indent 0;
+                width: 14px;
+            }
+
+            &.-small:hover {
+                opacity: 1;
+            }
+
+            &:after,
+            &:before {
+                right: 0;
+            }
+        }
+    }
+
+    .ammenu-nav-sections {
+        display: block;
+    }
+}

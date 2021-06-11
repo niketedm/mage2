@@ -1,0 +1,162 @@
+<?php
+// @codingStandardsIgnoreFile
+?>
+
+<script src="https://www.google.com/recaptcha/api.js" type="text/javascript" xml="space"></script>
+
+<div class="contact-us-wrapper">
+    <?php echo $block->getChildHtml('cms.contact.us') ?>
+
+    <?php //echo $block->getUrl('contact/index/post/'); ?>
+    <?php //echo $block->getBaseUrl(); ?>
+    <form class="form contacts" action="<?php /* @escapeNotVerified */echo $block->getUrl('contact/index/post/'); ?>"
+        id="contact-form" method="post" data-hasrequired="<?php /* @escapeNotVerified */echo __('* Required Fields') ?>"
+        data-mage-init='{"validation":{}}'>
+        <div class="contact-form-container">
+
+            <fieldset class="fieldset">
+                <div class="row contact-form-row">
+                    <div class="col-sm-6">
+
+                        <div class="field name required form-group">
+                            <label class="label required-mark"
+                                for="name"><span><?php /* @escapeNotVerified */echo __('Name') ?></span></label>
+                            <div class="control">
+                                <input name="name" id="name" title="<?php /* @escapeNotVerified */echo __('Name') ?>"
+                                    value="<?php echo $block->escapeHtml($this->helper('Magento\Contact\Helper\Data')->getPostValue('name') ?: $this->helper('Magento\Contact\Helper\Data')->getUserName()) ?>"
+                                    class="input-text input-contact" type="text" data-validate="{required:true}"
+                                    placeholder="Type first name here" />
+                            </div>
+                        </div>
+
+                        <?php echo $block->getChildHtml('contact.fields') ?>
+
+
+                        <div class="field telephone required form-group">
+                            <label class="label required-mark"
+                                for="telephone"><span><?php /* @escapeNotVerified */echo __('Telephone') ?></span></label>
+                            <div class="control">
+                                <input name="telephone" id="telephone"
+                                    title="<?php /* @escapeNotVerified */echo __('Telephone') ?>"
+                                    value="<?php echo $block->escapeHtml($this->helper('Magento\Contact\Helper\Data')->getPostValue('telephone')) ?>"
+                                    class="input-text input-contact" type="text"
+                                    data-validate="{required:true, 'validate-telphone':true}"
+                                    placeholder="999 - 888 - 6666" />
+                            </div>
+                        </div>
+
+                        <div class="field comment required form-group">
+                            <label class="label required-mark"
+                                for="comment"><span><?php /* @escapeNotVerified */echo __('Comment') ?></span></label>
+                            <div class="control">
+                                <textarea name="comment" id="comment"
+                                    title="<?php /* @escapeNotVerified */echo __('Comment') ?>" class="input-text"
+                                    cols="5" rows="3"
+                                    data-validate="{required:true}"  placeholder="Type comment here"><?php echo $block->escapeHtml($this->helper('Magento\Contact\Helper\Data')->getPostValue('comment')) ?></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 contact-col-right">
+
+                        <div class="field department required form-group">
+                            <label class="label required-mark"
+                                for="department"><span><?php /* @escapeNotVerified */echo __('For Which Department') ?></span></label>
+
+                            <div class="control">
+                                <!-- <input name="department" id="department" title="<?php /* @escapeNotVerified *///echo __('For Which Department') ?>" value="<?php //echo $block->escapeHtml($this->helper('Magento\Contact\Helper\Data')->getPostValue('department') ?: $this->helper('Magento\Contact\Helper\Data')->getUserName()) ?>" class="input-text" type="text" data-validate="{required:true}"/> -->
+                                <select class="input-contact" id="department" name="department"
+                                    title="<?php /* @escapeNotVerified */echo __('For Which Department') ?>"
+                                    data-validate='{"required":true}'
+                                        >
+                                    <option value="">Choose Department</option>
+                                    <option value="1">Sales</option>
+                                    <option value="2">Customer Service</option>
+                                    <option value="3">Website Question</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="field email required form-group">
+                            <label class="label required-mark"
+                                for="email"><span><?php /* @escapeNotVerified */echo __('Email') ?></span></label>
+                            <div class="control">
+                                <input name="email" id="email" title="<?php /* @escapeNotVerified */echo __('Email') ?>"
+                                    value="<?php echo $block->escapeHtml($this->helper('Magento\Contact\Helper\Data')->getPostValue('email') ?: $this->helper('Magento\Contact\Helper\Data')->getUserEmail()) ?>"
+                                    class="input-text input-contact" type="email"
+                                    data-validate="{required:true, 'validate-email':true}"
+                                    placeholder="Type email here" />
+                            </div>
+                        </div>
+
+
+                        <div class="field invoice form-group">
+                            <label class="label"
+                                for="invoice"><span><?php /* @escapeNotVerified */echo __('Invoice') ?></span></label>
+                            <div class="control">
+                                <input name="invoice" id="invoice"
+                                    title="<?php /* @escapeNotVerified */echo __('Invoice') ?>" value=""
+                                    class="input-text input-contact" type="number"
+                                    placeholder=" 0 1 2 3 4 5 6 7 8 9 " />
+                            </div>
+                        </div>
+
+
+                        <?php echo $block->getChildHtml('form.additional.info'); ?>
+                    </div>
+                </div>
+                <div class="recaptcha-row">
+                    <div class="field captcha required form-group">
+
+                        <div class="g-recaptcha required" id="recaptcha"
+                            data-sitekey="6LfCzoEaAAAAAPDBOLv3-YqtES-efe8EtmLS9Wxb">
+                        </div>
+                        <div style="display:none" id="error-msg">
+                            <span><?php echo __('This is a required field.') ?></span>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="actions-toolbar">
+                <div class="primary">
+                    <input type="hidden" name="hideit" id="hideit" value="" />
+
+                    <button type="reset" title="<?php /* @escapeNotVerified */echo __('Cancel') ?>"
+                        class="action reset primary">
+                        <span><?php /* @escapeNotVerified */echo __('Cancel') ?></span>
+                    </button>
+
+                    <button type="submit" title="<?php /* @escapeNotVerified */echo __('Submit') ?>"
+                        class="action submit primary">
+                        <span><?php /* @escapeNotVerified */echo __('Submit') ?></span>
+                    </button>
+
+
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+function checkCaptcha() {
+    if ((jQuery('#g-recaptcha-response').val()) === '') {
+        jQuery('#error-msg').css('display', 'block');
+        jQuery('#error-msg').css('color', '#df280a');
+        jQuery('#error-msg').css('font-size', 13);
+        return false;
+    } else {
+        jQuery('#error-msg').css('display', 'none');
+    }
+}
+</script>
+<script type="text/x-magento-init">
+    {
+		"#telephone": {
+			"Mancini_ContactUs/js/contact": {
+			}
+		}
+	}
+</script>
+

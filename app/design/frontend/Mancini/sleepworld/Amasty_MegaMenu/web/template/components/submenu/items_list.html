@@ -1,0 +1,31 @@
+<ul class="ammenu-items-list"
+    if="$data.elems && $data.type && $data.type.value"
+    data-bind="foreach: { data: $data.elems, as: 'item' }">
+    <li class="ammenu-item"
+        data-bind="event: {
+                        mouseenter: function (ui) {
+                            $parents[$parents.length - 2].setActiveItem(item);
+                        }
+                   },
+                   css: {
+                        'current': item.current,
+                        '-active': item.isActive,
+                        '-label': item.label
+                   }">
+            <span class="ammenu-label"
+                  if="item.label"
+                  data-bind="
+                       style: {
+                            'background-color': label.label_background_color || '',
+                            'color': label.label_text_color || ''
+                       },
+                       text: label.label">
+            </span>
+
+            <a class="ammenu-link" data-bind="attr: { href: url }">
+                <!-- ko template: { name: $parents[$parents.length - 2].itemIconTmpl, $data: $data } --><!-- /ko-->
+
+                <span class="ammenu-text" text="item.name"></span>
+            </a>
+    </li>
+</ul>

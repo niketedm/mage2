@@ -1,0 +1,25 @@
+{
+  "name": "mirasvit/module-gdpr",
+  "description": "GDPR for Magento 2",
+  "require": {
+    "mirasvit/module-core": "*",
+    "magento/framework": "100.0.*|100.1.*|100.2.*|101.0.*|102.0.*|103.0.*"
+  },
+  "type": "magento2-module",
+  "version": "1.1.1",
+  "license": [
+    "proprietary"
+  ],
+  "autoload": {
+    "files": [
+      "src/Gdpr/registration.php",
+      "src/GdprConsent/registration.php",
+      "src/GdprCookie/registration.php"
+    ],
+    "psr-4": {
+      "Mirasvit\\Gdpr\\": "src/Gdpr",
+      "Mirasvit\\GdprConsent\\": "src/GdprConsent",
+      "Mirasvit\\GdprCookie\\": "src/GdprCookie"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+<div class="field department required">
+    <label class="label" for="For Which Department"><span><?php echo __('For Which Department'); ?></span></label>
+    <div class="control">
+    	<select class="department" name="department">
+    		<?php foreach ($block->getServiceEmails() as $email): ?>
+    			<option value="<?php echo $email['email']; ?>"><?php echo $email['label']; ?></option>
+    		<?php endforeach ?>
+    	</select>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+<!--@subject {{trans "Synchrony Payment Transaction Failed"}} @-->
+<!--@vars {
+"var reason":"Transaction Failed Reason",
+"var customerEmail":"Customer Email",
+"var nameOnBillingAddress":"Customer Name",
+"var dateAndTime":"Date and Time of Transaction",
+"var defaultPromoCode":"Default promo code",
+"var appliedPromoRules|raw":"Applied promo rules",
+"var items":"Order Item info"
+} @-->
+
+<h1>{{trans "Synchrony Payment Transaction Failed"}}</h1>
+
+<ul>
+    <li>
+        <b>{{trans "Reason:"}}</b> {{var reason}}
+    </li>
+    <li>
+        <b>{{trans "Customer:"}}</b> <a href="mailto:{{var customerEmail}}">{{var nameOnBillingAddress}}</a> &lt;{{var customerEmail}}&gt; ({{trans "name from billing address"}})
+    </li>
+    <li>
+        <b>{{trans "Default promo code:"}}</b> {{var defaultPromoCode}}
+    </li>
+    <li>
+        <b>{{trans "Applied Promotion Rules"}}</b><br />
+        {{var appliedPromoRules|raw}}
+    </li>
+    <li>
+        <b>{{trans "Order Items Summary"}}</b><br />
+        {{layout handle="synchrony_digitalbuy_email_order_item_summary" item_summary=$items area="adminhtml"}}
+    </li>
+    <li>
+        <b>{{trans "Date & Time:"}}</b><br />
+        {{var dateAndTime}}
+    </li>
+</ul>

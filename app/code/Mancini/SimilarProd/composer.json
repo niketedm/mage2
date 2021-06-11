@@ -1,0 +1,22 @@
+{
+    "name": "mancini/module-similarprod",
+    "description": "",
+    "type": "magento2-module",
+    "license": "OSL-3.0",
+    "authors": [
+        {
+            "name": "Mancini"
+            
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Mancini\\SimilarProd\\": ""
+        }
+    }
+}

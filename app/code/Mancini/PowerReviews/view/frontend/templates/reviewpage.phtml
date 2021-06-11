@@ -1,0 +1,138 @@
+<?php
+
+/**
+ * @var $block \Mancini\PowerReviews\Block\Reviewpaging
+ */
+?>
+<?php
+    $productData 	=	$block->getData();
+    $pageId		    =	$productData['data']['currentpageid'];
+    $prdSku         =   $productData['data']['prdsku'];
+?>
+<?php
+    $helper = $this->helper('Mancini\PowerReviews\Helper\Data');
+    $allReviews = $helper->getProductReviews($pageId, $prdSku);
+?>
+<?php if (!empty($allReviews)): ?>
+<?php $count = $allReviews['paging']['total_results'] ?>
+<div class="review-count-row">
+    <div class="listing-content-heading">
+        <?php echo __('Viewing %1 Reviews', count($allReviews['results'][0]['reviews'])); ?>
+    </div>
+    <div onclick="onViewAllClick()" class="view-all-label">
+        <?php echo __('View All') ?>
+    </div>
+</div>
+<?php foreach ($allReviews['results'][0]['reviews'] as $review): ?>
+<div class="review-row row">
+    <div class="col-md-6 col-sm-12 review-left">
+        <?php $ratingDisplay = "PowerReviews_ReviewDisplay::images/".$review['metrics']['rating']."star.png"; ?>
+        <div class="review-lists review<?php echo $count;?>">
+            <div class="stars-outer">
+                <div class="stars-inner"></div>
+            </div>
+            <div class="review-rating">
+                (<?php echo $review['metrics']['rating'] ?>/5)
+            </div>
+        </div>
+        <script type="text/javascript">
+        // Logic for calculating Average rating percentage
+        avgRating1 = '<?php echo $review['metrics']['rating'] ?>';
+        starPercentage1 = (avgRating1 / 5) * 100;
+        starPercentageRounded1 = `${(Math.round(starPercentage1 / 10) * 10)}%`;
+        document.querySelector(`.review<?php echo $count;?> .stars-inner`).style.width =
+            starPercentageRounded1;
+        </script>
+        <p class="main-review"><?php echo $review['details']['headline'] ?></p>
+        <div class="review-desc-container">
+            <p id="main-review-desc-<?php echo $count;?>" class="main-review-desc">
+                <?php echo $review['details']['comments'] ?>
+            </p>
+            <?php if(strlen($review['details']['comments']) > 50) {?>
+            <div onclick="onReadMoreClick(<?php echo $count;?>)" id="read-more-review-<?php echo $count;?>"
+                class="read-more-review">
+                <?php echo __('Read More');?>
+            </div>
+            <?php } ?>
+        </div>
+        <!-- Image container to be shown in mobile in the first column itself and disable from 2nd column Start-->
+        <?php 
+                                      $mediaShown = 1;
+                                      $mediaCount = count($review['media']);
+                                  ?>
+        <?php if($mediaCount > 0): ?>
+        <div class="review-image-container mob-only">
+            <div class="owl-carousel owl-theme custimagemob<?php echo $count;?>">
+                <?php 
+                                            foreach ($review['media'] as $media): 
+                                                if ($media['type'] == "image") { ?>
+                <img class="review-image" src="<?php echo 'https:'.$media['uri'] ?>" width="100"></img>
+                <?php  } elseif ($media['type'] == 'video') { ?>
+                <div class="videosec">
+                    <p>
+                        <a href="#media-popup" data-media="<?php echo $media['uri'] ?>">
+                            <img class="media-img" data-vote="helpful"
+                                src="<?php echo $block->getViewFileUrl('PowerReviews_ReviewDisplay::images/play-arrow.png'); ?>" />
+                        </a>
+                    </p>
+                </div>
+                <?php  }  ?>
+                <?php endforeach; ?>
+            </div>
+        </div>
+        <?php endif; ?>
+        <!--End Image Review Container -->
+
+        <div class="review-row-bottom">
+            <div class="reviewer-name"><?php echo $review['details']['nickname'] ?></div>
+            <?php if ($review['badges']['is_verified_buyer']) { ?>
+            <img src="<?php echo $block->getViewFileUrl('PowerReviews_ReviewDisplay::images/verified-icon.png'); ?>" />
+            <div class="verified">
+                <?php echo ($review['badges']['is_verified_buyer']) ? __('Verified Buyer'): ''; ?>
+            </div>
+            <?php } ?>
+            <div class="reviewed-time">
+                <?php echo $helper->getTimeDiff($review['details']['updated_date']) ?>
+            </div>
+            <div class="thumbs-up">
+                <img class="voteugc" data-vote="helpful" data-ugc_id="<?php echo $review['ugc_id'] ?>"
+                    src="<?php echo $block->getViewFileUrl('PowerReviews_ReviewDisplay::images/up.png'); ?>" />
+                <div class="up-votes"><?php echo $review['metrics']['helpful_votes'] ?></div>
+            </div>
+            <div class="thumbs-down">
+                <img class="voteugc" data-vote="unhelpful" data-ugc_id="<?php echo $review['ugc_id'] ?>"
+                    src="<?php echo $block->getViewFileUrl('PowerReviews_ReviewDisplay::images/down.png'); ?>" />
+                <div class="down-votes"><?php echo $review['metrics']['not_helpful_votes'] ?></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 review-right">
+        <div class="review-image-container desk-only">
+            <?php 
+                                $mediaCount = count($review['media']);
+                                if($mediaCount > 0): ?>
+            <div class="owl-carousel owl-theme custimage<?php echo $count;?>">
+                <?php 
+                                            foreach ($review['media'] as $media): 
+                                                if ($media['type'] == "image") { ?>
+
+                <img class="review-image" src="<?php echo 'https:'.$media['uri'] ?>" width="100"></img>
+                <?php  } elseif ($media['type'] == 'video') { ?>
+                <div class="videosec">
+                    <p>
+                        <a href="#media-popup" data-media="<?php echo $media['uri'] ?>">
+                            <img class="media-img" data-vote="helpful"
+                                src="<?php echo $block->getViewFileUrl('PowerReviews_ReviewDisplay::images/play-arrow.png'); ?>" />
+                        </a>
+                    </p>
+                </div>
+                <?php  } ?>
+                <?php endforeach; ?>
+            </div>
+            <?php endif;?>
+        </div>
+    </div>
+</div>
+<?php $count--; endforeach; ?>
+
+<?php endif; ?>

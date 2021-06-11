@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<page layout="synchrony_digitalbuy_modal" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" >
+    <update handle="digitalbuy_modal_head" />
+    <head>
+        <title>Digital Buy Complete Payment</title>
+    </head>
+    <body>
+        <block class="Magento\Framework\View\Element\Template" name="head.additional" as="head.additional" template="Magento_Theme::html/container.phtml">
+            <block class="Magento\Framework\View\Element\Template" name="frontuser" template="Synchrony_DigitalBuy::digitalbuy/modal/head.phtml">
+                <arguments>
+                    <argument name="viewModel" xsi:type="object">Synchrony\DigitalBuy\ViewModel\Modal\Revolving\Payment</argument>
+                </arguments>
+            </block>
+        </block>
+    </body>
+</page>

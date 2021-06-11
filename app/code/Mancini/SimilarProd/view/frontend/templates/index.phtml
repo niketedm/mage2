@@ -1,0 +1,206 @@
+<?php
+
+/**
+ * @var $block \Mancini\SelectProd\Block\SelectProd
+ */
+?>
+<script type="text/x-magento-init">
+	{
+		"#similarresponse": { 
+			"Mancini_SimilarProd/js/similarselect": {
+			} 
+		} 
+	}
+</script>
+
+<!-- Grey separator before similar products -->
+<div class="pdp-separator">
+	<?php
+	echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('page_separator')->toHtml();
+	?>
+</div>
+
+<div class="similarproducts-container">
+	<?php $similarProducts =  $block->getInitialSimilarProducts(); ?>
+	<?php $lastProd = end($similarProducts); ?>
+	<?php if (!empty($similarProducts)) : ?>
+		<div id="similarresponse">
+			<div class="similar-desktop">
+				<h2 class="heading-similar"><?php echo __('Similar Products'); ?></h2>
+				<div class="similarproducts">
+					<div class="owlSP owl-carousel owl-theme ">
+						<?php foreach ($similarProducts as $similarPrd) : ?>
+							<div class="item">
+								<div class="col-similar">
+									<div class="similarparent">
+										<div class="similarimage">
+											<div class="item-left">
+												<?php if ($similarPrd['itemsleft'] >= 11) : ?>
+													<?php echo __("IN STOCK"); ?>
+												<?php else : ?>
+													<?php echo $similarPrd['itemsleft'] . __(" Items Left"); ?>
+												<?php endif; ?>
+											</div>
+											<a href="<?php echo $similarPrd['url']; ?>"><img class="prod-img" src="<?php echo $similarPrd['image']; ?>" /></a>
+										</div>
+										<a href="<?php echo $similarPrd['url']; ?>">
+											<div class="similarname">
+												<?php echo $similarPrd['name']; ?>
+											</div>
+											<div class="similarprice">
+												<div class="discount-price">
+													<?php echo $similarPrd['final_price']; ?>
+												</div>
+												<div class="cut-price">
+													<?php if (isset($similarPrd['price'])) : ?>
+														<?php echo $similarPrd['price']; ?>
+													<?php endif; ?>
+												</div>
+											</div>
+											<div class="productviewcount">
+												<?php $viewCount = $similarPrd['viewcount'];  ?>
+												<?php if ($viewCount == 0) : ?>
+													<span class="pv">
+														<?php echo ""; ?>
+													</span>
+												<?php elseif ($viewCount == 1) : ?>
+													<span class="pv">
+														<img src="<?php echo $block->getViewFileUrl('Mancini_SimilarProd::images/eye.png'); ?>" />
+														<?php echo $viewCount; ?>
+													</span>
+													<span class="pvc"><?php echo __("person is viewing"); ?></span>
+												<?php else : ?>
+													<span class="pv">
+														<img src="<?php echo $block->getViewFileUrl('Mancini_SimilarProd::images/eye.png'); ?>" />
+														<?php echo $viewCount; ?>
+													</span>
+													<span class="pvc"><?php echo __("people are viewing"); ?></span>
+												<?php endif; ?>
+											</div>
+										</a>
+									</div>
+								</div>
+							</div>
+						<?php endforeach; ?>
+					</div>
+				</div>
+			</div>
+
+			<div class="similar-mobile">
+				<h2 class="heading-similar-mob"><?php echo __('Similar Products'); ?></h2>
+				<div class="owl-carousel owl-theme owlSP">
+					<?php foreach ($similarProducts as $key => $value) :
+					?>
+						<?php if ($key % 2 == 0) : ?>
+							<div class="item">
+								<a href="<?php echo $similarPrd['url']; ?>">
+									<div class="col-similar-mob">
+										<div class="similarimage-mob">
+											<div class="item-left-mob">
+												<?php if ($similarPrd['itemsleft'] >= 11) : ?>
+													<?php echo __("IN STOCK"); ?>
+												<?php else : ?>
+													<?php echo $similarPrd['itemsleft'] . __(" Items Left"); ?>
+												<?php endif; ?>
+											</div>
+											<img class="prod-img-mob" src="<?php echo $value['image']; ?>" />
+										</div>
+										<div class="similar-text-mob">
+											<div class="similarname-mob">
+												<?php echo $value['name']; ?>
+											</div>
+											<div class="similarprice-mob">
+												<div class="discount-price-mob">
+													<?php echo $similarPrd['final_price']; ?>
+												</div>
+												<div class="cut-price-mob">
+													<?php if (isset($similarPrd['price'])) : ?>
+														<?php echo $similarPrd['price']; ?>
+													<?php endif; ?>
+												</div>
+											</div>
+											<div class="productviewcount">
+												<?php $viewCount = $similarPrd['viewcount'];  ?>
+												<?php if ($viewCount == 0) : ?>
+													<span class="pv">
+														<?php echo ""; ?>
+													</span>
+												<?php elseif ($viewCount == 1) : ?>
+													<span class="pv">
+														<img src="<?php echo $block->getViewFileUrl('Mancini_SimilarProd::images/eye.png'); ?>" />
+														<?php echo $viewCount; ?>
+													</span>
+													<span class="pvc"><?php echo __("person is viewing"); ?></span>
+												<?php else : ?>
+													<span class="pv">
+														<img src="<?php echo $block->getViewFileUrl('Mancini_SimilarProd::images/eye.png'); ?>" />
+														<?php echo $viewCount; ?>
+													</span>
+													<span class="pvc"><?php echo __("people are viewing"); ?></span>
+												<?php endif; ?>
+											</div>
+										</div>
+									</div>
+								</a>
+
+
+								<?php if ($value['id'] != $lastProd['id']) : ?>
+									<a href="<?php echo $similarProducts[$key + 1]['url']; ?>">
+										<div class="col-similar-mob">
+											<div class="similarimage-mob">
+												<div class="item-left-mob">
+													<?php if ($similarProducts[$key + 1]['itemsleft'] >= 11) : ?>
+														<?php echo __("IN STOCK"); ?>
+													<?php else : ?>
+														<?php echo $similarProducts[$key + 1]['itemsleft'] . __(" Items Left"); ?>
+													<?php endif; ?>
+												</div>
+												<img class="prod-img-mob" src="<?php echo $value['image']; ?>" />
+											</div>
+											<div class="similar-text-mob">
+												<div class="similarname-mob">
+													<?php echo $similarProducts[$key + 1]['name']; ?>
+												</div>
+												<div class="similarprice-mob">
+													<div class="discount-price-mob">
+														<?php echo $similarProducts[$key + 1]['final_price']; ?>
+													</div>
+													<div class="cut-price-mob">
+														<?php if (isset($similarProducts[$key + 1]['price'])) : ?>
+															<?php echo $similarProducts[$key + 1]['price']; ?>
+														<?php endif; ?>
+													</div>
+												</div>
+												<div class="productviewcount">
+													<?php $viewCount = $similarProducts[$key + 1]['viewcount'];  ?>
+													<?php if ($viewCount == 0) : ?>
+														<span class="pv">
+															<?php echo ""; ?>
+														</span>
+													<?php elseif ($viewCount == 1) : ?>
+														<span class="pv">
+															<img src="<?php echo $block->getViewFileUrl('Mancini_SimilarProd::images/eye.png'); ?>" />
+															<?php echo $viewCount; ?>
+														</span>
+														<span class="pvc"><?php echo __("person is viewing"); ?></span>
+													<?php else : ?>
+														<span class="pv">
+															<img src="<?php echo $block->getViewFileUrl('Mancini_SimilarProd::images/eye.png'); ?>" />
+															<?php echo $viewCount; ?>
+														</span>
+														<span class="pvc"><?php echo __("people are viewing"); ?></span>
+													<?php endif; ?>
+												</div>
+											</div>
+										</div>
+									</a>
+								<?php endif; ?>
+							</div>
+						<?php endif; ?>
+					<?php endforeach; ?>
+				</div>
+			</div>
+
+		</div>
+	<?php endif; ?>
+</div>

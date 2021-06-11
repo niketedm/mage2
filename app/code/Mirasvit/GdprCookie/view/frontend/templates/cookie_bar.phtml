@@ -1,0 +1,23 @@
+<?php
+/** @var CookieBar $block */
+
+use Mirasvit\GdprCookie\Block\CookieBar;
+
+?>
+<div class="mst-gdpr__cookie-bar-wrapper" id="gdprCookieBar">
+    <div class="mst-gdpr__cookie-bar">
+        <div class="consent-text">
+            <?= $block->getPolicyText() ?>
+        </div>
+
+        <div class="mst-gdpr__buttons">
+            <button type="button" class="action" data-trigger-settings="trigger">
+                <span><?= __('Settings') ?></span>
+            </button>
+
+            <button class="action primary" data-trigger-settings="agree"><?= __('Agree') ?></button>
+        </div>
+    </div>
+</div>
+<div class="mst-gdpr__cookie-bar-overlay" id="gdprCookieBarOverlay"></div>
+<script type="text/x-magento-init"><?= \Mirasvit\Core\Service\SerializeService::encode($block->getJsonConfig()) ?></script>

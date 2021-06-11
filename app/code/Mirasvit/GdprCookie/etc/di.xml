@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <!--DATA-->
+    <preference for="Mirasvit\GdprCookie\Api\Data\CookieInterface" type="Mirasvit\GdprCookie\Model\Cookie"/>
+
+    <!--Entity Manager-->
+    <type name="Magento\Framework\EntityManager\MetadataPool">
+        <arguments>
+            <argument name="metadata" xsi:type="array">
+                <item name="Mirasvit\GdprCookie\Api\Data\CookieInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="const">Mirasvit\GdprCookie\Api\Data\CookieInterface::TABLE_NAME</item>
+                    <item name="identifierField" xsi:type="const">Mirasvit\GdprCookie\Api\Data\CookieInterface::ID</item>
+                </item>
+                <item name="Mirasvit\GdprCookie\Api\Data\CookieGroupInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="const">Mirasvit\GdprCookie\Api\Data\CookieGroupInterface::TABLE_NAME</item>
+                    <item name="identifierField" xsi:type="const">Mirasvit\GdprCookie\Api\Data\CookieGroupInterface::ID</item>
+                </item>
+                <item name="Mirasvit\GdprCookie\Api\Data\CookieConsentInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="const">Mirasvit\GdprCookie\Api\Data\CookieConsentInterface::TABLE_NAME</item>
+                    <item name="identifierField" xsi:type="const">Mirasvit\GdprCookie\Api\Data\CookieConsentInterface::ID</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\HydratorPool">
+        <arguments>
+            <argument name="hydrators" xsi:type="array">
+                <item name="Mirasvit\GdprCookie\Api\Data\CookieInterface" xsi:type="string">Magento\Framework\EntityManager\AbstractModelHydrator</item>
+                <item name="Mirasvit\GdprCookie\Api\Data\CookieGroupInterface" xsi:type="string">Magento\Framework\EntityManager\AbstractModelHydrator</item>
+                <item name="Mirasvit\GdprCookie\Api\Data\CookieConsentInterface" xsi:type="string">Magento\Framework\EntityManager\AbstractModelHydrator</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!--UI-->
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="gdpr_cookie_listing_data_source" xsi:type="string">Mirasvit\GdprCookie\Model\ResourceModel\Cookie\Grid</item>
+                <item name="gdpr_cookie_group_data_source" xsi:type="string">Mirasvit\GdprCookie\Model\ResourceModel\CookieGroup\Grid</item>
+                <item name="gdpr_cookie_consent_data_source" xsi:type="string">Mirasvit\GdprCookie\Model\ResourceModel\CookieConsent\Grid</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

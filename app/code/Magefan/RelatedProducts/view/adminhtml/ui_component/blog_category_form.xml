@@ -1,0 +1,24 @@
+<!--
+/**
+ * Copyright © Magefan (support@magefan.com). All rights reserved.
+ * Please visit Magefan.com for license details (https://magefan.com/end-user-license-agreement).
+ */
+-->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+
+      <fieldset name="rp_conditions_serialized" sortOrder="60">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Related Product Rules (Blog+)</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="sortOrder" xsi:type="number">59</item>
+            </item>
+        </argument>
+        <container name="conditions_apply_to" sortOrder="10">
+            <htmlContent name="html_content">
+                <argument name="block" xsi:type="object">Magefan\RelatedProducts\Block\Adminhtml\Category\RelatedProductsRule</argument>
+            </htmlContent>
+        </container>
+    </fieldset>
+
+</form>

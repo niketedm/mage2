@@ -1,0 +1,26 @@
+<?php
+    $helper = $this->helper('Mancini\PowerReviews\Helper\Data');
+    $productSku = $helper->getCurrentSKU();
+    $productRating = $helper->getProductReviewSnippet($productSku);
+    if($productRating == null){
+      $productRating = 0;
+    }
+?>
+<div class="pr-review-snippet-outer">
+  <div id="pr-top-display" class="pr-review-outer">
+    <div class="totalrating">
+        <div class="stars-outer">
+            <div class="stars-inner"></div>
+        </div>
+    </div>
+    <span class="review-rating">(<?php echo __($productRating); ?>/5)</span>
+  </div>
+</div>
+<script type="text/javascript">
+  const starTotal = 5;
+  // Logic for calculating Average rating percentage
+  const avgRating = '<?php echo __($productRating);?>';
+  const starPercentage = (avgRating / starTotal) * 100;
+  const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
+  document.querySelector(`.totalrating .stars-inner`).style.width = starPercentageRounded;
+</script>

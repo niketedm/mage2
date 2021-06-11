@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page layout="1column"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Magento_Catalog::css/source/custom_pdp.css" rel="stylesheet" type="text/css" />
+        <css src="Magento_Catalog::css/source/custom_qty.css" rel="stylesheet" type="text/css" />
+        <css src="Magento_Catalog::css/source/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <script src="Magento_Catalog::js/bootstrap.min.js" />
+    </head>
+
+    <body>
+
+        <move element="reviews.tab" destination="content.aside" before="-" />
+        <move element="page.main.title" destination="product.info.main" before="-"/>
+        <move element="view.addto.wishlist" destination="product.info.price" before="product.info.price" />
+        <move element="product.info.stock.sku" destination="product.info.price" after="product.price.final"/>
+
+        <!-- Removed Elements -->
+        <referenceBlock name="view.addto.compare" remove="true" />
+        <referenceBlock name="product.info.sku" remove="true" />
+        <referenceBlock name="product.info.overview" remove="true" />
+        <referenceBlock name="product.review.form" remove="true" />
+
+        <!-- For Quantity increment and decrement buttons -->
+        <referenceBlock name="product.info.addtocart.additional">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Magento_Catalog::product/view/addtocart.phtml</argument>
+            </action>
+        </referenceBlock>
+    </body>
+</page>

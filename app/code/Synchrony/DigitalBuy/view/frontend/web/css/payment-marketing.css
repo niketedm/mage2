@@ -1,0 +1,109 @@
+.section-item-content ul.header.links.synchrony-cms-links{
+    display:none;
+}
+
+.synchrony-promotion-content-wrapper {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.payment-method-content .synchrony-promotion-content-wrapper {
+    margin-bottom: 0px;
+}
+
+.synchrony-promotion-content-wrapper:before,.synchrony-promotion-content-wrapper:after {
+    content: '';
+    display: table;
+}
+
+.synchrony-promotion-content-wrapper:after {
+    clear: both;
+}
+
+.synchrony-promotion-content-wrapper .block-synchrony-promo-info {
+    margin: 0;
+    padding: 0;
+    list-style: none none;
+    background: #fff;
+    border: 1px solid #bbb;
+    margin-top: 4px;
+    min-width: 100%;
+    width: 320px;
+    z-index: 101;
+    box-sizing: border-box;
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0px;
+    box-shadow: 0 3px 3px rgba(0,0,0,0.15);
+}
+
+.synchrony-promotion-content-wrapper .block-synchrony-promo-info li {
+    margin: 0
+}
+
+.synchrony-promotion-content-wrapper .block-synchrony-promo-info:before {
+    border: 6px solid;
+    border-color: transparent transparent #fff transparent;
+    z-index: 99;
+}
+
+.synchrony-promotion-content-wrapper .block-synchrony-promo-info:after {
+    border: 7px solid;
+    border-color: transparent transparent #bbb transparent;
+    z-index: 98;
+}
+
+.synchrony-promotion-content-wrapper.active {
+    overflow: visible;
+}
+
+.synchrony-promotion-content-wrapper.active .block-synchrony-promo-info {
+    display: block;
+}
+
+.synchrony-promotion-content-wrapper .block-synchrony-promo-info {
+    padding: 10px 15px;
+}
+
+.promotion-info table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.promotion-info table, .promotion-info th, .promotion-info td {
+    border: 1px solid white;
+}
+
+.promotion-info table>thead>tr>th {
+    background:#404040;
+    color:white;
+    font-weight:900;
+}
+
+.block-synchrony-promo-info .close-dialog {
+    background: none;
+    border:none;
+    color:#1979c3;
+    padding:0 0 10px 0;
+}
+
+.block-synchrony-promo-info .promotion-info {
+    text-align: center;
+    margin-bottom: 10px
+}
+
+.promotion-links {
+    text-align: center;
+    margin: 10px 0 20px;
+}
+
+.promotion-links .synchrony-apply-link span {
+    color:white;
+    padding:5px 10px;
+    background:#006bb4;
+}
+
+.payment-method-content .synchrony-promotion-content-wrapper{
+    width: 100%;
+}

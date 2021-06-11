@@ -1,0 +1,20 @@
+<?php
+/**
+ * @var $block \Mancini\InventoryLeft\Block\Quantityavailable
+ */
+?>
+
+<div class="quantitydetails" id="quantitydetails" ?>
+    <?php  $quantityAvailable= $block->getQuantityDetail();?>
+     <div class= "qt-available">
+        <?php if($quantityAvailable == 0): ?>
+            <span class="error"> <?php echo __("Out Of Stock");?> </span>
+        <?php elseif($quantityAvailable == 1) : ?>
+            <?php echo $quantityAvailable. __(" Item Left"); ?>
+        <?php elseif($quantityAvailable <= 10) : ?>
+                <?php echo $quantityAvailable. __(" Items Left"); ?>
+        <?php else: ?>
+                <?php echo __("IN STOCK"); ?>
+        <?php endif; ?>
+     </div>
+</div>

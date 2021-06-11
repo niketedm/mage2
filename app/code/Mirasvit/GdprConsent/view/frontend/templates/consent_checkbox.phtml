@@ -1,0 +1,18 @@
+<?php
+/** @var \Mirasvit\GdprConsent\Block\ConsentCheckbox $block */
+?>
+
+<div class="field choice consent">
+    <label role="checkbox" aria-checked="false" tabindex="0" class="check-container">
+        <input
+                type="checkbox"
+                name="is_consented"
+                title="Sign Up for Newsletter"
+                value="1"
+                id="is_consented"
+                class="checkbox"
+                data-validate="{required:true}">
+                <span class="cus-check"></span>
+    </label>
+    <label for="is_consented" class="label"><span><?= $block->getText() ?></span></label>
+</div>

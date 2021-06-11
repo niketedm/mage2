@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Mancini_ContactUs::css/source/contact-form.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <!---->
+        <referenceBlock name="contactForm">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Mancini_ContactUs::form.phtml</argument>
+            </action>
+            <!--<block class="Magento\Cms\Block\Block" name="cms.contact.us">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">contact-us</argument>
+                </arguments>
+            </block>-->
+        </referenceBlock>
+    </body>
+</page>

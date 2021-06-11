@@ -1,0 +1,66 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_MegaMenu
+ */
+?>
+<?php
+/** @var \Amasty\MegaMenu\Block\Html\Tree $block */
+/** @var $escaper \Magento\Framework\Escaper */
+$node = $block->getData('node');
+$level = $block->getData('level');
+
+$nodesCount = $node->getChildren()->count();
+$columnCount = $block->getColumnCount($node) ?: $nodesCount;
+$widthClass = ($level == 1) ? (' -col-' . $columnCount) : '';
+$counter = 1;
+$parentPositionClass = $node->getPositionClass();
+$childrenHaveAnyIcon = $block->checkNodeForIcons($node);
+?>
+
+<ul class="ammenu-item -child <?= $escaper->escapeHtmlAttr($widthClass) ?>" <?= ($level >= 3) ? ' style="display: none;"' : ''?>>
+    <?php foreach ($node->getChildren() as $childNode): ?>
+        <?php $hasChildren = $childNode->hasChildren(); ?>
+        <?php $itemPositionClassPrefix = $parentPositionClass ? $parentPositionClass . '-' : 'nav-'; ?>
+
+        <?php if ($block->isChangeColumn($level, $counter, $nodesCount, $columnCount)): ?>
+            </ul>
+            <ul class="ammenu-item -child <?= $escaper->escapeHtmlAttr($widthClass) ?>"
+                <?= /* @noEscape */ ($level > 1) ? ' style="display: none"' : '' ?>>
+        <?php endif; ?>
+
+        <?php $childNode->setPositionClass($itemPositionClassPrefix . $counter); ?>
+
+        <li class="ammenu-wrapper category-item"
+            <?= /* @noEscape */ ($hasChildren && $level > 1) ? 'data-ammenu-js="parent-subitem"' : '' ?>>
+            <?php if ($hasChildren): ?>
+                <span class="ammenu-arrow ammenu-icon -small <?= /* @noEscape */ ($level > 1) ? '-down' : '' ?>"
+                      data-ammenu-js="submenu-toggle"></span>
+            <?php endif; ?>
+            <a href="<?= $escaper->escapeUrl($childNode->getUrl() ?: '#') ?>"
+               title="<?= $escaper->escapeHtmlAttr($childNode->getName()) ?>"
+               class="ammenu-link -level<?= (int)$level ?> <?= $escaper->escapeHtmlAttr($block->getHighLightClass($childNode)) ?>">
+
+                <?php if ($block->checkNodeForIcons($node) && $level > 1 || $childNode->getIcon()): ?>
+                <?php $iconUrl = $escaper->escapeUrl($block->getIcon($childNode)); ?>
+                    <figure class="ammenu-icon-block <?= /* @noEscape */ $iconUrl ? '' : '-empty' ?>"
+                            style="
+                                    -webkit-mask-image: url(<?= /* @noEscape */ $iconUrl ?>);
+                                    mask-image: url(<?= /* @noEscape */ $iconUrl ?>);
+                                    background-image: url(<?= /* @noEscape */ $iconUrl ?>)">
+                    </figure>
+                <?php endif; ?>
+
+                <span class="ammenu-wrapper">
+                    <?= $escaper->escapeHtml($childNode->getName()) ?>
+                </span>
+            </a>
+
+            <?php if ($hasChildren): ?>
+                <?= $block->getChildRecursiveHtml($childNode, $level + 1) ?>
+            <?php endif; ?>
+        </li>
+        <?php $counter++; ?>
+    <?php endforeach; ?>
+</ul>

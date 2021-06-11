@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../lib/internal/Magento/Framework/Event/etc/events.xsd">
+    <event name="admin_system_config_changed_section_powerreviews_reviewdisplay">
+        <observer name="custom_admin_system_config_changed_section_powerreviews_reviewdisplay" instance="PowerReviews\ReviewDisplay\Observer\ConfigObserver" />
+    </event>
+</config>

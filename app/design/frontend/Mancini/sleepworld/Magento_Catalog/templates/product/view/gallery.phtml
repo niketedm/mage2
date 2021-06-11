@@ -1,0 +1,112 @@
+<?php
+
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/**
+ * Product media data template
+ *
+ * @var $block \Magento\Catalog\Block\Product\View\Gallery
+ */
+?>
+<?php
+$images = $block->getGalleryImages()->getItems();
+$mainImage = current(array_filter($images, function ($img) use ($block) {
+    return $block->isMainImage($img);
+}));
+
+if (!empty($images) && empty($mainImage)) {
+    $mainImage = $block->getGalleryImages()->getFirstItem();
+}
+
+$helper = $block->getData('imageHelper');
+$mainImageData = $mainImage ?
+    $mainImage->getData('medium_image_url') :
+    $helper->getDefaultPlaceholderUrl('image');
+
+?>
+
+<div class="gallery-placeholder _block-content-loading" data-gallery-role="gallery-placeholder">
+
+    <div class="wishlist-image">
+
+        <a href="javascript:void(0);" class="action custom-wishlist" id="custom-wishlist-<?php echo $block->getProduct()->getId(); ?>" title="<?= $block->escapeHtmlAttr(__('Add to Wish List')) ?>" aria-label="<?= $block->escapeHtmlAttr(__('Add to Wish List')) ?>" role="button" data-productid="<?php echo $block->getProduct()->getId(); ?>">
+            <img class="whislist-icon product-id-<?php echo $block->getProduct()->getId(); ?>" src="<?php /* @escapeNotVerified */ echo $block->getViewFileUrl('images/wishlist.png'); ?>" />
+            <?php
+            $helper = $this->helper('Mancini\Productdetail\Helper\Data');
+            $mediaUrl = $helper->getMediaPath();
+            //$wishimage = $mediaUrl . "wysiwyg/wishlist_color.png"; 
+            $wishimage = $block->getViewFileUrl('images/wishlist_color.png');
+            ?>
+            <img class="whislist-icon show-img-<?php echo $block->getProduct()->getId(); ?>" src="<?php /* @escapeNotVerified */ echo $wishimage; ?>" style="display:none;" />
+        </a>
+
+    </div>
+    <img alt="main product photo" class="gallery-placeholder__image" src="<?= /* @noEscape */ $mainImageData ?>" />
+</div>
+
+<script type="text/x-magento-init">
+    {
+        "[data-gallery-role=gallery-placeholder]": {
+            "mage/gallery/gallery": {
+                "mixins":["magnifier/magnify"],
+                "magnifierOpts": <?= /* @noEscape */ $block->getMagnifier() ?>,
+                "data": <?= /* @noEscape */ $block->getGalleryImagesJson() ?>,
+                "options": <?= /* @noEscape */ $block->getGalleryOptions()->getOptionsJson() ?>,
+                "fullscreen": <?= /* @noEscape */ $block->getGalleryOptions()->getFSOptionsJson() ?>,
+                 "breakpoints": <?= /* @noEscape */ $block->getBreakpoints() ?>
+            }
+        }
+    }
+</script>
+<script>
+    require([
+        'jquery',
+        'Magento_Customer/js/customer-data',
+        'mage/url'
+    ], function($, customerData, url) {
+
+        $(document).ready(function() {
+            $(".custom-wishlist").click(function() {
+                var productId = $(this).attr('data-productid');
+                url.setBaseUrl(BASE_URL);
+                var link = url.build('customwishlist/index/wishlist');
+                $.ajax({
+                    showLoader: true,
+                    url: link,
+                    data: {
+                        productId: productId,
+                        method: 'singleproduct'
+                    },
+                    type: "POST",
+                    dataType: 'json'
+                }).done(function(data) {
+                    console.log(data.productid);
+                    if (data.productid == 'false') {
+                        var redirectlink = url.build('customer/account/login');
+                        window.location.replace(redirectlink);
+                    } else {
+                        if (data.delete == 1) {
+                            $(".product-id-" + productId).show();
+                            $(".show-img-" + productId).hide();
+                        }
+                        if (data.add == 1) {
+                            $(".product-id-" + productId).hide();
+                            $(".show-img-" + productId).show();
+                        }
+                        $.each(data.productid, function(index, value) {
+                            var productId = value;
+                            var sections = ['wishlist'];
+                            customerData.invalidate(sections);
+                            customerData.reload(sections, true);
+                        });
+                    }
+
+                });
+            });
+        });
+
+    });
+</script>

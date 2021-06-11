@@ -1,0 +1,16 @@
+<div class="tbb-parent-container">
+    <div class="tbb-container">
+        <div class="tbb-loc">
+            <div class="tbb-head">
+                <h2><?php echo __("TRY BEFORE YOU BUY !"); ?></h2>
+                <p><?php echo __("You Can try your selected products at your nearest store before you buy"); ?></p>
+            </div>
+            <div class="tbb-content">
+                <p><?php echo __("Find Your Nearby store Location to try"); ?></p>
+                <?php echo $this->getLayout()->createBlock("Amasty\Storelocator\Block\Location")->setTemplate("Amasty_Storelocator::center.phtml")->toHtml();
+            ?>
+                <button>Change Location</button>
+            </div>
+        </div>
+    </div>
+</div>

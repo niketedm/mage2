@@ -1,0 +1,70 @@
+& when (@media-common = true) {
+    .mst-gdpr__cookie-bar-wrapper {
+        display: none;
+
+        .mst-gdpr__cookie-bar {
+            transition: all 0.5s ease;
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            width: 50%;
+            max-width: 50rem;
+            min-width: 40rem;
+            z-index: 10000;
+            background: #fff;
+            box-shadow: rgba(37, 44, 97, 0.15) 0 5px 15px 0, rgba(93, 100, 148, 0.2) 0 2px 4px 0;
+            display: flex;
+            align-items: center;
+            padding: 2rem 3rem;
+            border-radius: 10rem;
+            box-sizing: border-box;
+
+            * {
+                transition: background-color 0.5s ease;
+            }
+
+            .consent-button {
+                margin-left: 1rem;
+            }
+        }
+
+        &._loading {
+            .mst-gdpr__cookie-bar {
+                opacity: .7;
+
+                button {
+                    opacity: 0;
+                }
+            }
+        }
+    }
+
+    .mst-gdpr__cookie-bar-overlay {
+        display: none;
+        z-index: 9999;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.5);
+    }
+}
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .mst-gdpr__cookie-bar-wrapper {
+        .mst-gdpr__cookie-bar {
+            bottom: 0;
+            left: 0;
+            max-width: 100%;
+            width: 100%;
+            border-radius: 0;
+        }
+    }
+}
+
+@media only screen and (max-width: 769px) {
+    #gdprCookieBar > div {
+        min-width: 100%;
+    }
+}
